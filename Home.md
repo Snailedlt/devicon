@@ -5,4 +5,5 @@ This wiki contains information:
 - The icon review process
 - The icon creation process
 - Our bots
-.. and many more. Click on the links on the sidebar to explore the project.
+
+... and many other information. Click on the links on the sidebar to explore the project.
