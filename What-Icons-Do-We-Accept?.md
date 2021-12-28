@@ -1,4 +1,3 @@
-<h1 id='iconRequirements'>What Icons Do We Accept?</h1>
 <p>Devicon only accepts Icons of development/programming languages and technology. </p>
 <p><b>Development</b> refers to programming or programming-related jobs.</p>
 <p><b>Technology</b> can be software, OS, services, etc. that helps with development. It must be closely related to development and not too general to public use.
