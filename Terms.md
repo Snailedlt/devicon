@@ -1,4 +1,3 @@
-<h3 id="terms">Terms</h3>
 <p>Here are some terms that we will use in this repo: </p>
 <ol>
   <li>"Technology" is used to describe any software, libraries, tool, programming languages, etc... related to the programming industry.</li>
