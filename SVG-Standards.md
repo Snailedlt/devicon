@@ -6,6 +6,6 @@ To ensure our SVGs/icons are easy to use, please ensure your SVGs meet the follo
 * The `plain` and `line` versions (with or without `wordmark`) need to stay as simple as possible. They must have only one color and the paths are united.
 * The icon's strokes and texts must be fills. This is to satisfy our conversion website's [requirements](https://icomoon.io/#docs/stroke-to-fill).
 
-## Note:
+## Note
 * You no longer need to convert classes to fill. We now use [SVGO](https://github.com/svg/svgo/blob/main/plugins/prefixIds.js) to ensure all ids and classes are unique.
 
