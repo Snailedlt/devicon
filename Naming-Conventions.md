@@ -5,8 +5,9 @@ For the technology name, make the file and folder name lowercase and concatenate
 
 For SVG file names, ensure your file names match this format and accurately reflect its content: 
 
-* For programmers: `(Technology name)-(original|plain|line)(-wordmark?)`
-* For non-programmers: `{Technology name}-{one of the version names: original, plain, wordmark}{if it's a wordmark version, add a '-wordmark' at the end}`.
+* RegExp: `(name)-(original|plain|line)(-wordmark?)`
+* Layperson explanation: 
+  * Technology name, follows by one of the version names: original, plain, wordmark. If it's a wordmark version, add a 'wordmark' at the end. Each word is separated by a `-`.
 
 Example:
 * `react-original`
