@@ -1,0 +1,43 @@
+Each icon/SVG can come in different versions:
+
+  <table>
+    <tr>
+      <td style='width: 33%'>
+          <p><code>original</code>: the original logo. Can contain multiple colors. </p>
+          <img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/devicon/devicon-original.svg' height='100px' width='100px' /> 
+          <h4>devicon-original.svg</h4>
+      </td>
+      <td style='width: 33%'>
+          <p><code>plain</code>: a one-color version of the original logo. Could be in the original color, all black, or all white.</p>      
+          <img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/devicon/devicon-plain.svg' height='100px' width='100px' />
+          <h4>devicon-plain.svg</h4>
+      </td>
+      <td style='width: 33%'>
+          <p><code>line</code>: a one-color, line version of the original logo.</p>      
+          <img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/devicon/devicon-line.svg' height='100px' width='100px' />
+          <h4>devicon-line.svg</h4>
+      </td>
+    </tr>
+    <tr>
+      <td style='width: 33%'>
+        <p><code>original-wordmark</code>: similar to the above but must contain the name of the technology. </p>      
+        <img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/devicon/devicon-original-wordmark.svg' height='100px' width='100px' /> 
+        <h4>devicon-original-wordmark.svg</h4>
+      </td>
+      <td style='width: 33%'>
+          <p><code>plain-wordmark</code>: similar to the above but must contain the name of the technology.</p>      
+          <img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/devicon/devicon-plain-wordmark.svg' height='100px' width='100px' />
+          <h4>devicon-plain-wordmark.svg</h4>
+      </td>
+      <td style='width: 33%'>
+          <p><code>line-wordmark</code>: similar to the above but must contain the name of the technology.</p>      
+          <img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/devicon/devicon-line-wordmark.svg' height='100px' width='100px' />
+          <h4>devicon-line-wordmark.svg</h4>
+      </td>
+    </tr>
+  </table>
+
+## Note
+* All `plain` and `line` versions (including their `wordmark` versions) will get its color removed via Icomoon during the font creation process. This means the SVG file can be any color but the font icons are always black.
+* Sometime, a logo can serve as both versions at the same time. For example, the original Apple logo can be named either `original` or `plain`. In these cases, you only need to submit one version and follow this rule for naming them: `original > plain > line`. 
+  * If it can fit multiple version, choose the version with the higher value. So in the case of Apple, you only need to create `apple-original.svg` to cover both `original` and `plain`
