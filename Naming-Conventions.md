@@ -1,4 +1,4 @@
-For the technology name, make the file and folder name lowercase and concatenate them. For example:
+For the technology name, make the file and folder name lowercase and concatenate them. These will be used in the `devicon.json`, the folder name, and the file names. For example:
 *   AngularJS becomes `angularjs`
 *   Amazon Web Services becomes `amazonwebservices`
 *   Microsoft SQL Server becomes `microsoftsqlserver`
