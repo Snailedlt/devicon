@@ -70,3 +70,5 @@ So for this example, we would make it:
 ```
 
 Now, when we generate the font for `apple`, we can access the same logo using either `.apple-original` or `.apple-plain`.
+
+Aliases provide no benefits for SVG files. So, if `apple-original` can't be made into a font, it won't work.
