@@ -10,7 +10,7 @@ This wiki contains information on:
 
 
 Don't know where to start? Start below:
-1. I want to request an icon to be added to Devicon -> See [this](https://github.com/devicons/devicon/wiki/Requesting-an-Icon)
-2. I want to add an icon to the repo -> See [this](https://github.com/devicons/devicon/wiki/Overview-on-Submitting-Icons)
-
-[Legals and what the usage of the icons in this repo mean.](https://github.com/devicons/devicon/wiki/Legal)
+1. [What Icons are accepted into Devicon?](https://github.com/devicons/devicon/wiki/What-Icons-Do-We-Accept%3F)
+2. [I want to request an icon to be added to Devicon](https://github.com/devicons/devicon/wiki/Requesting-an-Icon)
+3. [I want to add an icon to the repo](https://github.com/devicons/devicon/wiki/Overview-on-Submitting-Icons)
+4. [What are the legal scope of the project?.](https://github.com/devicons/devicon/wiki/Legal)
