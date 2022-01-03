@@ -60,12 +60,14 @@ For the Amazon Web Services SVGs, you have the `original`, `original-wordmark`, 
   "aliases": [
     {
       "base": "original", // here is the SVG that we will upload to Icomoon
-      "alias": "plain" // this is its alias. Our script will create a reference so users can use ["original" or "plain" when referencing it](https://github.com/devicons/devicon/wiki/Updating-the-%60devicon.json%60#aliases-and-aliasobj)
+      "alias": "plain" // this is its alias. Our script will create a reference so users can use "original" or "plain" when referencing it
       // note that this is now optional (Jan 2022). You do not need to create aliases from now on. However, the attribute needs to stay so just put an empty `[]` if you are not using it.
     }
   ]
 }
 ``` 
+
+For more info on `aliases`, see [this](https://github.com/devicons/devicon/wiki/Updating-the-%60devicon.json%60#aliases-and-aliasobj).
                 
 3.  Create a separate pull request (PR) for each Icon.
     *   This means you would have to create one PR for Amazon Web Services and one PR for Redhat.
