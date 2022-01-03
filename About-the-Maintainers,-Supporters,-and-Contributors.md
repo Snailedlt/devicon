@@ -6,7 +6,7 @@ For organizational purposes we introduced [teams](https://github.com/orgs/devico
 
   - Members of this team are responsible for reviewing pull request (auto assigned), managing issues and preparing the upcoming release. Usually, they don't create icons themselves but they can if they wish.
 
-Supporters have `Write` access to the repository (allowing them to create own branches) and are allowed to push changes to the `develop` branch (pull request and status checks required). They can also add new features to the repository after their PRs are properly reviewed. 
+  - Supporters have `Write` access to the repository (allowing them to create own branches) and are allowed to push changes to the `develop` branch (pull request and status checks required). They can also add new features to the repository after their PRs are properly reviewed. 
 
 2. **Maintainer** (@devicons/maintainer)
 
