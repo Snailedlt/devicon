@@ -13,4 +13,4 @@ Don't know where to start? Start below:
 1. [What Icons are accepted into Devicon?](https://github.com/devicons/devicon/wiki/What-Icons-Do-We-Accept%3F)
 2. [I want to request an icon to be added to Devicon](https://github.com/devicons/devicon/wiki/Requesting-an-Icon)
 3. [I want to add an icon to the repo](https://github.com/devicons/devicon/wiki/Overview-on-Submitting-Icons)
-4. [What are the legal scope of the project?.](https://github.com/devicons/devicon/wiki/Legal)
+4. [What are the legal scope of the project?](https://github.com/devicons/devicon/wiki/Legal)
