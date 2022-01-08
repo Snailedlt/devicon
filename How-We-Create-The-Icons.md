@@ -4,5 +4,5 @@ If you are interested in the process icon creation, check out their [documentati
 
 If you are want to customize our font files (e.g you only want 10 icons instead of our 150+ icons), you can upload the `icomoon.json` file using the `Import Icons` button. You can then choose the icons you want to keep and follow the link above to generate your icons.
 
-![Import Image]()
+![Import Image](https://github.com/devicons/devicon/blob/2853520419a122fa53e5ca110b3aac0fc172a5f5/docs/wiki/import_icomoon.PNG)
 
