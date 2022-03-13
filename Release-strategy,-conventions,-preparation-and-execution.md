@@ -16,7 +16,7 @@ The version naming follows the rules of [Semantic Versioning](https://semver.org
 
 1.  Define the next release version number based on the conventions
 2.  Checkout `development` as `draft-release` branch
-3.  Bump the package version using `npm version v_MAJOR_._MINOR_._PATCH_ -m "bump npm version to v_MAJOR_._MINOR_._PATCH_"` (see `[#487](https://github.com/devicons/devicon/pull/497)`)
+3.  Bump the package version using `npm version v_MAJOR_._MINOR_._PATCH_ -m "bump npm version to v_MAJOR_._MINOR_._PATCH_"` (see [#487](https://github.com/devicons/devicon/pull/497))
 4.  Push the branch `draft-release`
 5.  Manually trigger the workflow `[build_icons.yml](https://github.com/devicons/devicon/actions/workflows/build_icons.yml)` (which has a `workflow_dispatch` event trigger) and select the branch `draft-release` as target branch. This will build a font version of all icons using icomoon and automatically creates a pull request to merge the build result back into `draft-release`
 6.  Review and approve the auto-create pull request created by the action of the step above
