@@ -1,6 +1,10 @@
 Devicon only accepts Icons of development/programming languages and technology.
+
 **Development** refers to programming or programming-related jobs.
-**Technology** can be software, OS, services, etc. that helps with development. It must be closely related to development and not too general to public use.
+
+**Technology** can be software, OS, services, etc. that helps with development. It must be closely related to development and not too general to public use. 
+
+**Example:** Programmers commonly uses Microsoft Word. However, its usage is not specific to the programming industry. Therefore, it will not be accepted.
 
 Thus, before you request/add a new icon, please check these criteria:
 - Is your icon relatively well-known? A brand new tech that hasn't been adopted yet is unlikely to be accepted.
