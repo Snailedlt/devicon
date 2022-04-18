@@ -15,7 +15,7 @@ Here is the interface your `devicon.json` entry must have:
         // keep tracks of the different versions that you have.
         "versions": {
             // list all the SVGs that you have 
-            "SVG": VersionString[], 
+            "svg": VersionString[], 
 
             // list only the SVGs that can be converted to fonts.
             // usually refers to `plain` and `line` versions but `original` can be accepted.
