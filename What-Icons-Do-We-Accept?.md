@@ -40,7 +40,7 @@ Here are the categories that we usually accept/don't accept in our repos. If you
 - [Style sheet languages](https://en.wikipedia.org/wiki/Style_sheet_language) (CSS)
 - [Style sheet preprocessors](https://www.envato.com/blog/css-preprocessors/) (Less, Sass, SCSS, Stylus, ...)
 - [Packages managers](https://en.wikipedia.org/wiki/List_of_software_package_management_systems) (npm, bower, Homebrew, NuGet, ...)
-- [Database programs & systems]() (MangoDB, MySQL,SQLite, ...)
+- [Database programs & systems]() (MongoDB, MySQL,SQLite, ...)
 - [Database tools](https://en.wikipedia.org/wiki/Comparison_of_database_administration_tools) (phpMyAdmin, pgAdmin, ...)
 - [Software Frameworks](https://en.wikipedia.org/wiki/Software_framework) (Electron, Qt, ...)
 - [Web Frameworks](https://en.wikipedia.org/wiki/Comparison_of_server-side_web_frameworks) (Django, Angular, ...)
