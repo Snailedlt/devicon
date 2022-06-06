@@ -13,6 +13,7 @@ For the Amazon Web Services SVGs, you have the `original`, `original-wordmark`, 
 ```javascript
 {
   "name": "redhat",
+  "altnames": [], // alternative names for the icon
   "tags": [
     "server",
     "linux"
@@ -39,6 +40,7 @@ For the Amazon Web Services SVGs, you have the `original`, `original-wordmark`, 
 ```javascript
 {
   "name": "amazonwebservices", 
+  "altnames": ["aws"],
   "tags": [
     "cloud",
     "hosting",
