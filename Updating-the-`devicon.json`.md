@@ -9,6 +9,9 @@ Here is the interface your `devicon.json` entry must have:
         // the official name of the technology. See https://github.com/devicons/devicon/wiki/Naming-Conventions for more details
         "name": string, 
 
+        // list of alternative names for this technology
+        "altnames": string[], 
+
         // list of tags relating to the technology for search purpose (TBD)
         "tags": string[], 
 
