@@ -3,7 +3,7 @@
 - [Legal](https://github.com/devicons/devicon/wiki/Legal)
 
 - Contribute
-  - [What Icons Do We Accept](https://github.com/devicons/devicon/wiki/What-Icons-Do-We-Accept%3F)
+  - [What Icons Do We Accept?](https://github.com/devicons/devicon/wiki/What-Icons-Do-We-Accept%3F)
   - [Requesting an Icon](https://github.com/devicons/devicon/wiki/Requesting-an-Icon)
   - [Overview on Submitting Icons](https://github.com/devicons/devicon/wiki/Overview-on-Submitting-Icons)
   - [Full Example of Submitting Icons](https://github.com/devicons/devicon/wiki/Example-of-Submitting-Icons-to-the-Repository)
