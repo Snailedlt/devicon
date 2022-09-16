@@ -27,3 +27,5 @@
 - [Release strategy and execution](https://github.com/devicons/devicon/wiki/Release-strategy,-conventions,-preparation-and-execution)
 
 - [Our GitHub Actions/automated bots](https://github.com/devicons/devicon/wiki/Our-automated-tasks-and-bots)
+
+- [Devicon Discord community](https://github.com/devicons/devicon/wiki/Discord-community)
