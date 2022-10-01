@@ -18,7 +18,7 @@
   - [Organizing SVGs](https://github.com/devicons/devicon/wiki/Organizing-SVGs)
   - [SVG Standards](https://github.com/devicons/devicon/wiki/SVG-Standards)
   - [SVG Versions](https://github.com/devicons/devicon/wiki/SVG-Versions)
-  - [Updating `devicon.json`](https://github.com/devicons/devicon/wiki/Updating-the-%60devicon.json%60)
+  - [Updating `devicon.json`](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)
 
 - [How We Create the Icons](https://github.com/devicons/devicon/wiki/How-We-Create-The-Icons)
 
