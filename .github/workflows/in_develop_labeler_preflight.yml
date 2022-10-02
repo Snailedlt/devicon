@@ -27,7 +27,7 @@ jobs:
           PR_BODY: ${{ github.event.number }}
         run: echo $PR_BODY > pr_body.txt
 
-      - name: Upload the PR body
+      - name: Upload the PR body to a file
         uses: actions/upload-artifact@v2.2.4
         with:
           name: pr_body
