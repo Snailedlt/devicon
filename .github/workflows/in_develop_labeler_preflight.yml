@@ -1,7 +1,6 @@
 name: Preflight Label Issue In Develop
 on: 
   pull_request:
-    branches: [develop]
     types: [closed]
 jobs:
   label_preflight:
