@@ -28,14 +28,14 @@ jobs:
           workflow: peek_icons.yml
           run_id: ${{ github.event.workflow_run.id }}
 
-      - name: Read the pr_num file
-        id: pr_num_reader
+      - name: Read the pr_body file
+        id: pr_body_reader
         uses: juliangruber/read-file-action@v1.0.0
         with:
-          path: ./pr_num/pr_num.txt
+          path: ./pr_body/pr_body.txt
 
       - name: Run in_develop_labeler.py
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUM: ${{ steps.pr_num_reader.outputs.content }}
-        run: python ./.github/scripts/in_develop_labeler.py $TOKEN "$PR_NUM"
+          PR_BODY: ${{ steps.pr_body_reader.outputs.content }}
+        run: python ./.github/scripts/in_develop_labeler.py $TOKEN "$PR_BODY"
