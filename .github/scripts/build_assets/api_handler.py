@@ -6,7 +6,7 @@ from io import FileIO
 
 
 # our base url which leads to devicon
-base_url = "https://api.github.com/repos/devicons/devicon/"
+base_url = "https://api.github.com/repos/devicons/snailedlt/"
 
 def get_merged_pull_reqs_since_last_release(token, log_output: FileIO=sys.stdout):
     """
