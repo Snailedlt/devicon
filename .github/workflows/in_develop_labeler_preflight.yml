@@ -20,14 +20,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ./.github/scripts/requirements.txt
           
-      - name: Save the PR body in an artifact
+      - name: Save the PR number in an artifact
         shell: bash
         env:
-          PR_BODY: ${{ github.event.number }}
-        run: echo $PR_BODY > pr_body.txt
+          PR_NUM: ${{ github.event.number }}
+        run: echo $PR_NUM > pr_num.txt
 
-      - name: Upload the PR body
+      - name: Upload the PR number
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: pr_body
-          path: ./pr_body.txt
+          name: pr_num
+          path: ./pr_num.txt
