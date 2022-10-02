@@ -24,7 +24,7 @@ jobs:
       - name: Save the PR body in an artifact
         shell: bash
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_BODY: ${{ github.event.number }}
         run: echo $PR_BODY > pr_body.txt
 
       - name: Upload the PR body to a file
