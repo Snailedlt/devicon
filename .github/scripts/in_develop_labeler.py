@@ -5,6 +5,7 @@ def main():
 	args = arg_getters.get_in_develop_labeler_args()
 	try:
 		# find the issue closing line
+		print(args.body.split("\n"))
 		issue_line = [line for line in args.body.split("\n") if line.startswith("**This PR closes")][0]
 
 		print("Issue Line is " + issue_line)
