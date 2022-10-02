@@ -2,6 +2,7 @@ name: Preflight Label Issue In Develop
 on: 
   pull_request:
     types: [closed]
+    branches: [develop]
 jobs:
   label_preflight:
     name: Preflight Label Issue In Develop
