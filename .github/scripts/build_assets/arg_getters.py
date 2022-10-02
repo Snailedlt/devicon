@@ -84,5 +84,5 @@ def get_in_develop_labeler_args():
 
     parser.add_argument("pr_num",
                         help="The PR's number",
-                        type=str)
+                        type=int)
     return parser.parse_args()
