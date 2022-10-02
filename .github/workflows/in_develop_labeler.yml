@@ -38,4 +38,4 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUM: ${{ steps.pr_num_reader.outputs.content }}
-        run: python ./.github/scripts/in_develop_labeler.py $TOKEN "$PR_NUM"
+        run: python ./.github/scripts/in_develop_labeler.py $TOKEN "$BODY"
