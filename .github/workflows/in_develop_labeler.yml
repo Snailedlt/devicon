@@ -37,5 +37,5 @@ jobs:
       - name: Run in_develop_labeler.py
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BODY: ${{ github.event.pull_request.body }}
+          PR_NUM: ${{ steps.pr_num_reader.outputs.content }}
         run: python ./.github/scripts/in_develop_labeler.py $TOKEN "$BODY"
