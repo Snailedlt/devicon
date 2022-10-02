@@ -6,7 +6,6 @@ def main():
 	try:
 		print(f"body: {args.body}")
 		print("test")
-		print("test develop")
 		print(args.body.split("\n"))
 		# find the issue closing line
 		issue_line = [line for line in args.body.split("\n") if line.startswith("**This PR closes")][0]
