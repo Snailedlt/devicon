@@ -6,7 +6,7 @@ def main():
 	try:
 		print(f"body: {args.body}")
 		print("test")
-		print("test develop works?")
+		print("test develop")
 		print(args.body.split("\n"))
 		# find the issue closing line
 		issue_line = ""
