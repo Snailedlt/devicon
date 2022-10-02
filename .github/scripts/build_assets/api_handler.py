@@ -182,7 +182,7 @@ def get_issues_by_labels(token: str, labels: List[str]):
     return issues
 
 
-def get_pr_by_number(token: str, pr_num: int):
+def get_pr_by_number(token: str, pr_num: str):
     url = base_url + "pulls/" + pr_num
     headers = {
         "Authorization": f"token {token}"
