@@ -1,6 +1,6 @@
 We rely on GitHub Actions, Python, Selenium, Imgur, and Gulp to automate our tasks. Please feel free to take a look at the workflow files. The codes should be clear enough to follow along.
 
-Here are the main bots/script that we use:
+Here are the main bots/scripts that we use:
 
 *   `peek-bot`: Upload the icons to Icomoon and see what it looks like. Doesn't download any icons at this time.
 *   `build-bot`: Build the icons by uploading them to Icomoon and download the resulting icon files. This also includes updating the css file and optimize the SVGs by minifying them and prefixing their IDs with the file names.
