@@ -5,7 +5,7 @@ from pathlib import Path
 
 # pycharm complains that build_assets is an unresolved ref
 # don't worry about it, the script still runs
-from build_assets import filehandler, arg_getters, util
+from build_assets import filehandler, arg_getters, util, api_handler
 
 
 def main():
@@ -16,6 +16,15 @@ def main():
     """
     args = arg_getters.get_check_icon_pr_args()
     try:
+        print(f"pr_number datatype: {type(args.pr_number)}")
+        print(f"pr_number: {args.pr_number}")
+        # check that the base branch of the PR is develop
+        pr_err_msg = ""
+        pr_data = api_handler.get_pull_req(args.token, args.pr_number)
+        pr_base_branch = api_handler.get_pr_base_branch(pr_data)
+        if not pr_base_branch != "develop":
+            pr_err_msg.append(f"The PR's base branch is `{pr_base_branch}`, but should be `develop`, please change the PR so that it's based on, and merged into `develop`")
+        
         all_icons = filehandler.get_json_file_content(args.devicon_json_path)
 
         # get only the icon object that has the name matching the pr title
@@ -40,6 +49,9 @@ def main():
             svg_err_msg = check_svgs(svgs)
 
         err_msg = []
+        if pr_err_msg != "":
+            err_msg.append(pr_err_msg)
+            
         if devicon_err_msg != "":
             err_msg.append(devicon_err_msg)
 
@@ -82,7 +94,7 @@ def check_devicon_object(icon: dict):
             err_msgs.append("- must contain at least 1 svg version in a list.")
 
         for version in icon["versions"]["svg"]:
-            if not util.is_svg_name_valid(version):
+            if not util.is_svg_version_valid(version):
                 err_msgs.append(f"- Invalid version name in versions['svg']: '{version}'. Must match regexp: (original|plain|line)(-wordmark)?")
     except KeyError:
         err_msgs.append("- missing key: 'svg' in 'versions'.")
@@ -92,7 +104,7 @@ def check_devicon_object(icon: dict):
             err_msgs.append("- must contain at least 1 font version in a list.")
 
         for version in icon["versions"]["font"]:
-            if not util.is_svg_name_valid(version):
+            if not util.is_svg_version_valid(version):
                 err_msgs.append(f"- Invalid version name in versions['font']: '{version}'. Must match regexp: (original|plain|line)(-wordmark)?")
     except KeyError:
         err_msgs.append("- missing key: 'font' in 'versions'.")
