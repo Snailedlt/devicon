@@ -73,6 +73,7 @@ def get_pull_req(token, pr_number):
     :param pr_number, the number of the pull request.
     """
     url = f"{base_url}pulls/{pr_number}"
+    print(f"token: {token}, pr_number: {pr_number}")
     headers = {
         "Authorization": f"token {token}"
     }

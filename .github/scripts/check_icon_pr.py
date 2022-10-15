@@ -17,7 +17,7 @@ def main():
     args = arg_getters.get_check_icon_pr_args()
     try:
         print(f"pr_number datatype: {type(args.pr_number)}")
-        print(args.pr_number)
+        print(f"pr_number: {args.pr_number}")
         # check that the base branch of the PR is develop
         pr_err_msg = ""
         pr_data = api_handler.get_pull_req(args.token, args.pr_number)
