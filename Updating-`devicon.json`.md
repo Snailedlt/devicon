@@ -10,9 +10,10 @@ Here is the interface your `devicon.json` entry must have:
         "name": string, 
 
         // list of alternative names for this technology
+        // used for the searchbar on the https://devicon.dev website.
         "altnames": string[], 
 
-        // list of tags relating to the technology for search purpose (TBD)
+        // list of tags relating to the technology for categorization/search purpose (TBD)
         "tags": string[], 
 
         // keep tracks of the different versions that you have.
