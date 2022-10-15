@@ -73,10 +73,16 @@ def get_pull_req(token, pr_number):
     :param pr_number, the number of the pull request.
     """
     url = f"{base_url}pulls/{pr_number}"
-    print(f"token: {token}, pr_number: {pr_number}")
     headers = {
         "Authorization": f"token {token}"
     }
+    print(f"""
+    url: {url}, 
+    headers: {headers}, 
+    token: {token}, 
+    pr_number: {pr_number}
+    """)
+    print("url alternative: " + base_url + "pulls/" + pr_number + "/")
     response = requests.get(url, headers=headers)
     if not response:
         print(f"Can't query the GitHub API. Status code is {response.status_code}. Message is {response.text}")
