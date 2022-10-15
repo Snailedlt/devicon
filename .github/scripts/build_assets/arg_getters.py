@@ -52,6 +52,12 @@ def get_check_icon_pr_args():
     parser.add_argument("pr_title",
                         help="The title of the PR that we are peeking at")
 
+    parser.add_argument("pr_number",
+                        help="The number of the PR that we are peeking at")
+
+    parser.add_argument("token",
+                        help="The GitHub token to access the GitHub REST API.")
+
     parser.add_argument("icons_folder_path",
                         help="The path to the icons folder",
                         action=PathResolverAction)
