@@ -23,7 +23,7 @@ def main():
         pr_data = api_handler.get_pull_req(args.token, args.pr_number)
         pr_base_branch = api_handler.get_pr_base_branch(pr_data)
         if pr_base_branch != "develop":
-            pr_err_msg.append(f"The PR's base branch is `{pr_base_branch}`, but should be `develop`, please change the PR so that it's based on, and merged into `develop`")
+            pr_err_msg = f"The PR's base branch is `{pr_base_branch}`, but should be `develop`, please change the PR so that it's based on, and merged into `develop`"
         
         all_icons = filehandler.get_json_file_content(args.devicon_json_path)
 
