@@ -18,12 +18,13 @@ Thus, before you request/add a new icon, please check these criteria:
 - Does the logo belongs to a more general parent company? For example, React is a part of Facebook. Using the Facebook logo to represent React is not accepted.
 
 ## Special Cases (see [this discussion](https://github.com/devicons/devicon/discussions/353) for more details)
+- Icon updates are always accepted even if they don't fit the [allowed](https://github.com/devicons/devicon/wiki/What-Icons-Do-We-Accept%3F/_edit#allowed) criteria
 - Tech companies used to be accepted in the repository. However, we do not accept them anymore. Icons like Facebook, Twitter, etc., are kept for backward compatibility.
   - We still accept their icons if they represent a service and not the company itself.
   - Ex. AWS is accepted since their names refer to their cloud services. However, we will not accept Amazon since Amazon as a whole includes non-tech related services.
 - Related fields like graphic designs or game development. Since many "development" jobs require people to know related fields, some software will be accepted in Devicon even though they aren't strictly "development tools".
   - ex. some Adobe products (Photoshop, Aftereffects), game engines (Unity, Unreal), CMS (Shopify), etc... See [this](https://github.com/devicons/devicon/pull/336) for more details.
-- General tools that are well known in the tech industries. Things like Trello, Slack, etc., are accepted under this category. Unfortunately, we won't accept Discord since its use is still too general. This will be treated on a case-by-case basis.
+- General tools that are well known in the tech industries. Things like Trello, Slack, Jira, etc., are accepted under this category. Unfortunately, we won't accept Discord since its use is still too general. This will be treated on a case-by-case basis.
 
 ## In-depth List of Categories
 
