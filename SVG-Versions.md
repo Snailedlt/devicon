@@ -40,7 +40,7 @@ Each icon/SVG can come in different versions:
 ## Note
 1. `plain` and `line` versions (including their `wordmark` versions) will be used to generate the font icon. Thus, they will get their color removed via Icomoon during the font creation process. This means the SVG version and the font version can have different colors.
 2. You don't need to create all 6 versions for each icon. You only need at least one `original` version and one version that can be made into an icon. As seen in node #3 (below), both can be one SVG file. 
-3. Sometime, a logo can serve as multiple versions at the same time. 
+3. Sometimes, a logo can serve as multiple versions at the same time. 
     * For example, the original Apple logo can be named either `original` or `plain`. 
     * In these cases, you only need to submit one version and follow this rule for naming them: `original > plain > line`. If it can fit multiple version, choose the version with the higher value. 
       * So in the case of Apple, you only need to create `apple-original.svg` to cover both `original` and `plain`.
