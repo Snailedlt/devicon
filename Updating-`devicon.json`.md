@@ -48,7 +48,7 @@ See [SVG Versions](https://github.com/devicons/devicon/wiki/SVG-Versions) for mo
 
 ## `aliases` and `AliasObj`
 
-The `aliases` attribute serves as a way to generate multiple font icon class name from just one SVG file. For example:
+The `aliases` attribute serves as a way to generate multiple font icon class names from just one SVG file. For example:
 * We have a `apple-plain.svg`, which when generated into icon, would create the class name `.apple-plain`.
 * However, since the Apple logo can also be used as an `original` version, we rename it to `apple-original.svg` (see [SVG Versions](https://github.com/devicons/devicon/wiki/SVG-Versions#note) for the reason why)
 * Now, our class name will be `.apple-original`. If you want a class name of `.apple-plain`, you'd need to create `apple-plain.svg`, which is a copy of `apple-original.svg`.
