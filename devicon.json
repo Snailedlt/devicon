@@ -3320,6 +3320,32 @@
         ]
     },
     {
+        "name": "hadoop",
+        "altnames": [
+            "Apache Hadoop"
+        ],
+        "tags": [
+            "framework", 
+            "big data"
+        ],
+        "versions": {
+            "svg": [
+                "original", 
+                "plain"
+            ],
+            "font": [
+                "plain"
+            ]
+        },
+        "color": "#ffff00",
+        "aliases": [
+            {
+                "base": "plain",
+                "alias": "line"
+            }
+        ]
+    },
+    {
         "name": "harvester",
         "altnames": [
             "harvesterhci"
