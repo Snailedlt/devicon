@@ -16,7 +16,7 @@ Here is the interface your `devicon.json` entry must have:
         // list of tags relating to the technology for categorization/search purpose (TBD)
         "tags": string[], 
 
-        // keep tracks of the different versions that you have.
+        // keeps track of the different versions that you have.
         "versions": {
             // list all the SVGs that you have 
             "svg": VersionString[], 
