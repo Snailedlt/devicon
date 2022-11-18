@@ -3,7 +3,7 @@
   <li>Check that the icon is not in an open PR or already in the <a href="https://github.com/devicons/devicon/tree/develop/icons"><code>develop</code> branch</a>.</li>
   <li>Create the SVGs for each <a href="https://github.com/devicons/devicon/wiki/SVG-Versions">SVG versions</a> that you have. Follow the <a href="https://github.com/devicons/devicon/wiki/SVG-Standards">standards</a> listed.</li>
   <li>Put the SVGs of Devicon into its own <a href="https://github.com/devicons/devicon/wiki/Organizing-SVGs">folder</a> in <code>/icons</code>.</li>
-  <li><a href="https://github.com/devicons/devicon/wiki/Updating-the-%60devicon.json%60">Update the <code>devicon.json</code> to include the entry for a new icon</a>. </li>
+  <li><a href="https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60">Update the <code>devicon.json</code> to include the entry for a new icon</a>. </li>
   <li>Create a pull request (PR) towards the <code>develop</code> branch.</li>
   <li>Look at the PR body and follow its instruction. Once you have the right template, fill out the information in it.</li>
   <li>Ensure your PR title is in this format: <code>new icon: <i>Icon name</i> (<i>versions</i>)</code> </li>
