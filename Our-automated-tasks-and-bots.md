@@ -1,13 +1,20 @@
 We rely on GitHub Actions, Python, Selenium, Imgur, and Gulp to automate our tasks. Please feel free to take a look at the workflow files. The codes should be clear enough to follow along.
 
-Here are the main bots/scripts that we use:
+## Here are the main bots/scripts that we use:
 
-*   `peek-bot`: Upload the icons to Icomoon and see what it looks like. Doesn't download any icons at this time.
-*   `build-bot`: Build the icons by uploading them to Icomoon and download the resulting icon files. This also includes updating the css file and optimize the SVGs by minifying them and prefixing their IDs with the file names.
-*   `check-bot`: Check *only* the icon PRs and ensure they have the correct SVGs and `devicon.json` entry.
-*   `npm-release-bot`: Update the NPM package.
+### `peek-bot`
+Upload the icons to Icomoon and see what it looks like. Doesn't download any icons at this time.
 
-Here are the modular tasks in the build script:
+### `build-bot`
+Build the icons by uploading them to Icomoon and download the resulting icon files. This also includes updating the css file and optimize the SVGs by minifying them and prefixing their IDs with the file names.
+
+### `check-bot`
+Check *only* the icon PRs and ensure they have the correct SVGs and `devicon.json` entry.
+
+### `npm-release-bot`
+Update the NPM package.
+
+## Here are the modular tasks in the build script:
 
 *   Upload SVGs to [icomoon.io](https://icomoon.io/app/#/select) and get the icons back. For details, see [the original disscussion](https://github.com/devicons/devicon/issues/252), [this PR that introduce the feature](https://github.com/devicons/devicon/pull/268) and [the final changes to it.](https://github.com/devicons/devicon/issues/300) Used by **peek-bot** and **build-bot**.
 *   Preview what an SVG would look like as an icon using the upload svgs script (see [this](https://github.com/devicons/devicon/pull/412)). Used by **peek-bot**.
