@@ -14,7 +14,7 @@ The version naming follows the rules of [Semantic Versioning](https://semver.org
 
 # Execution
 
-1.  Define the next release version number based on the conventions
+1.  Define the next release version number based on the [conventions](https://github.com/devicons/devicon/wiki/Release-strategy,-conventions,-preparation-and-execution#conventions)
 2.  Checkout `development` as `draft-release` branch
 3.  Bump the package version using `npm version v_MAJOR_._MINOR_._PATCH_ -m "bump npm version to v_MAJOR_._MINOR_._PATCH_"` (see [#487](https://github.com/devicons/devicon/pull/497))
 4.  Push the branch `draft-release`
