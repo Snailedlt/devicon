@@ -23,12 +23,12 @@ The version naming follows the rules of [Semantic Versioning](https://semver.org
 3.  Bump the package version using `npm version vMAJOR.MINOR.PATCH -m "bump npm version to vMAJOR.MINOR.PATCH"` (see [#487](https://github.com/devicons/devicon/pull/497))
 4.  Push the branch `draft-release`
 5.  Manually trigger the workflow [`build_icons.yml`](https://github.com/devicons/devicon/actions/workflows/build_icons.yml) (which has a `workflow_dispatch` event trigger) and select the branch `draft-release` as target branch. This will build a font version of all icons using icomoon and automatically creates a pull request to merge the build result back into `draft-release`
-6.  Review and approve the auto-create pull request created by the action of the step above
-7.  Create a pull request towards `development`. Mention the release number in the pull request title (like "Build preparation for release v*MAJOR*.*MINOR*.*PATCH*").
+6.  Review, approve and merge the auto-created pull request created by the action of the step above
+7.  Create a pull request from `draft-release` towards `develop`. Mention the release number in the pull request title (like "Build preparation for release v*MAJOR*.*MINOR*.*PATCH*").
     *   Check the `build-bot`'s PR message in the last step. There should be a section where it displays the features that have been added to the release. You can copy the markdown there and put it in the description as a **CODE BLOCK**. This will prevent GitHub from tagging everyone involved for now.
 8.  Wait for review and approval of the pull request (you can perform a squash-merge)
-9.  Once merged create a pull request with BASE `master` and HEAD `development`. 
+9.  Once merged into `develop` create a pull request with BASE `master` and HEAD `develop`. 
     *   Copy the `build-bot`'s PR message in the last step to the description as **MARKDOWN** text. This will tag all contributors and thanks them for their help.
-10.  Since it was already approved in the 'development' stage a maintainer is allowed to merge it (**DON'T** perform a squash-merge).
+10.  Since it was already approved in the 'develop' stage a maintainer is allowed to merge it (**DON'T** perform a squash-merge).
 11.  Create a [new release](https://github.com/devicons/devicon/releases/new) using the format "**Release v*MAJOR*.*MINOR*.*PATCH***" as tag and release title. Use the earlier created description as description of the release.
 12.  Publishing the release will trigger the [npm\_publish.yml](/.github/workflows/npm_publish.yml) workflow which will execute a `npm publish` leading to a updated [npm package](https://www.npmjs.com/package/devicon) (v*MAJOR*.*MINOR*.*PATCH*).
