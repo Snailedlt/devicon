@@ -17,6 +17,9 @@
     <a href="https://github.com/devicons/devicon/stargazers">
         <img alt="GitHub repository stars" src="https://img.shields.io/github/stars/devicons/devicon?color=%2360be86&label=github%20stars&style=for-the-badge">
     </a>
+    <a href="https://devicon.dev/">
+        <img alt="Registered logos" src="https://img.shields.io/github/directory-file-count/devicons/devicon/icons?color=%2360be86&label=registered%20logos&style=for-the-badge">
+    </a>
 </p>
 <br />
 <div align="center">
@@ -64,7 +67,7 @@
     Devicon has 150+ icons. And it's growing!<br/>
 </p>
 <p>
-    See the <a href="/devicon.json">devicon.json</a> or <a href="https://devicon.dev">our website</a> for complete and up to date reference of 
+    See the <a href="/devicon.json">devicon.json</a> or <a href="https://devicon.dev">our website</a> for complete and up to date reference of
     all available icons.
 </p>
 
@@ -267,11 +270,11 @@ python3 -m pip install --upgrade pip && pip install selenium==4.1.0 requests==2.
 Usually, this is done on each release, but you can have a sneak peek before a release.</p>
 
 ```bash
-#linux
+# Linux/Unix
 npm run build-icons
 
-#windows
-python3 ./.github/scripts/icomoon_build_githubless.py ./.github/scripts/build_assets/geckodriver-v0.32.1-win64/geckodriver.exe ./icomoon.json ./devicon.json ./icons ./ --headless
+# Windows
+python3 ./.github/scripts/icomoon_build_githubless.py ./.github/scripts/build_assets/geckodriver-v0.32.2-win64/geckodriver.exe ./icomoon.json ./devicon.json ./icons ./ --headless
 ```
 
 <i>The process might take a while, depending on your operating system's speed and the amount of icons.</i>
