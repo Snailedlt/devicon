@@ -2,6 +2,7 @@ To ensure our SVGs/icons are easy to use, please ensure your SVGs meet the follo
 
 * The background must be transparent.
 * The icon is centered horizontally and vertically.
+* The icon must have no padding, i.e. it should fill the entire viewbox.
 * Each SVG contains one icon with `viewBox="0 0 128 128"`. You can use a service like [`resize-image`](https://www.iloveimg.com/resize-image/resize-svg) for scaling the SVG).
 
 ![SVG Standards Img](https://github.com/devicons/devicon/blob/2853520419a122fa53e5ca110b3aac0fc172a5f5/docs/wiki/svg_standards.PNG)
