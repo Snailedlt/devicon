@@ -42,7 +42,7 @@ Each icon/SVG can come in different versions:
 2. You don't need to create all 6 versions for each icon. You only need at least one `original` version and one version that can be made into an icon. As seen in node #3 (below), both can be one SVG file. 
 3. Sometimes, a logo can serve as multiple versions at the same time. 
     * For example, the original Apple logo can be named either `original` or `plain`. 
-    * In these cases, you only need to submit one version and follow this rule for naming them: `original > plain > line`. If it can fit multiple version, choose the version with the higher value. 
+    * In these cases, you only need to submit one version and follow this rule for naming them: `original > plain > line`. If it can fit multiple version, choose the version with the higher value (`wordmark` versions have lower value than their non-wordmark counterparts, so if an icon fits both the `original` and `original-wordmark` versions it should be named `iconname-original`. 
       * So in the case of Apple, you only need to create `apple-original.svg` to cover both `original` and `plain`.
     * If the icon can be used as a font it should also be given the appropriate [aliases](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60#aliases-and-aliasobj).
       * In the case of Apple, you should create an [alias object](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60#aliases-and-aliasobj) where the base is `original` and the alias is `plain`
