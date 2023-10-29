@@ -15,6 +15,7 @@ Thus, before you request/add a new icon, please check these criteria:
   3. Transform code with it?
   4. Add your code to it?
   5. Test you code with it?
+  6. Analyze code with it?
 - Does the logo belongs to a more general parent company? For example, React is a part of Facebook. Using the Facebook logo to represent React is not accepted.
 
 ## Special Cases (see [this discussion](https://github.com/devicons/devicon/discussions/353) for more details)
