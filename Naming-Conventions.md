@@ -8,9 +8,9 @@ For SVG file names, ensure your file names match this format and accurately refl
 
 * RegExp: `(name)-(original|plain|line)(-wordmark?)`
 * Layperson explanation: 
-  * Technology name, follows by one of the version names: original, plain, wordmark. If it's a wordmark version, add a 'wordmark' at the end. Each word is separated by a `-`.
+  * Technology name, follows by one of the version names: original, plain, line. If it's a wordmark version, add a 'wordmark' at the end. Each word is separated by a `-`.
 
-Example:
+Examples:
 * `react-original`
 * `npm-plain`
 * `javascript-line-wordmark`
