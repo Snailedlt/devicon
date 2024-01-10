@@ -6,8 +6,7 @@ This wiki contains information on:
 - The icon review process
 - The icon creation process
 - Our GitHub Actions/automation bots
-
-...among many other topics. Click on the links in the sidebar to explore the project.
+- And many other topics! Click on the links in the sidebar to explore the project.
 
 Don't know where to start? Check these articles:
 
