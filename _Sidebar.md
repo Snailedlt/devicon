@@ -19,13 +19,11 @@
   - [SVG Standards](https://github.com/devicons/devicon/wiki/SVG-Standards)
   - [SVG Versions](https://github.com/devicons/devicon/wiki/SVG-Versions)
   - [Updating `devicon.json`](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)
+  - [Common Bugs and Solutions](https://github.com/devicons/devicon/wiki/Common-Bugs-and-Solutions)
 
-- [How We Create the Icons](https://github.com/devicons/devicon/wiki/How-We-Create-The-Icons)
-
-- [Common Bugs and Solutions](https://github.com/devicons/devicon/wiki/Common-Bugs-and-Solutions)
-
-- [Release strategy and execution](https://github.com/devicons/devicon/wiki/Release-strategy,-conventions,-preparation-and-execution)
-
-- [Our GitHub Actions/automated bots](https://github.com/devicons/devicon/wiki/Our-automated-tasks-and-bots)
+- Processes
+  - [How We Create the Icons](https://github.com/devicons/devicon/wiki/How-We-Create-The-Icons)
+  - [Release strategy and execution](https://github.com/devicons/devicon/wiki/Release-strategy,-conventions,-preparation-and-execution)
+  - [Our GitHub Actions/automated bots](https://github.com/devicons/devicon/wiki/Our-automated-tasks-and-bots)
 
 - [Devicon Discord community](https://github.com/devicons/devicon/wiki/Discord-community)
