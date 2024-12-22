@@ -13,7 +13,6 @@
 
 - Standards
   - [Code of Conduct](https://github.com/devicons/devicon/wiki/Code-of-Conduct)
-  - [Terminology](https://github.com/devicons/devicon/wiki/Terms)
   - [Naming Conventions](https://github.com/devicons/devicon/wiki/Naming-Conventions)
   - [Organizing SVGs](https://github.com/devicons/devicon/wiki/Organizing-SVGs)
   - [SVG Standards](https://github.com/devicons/devicon/wiki/SVG-Standards)
