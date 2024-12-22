@@ -1,4 +1,7 @@
-* All product names, logos, and brandsare property of their respective owners. All company, product and service names used in this website are for identification purposes only.  
-* Usage of these names, logos, and brands does not imply endorsement of Devicon or its members. 
-* All icons/SVGs in this project are not monetized in anyway. 
-* It is up to the user to use the logo properly according to the company/group's brand policy. Usage of this site or any icons/SVGs from Devicon means acknowledgement of these conditions.
+* All product names, logos, and brands featured on this website are the property of their respective owners. The use of company, product, and service names is solely for identification purposes.  
+
+* The inclusion of these names, logos, and brands does not imply endorsement or affiliation with Devicon or its contributors.  
+
+* All icons and SVGs provided in this project are distributed for non-commercial use and are not monetized in any way.  
+
+* Users are responsible for ensuring proper use of logos in compliance with the branding guidelines and policies of the respective companies or organizations. By using this site or any icons/SVGs from Devicon, you acknowledge and agree to these terms.
