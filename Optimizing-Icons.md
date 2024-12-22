@@ -1,6 +1,6 @@
-# Optimizing SVGs for GitHub Project
+Optimizing SVGs is essential for improving performance, ensuring faster load times, and reducing file sizes. It helps clean up unnecessary code, making the SVG easier to maintain and more compatible across browsers and devices.
 
-Follow these steps to optimize your SVG files before using them in the project:
+
 
 ## Step 1: Open SVGOMG
 Go to [SVGOMG](https://jakearchibald.github.io/svgomg/). This tool helps simplify and optimize SVG files.
