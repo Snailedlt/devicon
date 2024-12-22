@@ -57,7 +57,7 @@ Please refer to [this discussion](https://github.com/devicons/devicon/discussion
 
 Here are the categories that we usually accept/don't accept in our repos. If you would like to change our mind, please open a discussion. Thanks to [Ben Souchet](https://github.com/devicons/devicon/discussions/353#discussioncomment-1979491) for creating the original list.
 
-### Allowed
+### 🟢 Allowed
 - [Operating systems](https://en.wikipedia.org/wiki/Operating_system) (Linux, MacOS, Windows, ...)
 - [Programming languages](https://en.wikipedia.org/wiki/List_of_programming_languages) (C, C++, Python, ...)
 - [CLI languages](https://en.wikipedia.org/wiki/List_of_CLI_languages) (PowerShell, Swift, Visual Basic, ...)
@@ -82,13 +82,13 @@ Here are the categories that we usually accept/don't accept in our repos. If you
 - [FTP Client Softwares](https://en.wikipedia.org/wiki/Comparison_of_FTP_client_software) (Filezilla, WinSCP, ...)
 - Popular modules, packages, libraries (Babel, Tensorflow, Jupyter, ...)
 
-### Need Discussions
+### 🟡 Need Discussions
 For these categories we need to examine how it's related to development before accepting.
 - [Content management systems (CMS)](https://en.wikipedia.org/wiki/List_of_content_management_systems) (Wordpress, Drupal, Prestashop, ...). Some are too general.
 - [Raster graphics editors](https://en.wikipedia.org/wiki/Raster_graphics_editor) (Photoshop, GIMP, ...)
 - [Prototyping tools](https://en.wikipedia.org/wiki/Comparison_of_vector_graphics_editors) (Figma, Adobe XD, Sketch, Pencil, ...)
 
-### Not Allowed (not exhaustive)
+### 🔴 Not Allowed (not exhaustive)
 *Please note that the tools in parentheses are example of the category, and may still be allowed if the fall under [Special Cases](#special-cases-see-this-discussion-for-more-details)*
 - [Social Media platforms](https://en.wikipedia.org/wiki/List_of_social_networking_services) (Facebook, LinkedIn, Twitter, ...)
 - [Email marketing Services](https://en.wikipedia.org/wiki/Email_marketing) (Mailchimp, ...)
