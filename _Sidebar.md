@@ -1,5 +1,3 @@
-# Devicon Wiki Table of Contents  
-
 ## Getting Started  
 - [Home ← Start Here](https://github.com/devicons/devicon/wiki)  
 - [Legal](https://github.com/devicons/devicon/wiki/Legal)  
