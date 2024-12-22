@@ -8,7 +8,6 @@
 - [Requesting an Icon](https://github.com/devicons/devicon/wiki/Requesting-an-Icon)  
 - [Overview on Submitting Icons](https://github.com/devicons/devicon/wiki/Overview-on-Submitting-Icons)  
 - [Full Example of Submitting Icons](https://github.com/devicons/devicon/wiki/Example-of-Submitting-Icons-to-the-Repository)  
-- [Updating an Icon](https://github.com/devicons/devicon/wiki/Updating-An-Icon)  
 - [Recommended Resources and Tools](https://github.com/devicons/devicon/wiki/Recommended-resources-and-tools)  
 - [About the Maintainers, Supporters, and Contributors](https://github.com/devicons/devicon/wiki/About-the-Maintainers,-Supporters,-and-Contributors)  
 
