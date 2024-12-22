@@ -1,6 +1,4 @@
-# Creating the Original SVGs with Inkscape
-
-Follow these steps to prepare your SVG for use using Inkscape:
+Follow these steps to prepare your original SVG for use using Inkscape:
 
 1. **Download the SVG**  
    Save the SVG file to your computer.
