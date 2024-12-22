@@ -9,8 +9,7 @@
    If no issue exists, create a new one using our [Issue Form](https://github.com/devicons/devicon/issues/new?assignees=&labels=request%3Aicon&projects=&template=icon_request.yml&title=%5BICON+REQUEST%5D%3A+icon+name).  
    - Use the **Issue Template** and ensure all necessary information is filled out.
 
-   ![image](https://github.com/user-attachments/assets/bc34b292-a491-4524-8956-0c526bc98c25)
-
+   ![image](https://github.com/user-attachments/assets/b2f9824e-75e1-4021-a34a-b45fc2f93e2c)
 
 
 
