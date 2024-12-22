@@ -1,31 +1,57 @@
-Devicon only accepts Icons of development/programming languages and technology.
+# Devicon Icon Guidelines
 
-**Development** refers to programming or programming-related jobs.
+Devicon only accepts icons for development/programming languages and technologies.
 
-**Technology** can be software, OS, services, etc. that helps with development. It must be closely related to development and not too general to public use. 
+* **Development**: Refers to programming or programming-related jobs.
 
-**Example:** Programmers commonly use Microsoft Word. However, its usage is not specific to the programming industry. Therefore, it will not be accepted.
+* **Technology**: Refers to software, operating systems, services, etc., that help with development. It must be closely related to development and not too general for public use.
 
-Thus, before you request/add a new icon, please check these criteria:
-- Is your icon relatively well-known? A brand new tech that hasn't been adopted yet is unlikely to be accepted.
-- Is the technology also commonly used outside of development jobs? Software like Microsoft Word or Google Calendar won't be accepted since they're too general and not specific to development jobs.
-- Can you:
+**Example:** Programmers commonly use Microsoft Word. However, its usage is not specific to the programming industry, so it will not be accepted.
+
+
+## Criteria Before Requesting/Adding an Icon
+
+Please ensure the following before submitting a request or adding an icon:
+
+- **Is the icon well-known?**  
+  A brand new tech that hasn't been widely adopted is unlikely to be accepted.
+
+- **Is the technology used outside development jobs?**  
+  Software like Microsoft Word or Google Calendar won't be accepted because they are too general and not specific to development jobs.
+
+- **Can you do the following with it?**
   1. Write code with it?
   2. Handle code with it?
   3. Transform code with it?
   4. Add your code to it?
-  5. Test your code with it?
+  5. Test your code with it?   
   6. Analyze code with it?
-- Does the logo belong to a more general parent company? For example, React is a part of Facebook. Using the Facebook logo to represent React is not accepted.
 
-## Special Cases (see [this discussion](https://github.com/devicons/devicon/discussions/353) for more details)
-- Icon updates are always accepted even if they don't fit the [allowed](https://github.com/devicons/devicon/wiki/What-Icons-Do-We-Accept%3F/_edit#allowed) criteria
-- Tech companies used to be accepted in the repository. However, we do not accept them anymore. Icons like Facebook, Twitter, etc., are kept for backward compatibility.
-  - We still accept icons representing the services made tech companies, but not icons representing the company itself.
-  - Ex. AWS is accepted since it refers to Amazon's cloud services. However, we will not accept Amazon's logo since Amazon as a whole includes non-tech related services.
-- Related fields like graphic designs or game development. Since many "development" jobs require people to understand related fields, some software will be accepted in Devicon even though they aren't strictly "development tools".
-  - ex. some Adobe products (Photoshop, Aftereffects), game engines (Unity, Unreal, Godot), CMS (Shopify), etc... See [this](https://github.com/devicons/devicon/pull/336) for more details.
-- General tools that are well known in the tech industries. Things like Trello, Slack, Jira, etc., are accepted under this category. Unfortunately, we won't accept Discord since its use is still too general. This will be treated on a case-by-case basis.
+- **Does the logo belong to a general parent company?**  
+  For example, React is a part of Facebook. Using the Facebook logo to represent React is not accepted.
+
+
+## Special Cases
+
+Please refer to [this discussion](https://github.com/devicons/devicon/discussions/353) for more details.
+
+- **Icon Updates:**  
+  Icon updates are always accepted, even if they don't fit the [allowed criteria](https://github.com/devicons/devicon/wiki/What-Icons-Do-We-Accept%3F/_edit#allowed).
+
+- **Tech Companies:**  
+  Tech companies used to be accepted, but we no longer accept them. Icons like Facebook, Twitter, etc., are kept for backward compatibility.  
+  - **What we still accept:** Icons representing services made by tech companies.  
+    - Example: AWS (Amazon Web Services) is accepted, but Amazon's logo is not, since Amazon offers non-tech related services.
+
+- **Related Fields:**  
+  Some software related to graphic design or game development may be accepted in Devicon, even though they aren’t strictly "development tools".  
+  - Examples: Adobe products (Photoshop, After Effects), game engines (Unity, Unreal, Godot), CMS (Shopify), etc.  
+  See [this PR](https://github.com/devicons/devicon/pull/336) for more details.
+
+- **General Tools in Tech Industries:**  
+  Well-known tools in the tech industry, like Trello, Slack, Jira, etc., are accepted. However, tools like Discord are not accepted as their use is still too general.  
+  This will be treated on a case-by-case basis.
+
 
 ## In-depth List of Categories
 
