@@ -1,11 +1,45 @@
-To request an icon, please create an issue in the repository, and follow these guidelines:
+## Requesting a New Icon
 
-**Note:** Create a separate issue for each icon.
+**Important:** Please create a separate issue for each icon request.
 
-*   Search for existing issues with your icon name.
-*   If an issue doesn't exist, create a new issue using our Issue Form.
-*   Use the Issue Template and fill out the proper information
+1. **Search for Existing Issues**  
+   Before submitting a new icon request, search for any existing issues with the same icon name.
 
-![Issue Form Img](https://github.com/devicons/devicon/blob/2853520419a122fa53e5ca110b3aac0fc172a5f5/docs/wiki/issue_form.png)
+2. **Create a New Issue**  
+   If no issue exists, create a new one using our [Issue Form](https://github.com/devicons/devicon/issues/new?assignees=&labels=request%3Aicon&projects=&template=icon_request.yml&title=%5BICON+REQUEST%5D%3A+icon+name).  
+   - Use the **Issue Template** and ensure all necessary information is filled out.
 
-*   Please include links where the icon can be found if possible. Ex: the icon's official webpage/wiki article.
+   ![image](https://github.com/user-attachments/assets/bc34b292-a491-4524-8956-0c526bc98c25)
+
+
+
+
+## Updating an Icon
+
+Sometimes, logos are updated or an error is spotted in the SVG/icon. If this happens, the current icon in our repository might need an update.
+
+### Reporting an Issue
+
+1. **Open a New Icon Request Issue**  
+   Describe the update or issue with the icon.
+
+2. **Include a Link**  
+   If it’s an update, provide a link to the new logo or official announcement.
+
+### Fixing/Updating the Icon
+
+1. **Create a Commit**  
+   Make the necessary changes to the SVG and commit them.
+
+2. **Follow Submission Guidelines**  
+   Follow the steps outlined in [Overview on Submitting Icons](https://github.com/devicons/devicon/wiki/Overview-on-Submitting-Icons). Replace `new` with `update`. 
+
+3. **Open a Pull Request**  
+   Submit the changes via a pull request to the `develop` branch.
+
+4. **Name the Pull Request**  
+   Instead of naming the pull request “new icon,” name it as follows:  
+   `update icon: IconName (versions)` 
+
+
+
