@@ -12,7 +12,7 @@ Follow these steps to create and submit a pull request for a new icon:
 ![image](https://github.com/user-attachments/assets/76e09a6d-d1bf-4fb9-b298-a197d9273a73)
 
 
-## Step 2. Locate the New Icon Template
+## Step 3. Locate the New Icon Template
 
 - Copy and paste the **new icon template URL** into the search bar.
 - Press **Enter** to search for the template.
@@ -20,7 +20,7 @@ Follow these steps to create and submit a pull request for a new icon:
 ![image](https://github.com/user-attachments/assets/d3287db5-78b9-48d9-b91d-002afd7b978a)
 
 
-## Step 3. Update the Pull Request Title
+## Step 4. Update the Pull Request Title
 
 - Edit the title of the pull request to include:
   - The icon name.
@@ -30,7 +30,7 @@ Follow these steps to create and submit a pull request for a new icon:
 ![image](https://github.com/user-attachments/assets/24fcfbaf-b61b-4179-9e63-bf64c9317b83)
 
 
-## Step 4. Fill Out the Template
+## Step 5. Fill Out the Template
 
 - Go through the provided pull request template and fill in the required fields.
 - Make sure to:
@@ -39,9 +39,9 @@ Follow these steps to create and submit a pull request for a new icon:
 ![image](https://github.com/user-attachments/assets/b0dfad27-c4a1-40e8-9d3f-6b434e5d4e95)
 
 
-## Step 5. Provide Additional Information
+## Step 6. Provide Additional Information
 
-- Add links to the sources where the SVGs were found.
+- Add links to the sources where the SVGs were found such as the official website. 
 - Include any additional comments, such as:
   - Reasons for the chosen colors.
   - Challenges or issues encountered during the process.
@@ -49,7 +49,7 @@ Follow these steps to create and submit a pull request for a new icon:
 ![image](https://github.com/user-attachments/assets/9c02ae40-78aa-4d38-b1c2-3cb0444c3b3e)
 
 
-## Step 6. Example Pull Request
+## Step 7. Example Pull Request
 
 Here is an example of what the final pull request should look like:
 
