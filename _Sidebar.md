@@ -22,6 +22,7 @@
 
 ## Tutorials  
 - [Creating Original Icons](https://github.com/devicons/devicon/wiki/Creating-original-Icons)  
+- [Creating Plain Icons](https://github.com/devicons/devicon/wiki/Creating-plain-Icons)  
 - [Optimizing Icons](https://github.com/devicons/devicon/wiki/Optimizing-icons)  
 
 ## Processes and Workflows  
