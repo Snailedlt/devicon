@@ -35,4 +35,7 @@ Launch [Inkscape](https://inkscape.org/) and open the SVG file.
 ## Step 7. **Rename the File**  
 Save the file as `original.svg` or `original-wordmark.svg`.
 
-Your SVG is now properly prepared and ready for use! Don't forget to optimize the SVG!
+## Step 8. Optimize the SVG
+- Follow the steps in [Optimizing Icons](https://github.com/devicons/devicon/wiki/Optimizing-icons) so that the SVG can be used in Devicons. 
+
+Your SVG is now properly prepared and ready for use!
