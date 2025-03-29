@@ -89,7 +89,7 @@ For these categories we need to examine how it's related to development before a
 - [Prototyping tools](https://en.wikipedia.org/wiki/Comparison_of_vector_graphics_editors) (Figma, Adobe XD, Sketch, Pencil, ...)
 
 ### 🔴 Not Allowed (not exhaustive)
-*Please note that the tools in parentheses are example of the category, and may still be allowed if the fall under [Special Cases](#special-cases-see-this-discussion-for-more-details)*
+*Please note that the tools in parentheses are example of the category, and may still be allowed if the fall under [Special Cases](#special-cases)*
 - [Social Media platforms](https://en.wikipedia.org/wiki/List_of_social_networking_services) (Facebook, LinkedIn, Twitter, ...)
 - [Email marketing Services](https://en.wikipedia.org/wiki/Email_marketing) (Mailchimp, ...)
 - [CRM tools](https://en.wikipedia.org/wiki/Customer_relationship_management) (Salesforces, ...).
