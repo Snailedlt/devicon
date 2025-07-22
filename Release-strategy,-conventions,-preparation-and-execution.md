@@ -32,3 +32,4 @@ The version naming follows the rules of [Semantic Versioning](https://semver.org
 10.  Since it was already approved in the 'develop' stage a maintainer is allowed to merge it (**DON'T** perform a squash-merge).
 11.  Create a [new release](https://github.com/devicons/devicon/releases/new) using the format "**Release v*MAJOR*.*MINOR*.*PATCH***" as tag and release title. Use the earlier created description as description of the release.
 12.  Publishing the release will trigger the [npm\_publish.yml](https://github.com/devicons/devicon/blob/master/.github/workflows/npm_publish.yml) workflow which will execute a `npm publish` leading to a updated [npm package](https://www.npmjs.com/package/devicon) (v*MAJOR*.*MINOR*.*PATCH*).
+13. If the icons fail to appear on the website, you may clear the CDN cache by clicking [this link](https://purge.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css).
