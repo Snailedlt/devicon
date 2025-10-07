@@ -46,7 +46,9 @@ If required, create a copy of the original SVG and name it **plain.svg**.
 ![image](https://github.com/user-attachments/assets/ce45e7cd-4dc7-4752-97b9-27f967324cae)
 
 ## Step 8. Rename the File
-- Save the file as `plain.svg` or `plain-wordmark.svg`.
+- Save the file as `<icon>-plain.svg` or `<icon>-plain-wordmark.svg`.
+
+for example `ngrok-plain.svg` or `ngrok-plain-wordmark.svg`.
 
 ## Step 9. Optimize the SVG
 - Follow the steps in [Optimizing Icons](https://github.com/devicons/devicon/wiki/Optimizing-icons) so that the SVG can be used in Devicons. 
