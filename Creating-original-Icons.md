@@ -34,7 +34,8 @@ Launch [Inkscape](https://inkscape.org/) and open the SVG file.
 
 ## Step 7. **Rename the File**  
 Save the file as `<icon>-original.svg` or `<icon>-original-wordmark.svg`.
-In the tutorial case `ngrok-original.svg` or `ngrok-original-wordmark.svg`
+
+In this tutorial case `ngrok-original.svg` or `ngrok-original-wordmark.svg`
 
 ## Step 8. Optimize the SVG
 - Follow the steps in [Optimizing Icons](https://github.com/devicons/devicon/wiki/Optimizing-icons) so that the SVG can be used in Devicons. 
