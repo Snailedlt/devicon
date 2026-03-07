@@ -84,6 +84,7 @@ jobs:
             Adios,
             Build Bot :sunglasses:
         with:
+          base: master
           branch: 'bot/build-result'
           commit-message: 'Built new icons, icomoon.json and devicon.css'
           title: 'bot:build new icons, icomoon.json and devicon.css'
