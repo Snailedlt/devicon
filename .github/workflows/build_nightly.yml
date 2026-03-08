@@ -1,0 +1,223 @@
+name: Nightly Build and Release
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 2 AM UTC daily
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump level (auto = derive from PR labels)'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  build-and-release:
+    name: Build, Bump Version, and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Check for new icon commits since last build
+        id: check-changes
+        run: |
+          # Find the last commit whose message starts with "build:"
+          LAST_BUILD=$(git log --format="%H %s" | awk '/^[a-f0-9]+ build:/ { print $1; exit }')
+
+          if [ -z "$LAST_BUILD" ]; then
+            echo "No previous build commit found — checking all history"
+            RANGE="HEAD"
+          else
+            echo "Last build commit: $LAST_BUILD"
+            RANGE="${LAST_BUILD}..HEAD"
+          fi
+
+          # Check if any commits in range touch icons/ or devicon.json
+          CHANGES=$(git diff --name-only $RANGE -- icons/ devicon.json 2>/dev/null)
+
+          if [ -z "$CHANGES" ]; then
+            echo "No icon changes since last build — skipping"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Icon changes found since last build"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "range=$RANGE" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Determine version bump level
+        if: steps.check-changes.outputs.has_changes == 'true'
+        id: version-bump
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const manualBump = '${{ inputs.bump }}';
+            if (manualBump && manualBump !== 'auto') {
+              console.log('Manual bump override:', manualBump);
+              core.setOutput('bump', manualBump);
+              return;
+            }
+
+            const range = '${{ steps.check-changes.outputs.range }}';
+            const { execSync } = require('child_process');
+
+            // Get commit messages in range that touch icon files
+            let log = '';
+            try {
+              log = execSync(`git log --format="%s" ${range} -- icons/ devicon.json`).toString().trim();
+            } catch (e) {
+              console.log('Could not get git log:', e.message);
+            }
+
+            if (!log) {
+              console.log('No matching commits found, defaulting to patch');
+              core.setOutput('bump', 'patch');
+              return;
+            }
+
+            // Extract PR numbers from squash commit messages like "new icon: foo (#123)"
+            const prNumbers = [...log.matchAll(/\(#(\d+)\)/g)].map(m => parseInt(m[1]));
+            console.log('PR numbers found in commits:', prNumbers);
+
+            let bump = 'patch';
+
+            for (const prNumber of prNumbers) {
+              try {
+                const { data: pr } = await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: prNumber
+                });
+
+                const labels = pr.labels.map(l => l.name);
+                console.log(`PR #${prNumber} labels:`, labels);
+
+                if (labels.includes('release: major')) {
+                  bump = 'major';
+                  break; // Can't go higher
+                } else if (labels.includes('release: minor') && bump !== 'major') {
+                  bump = 'minor';
+                }
+              } catch (e) {
+                console.log(`Could not fetch PR #${prNumber}:`, e.message);
+              }
+            }
+
+            console.log('Final version bump:', bump);
+            core.setOutput('bump', bump);
+
+      - name: Setup Python 3.10
+        if: steps.check-changes.outputs.has_changes == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Setup Node.js
+        if: steps.check-changes.outputs.has_changes == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Python dependencies
+        if: steps.check-changes.outputs.has_changes == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./.github/scripts/requirements.txt
+
+      - name: Install Node dependencies
+        if: steps.check-changes.outputs.has_changes == 'true'
+        run: npm install
+
+      - name: Run Icomoon build
+        if: steps.check-changes.outputs.has_changes == 'true'
+        id: build
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python ./.github/scripts/icomoon_build.py \
+            ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver \
+            ./icomoon.json \
+            ./devicon.json \
+            ./icons \
+            ./ \
+            $GITHUB_TOKEN \
+            --headless
+
+      - name: Build CSS
+        if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome == 'success'
+        id: build-css
+        continue-on-error: true
+        run: npm run build-css
+
+      - name: Handle build failure
+        if: steps.check-changes.outputs.has_changes == 'true' && (steps.build.outcome == 'failure' || steps.build-css.outcome == 'failure')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const today = new Date().toISOString().split('T')[0];
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Nightly build failed - ${today}`,
+              body: `The nightly Icomoon build failed.\n\n**Workflow run:** ${runUrl}\n\nPlease investigate and re-run manually once fixed using the \`workflow_dispatch\` trigger on \`build_nightly.yml\`.`,
+              labels: ['build-failed']
+            });
+
+            core.setFailed('Nightly build failed — issue created');
+
+      - name: Commit build artifacts
+        if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome == 'success' && steps.build-css.outcome == 'success'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          if ! git diff --staged --quiet; then
+            git commit -m "build: generate font files and CSS"
+            git push
+          else
+            echo "No build artifacts changed"
+          fi
+
+      - name: Bump version
+        if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome == 'success' && steps.build-css.outcome == 'success'
+        id: bump
+        run: |
+          BUMP="${{ steps.version-bump.outputs.bump }}"
+          npm version $BUMP -m "chore: bump version to %s"
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          git push --follow-tags
+
+      - name: Create GitHub release
+        if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome == 'success' && steps.build-css.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = '${{ steps.bump.outputs.version }}';
+            const bump = '${{ steps.version-bump.outputs.bump }}';
+
+            await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `v${version}`,
+              name: `Release v${version}`,
+              generate_release_notes: true
+            });
+
+            console.log(`Release v${version} created (${bump} bump)`);
