@@ -40,8 +40,15 @@ jobs:
           LAST_BUILD=$(git log --format="%H %s" | awk '/^[a-f0-9]+ build:/ { print $1; exit }')
 
           if [ -z "$LAST_BUILD" ]; then
-            echo "No previous build commit found - checking all history"
-            RANGE="$(git rev-list --max-parents=0 HEAD)..HEAD"
+            echo "No previous build commit found - falling back to last release tag"
+            LAST_TAG=$(git tag --sort=-creatordate | grep -E '^v[0-9]' | head -1)
+            if [ -z "$LAST_TAG" ]; then
+              echo "No release tag found either - checking all history"
+              RANGE="$(git rev-list --max-parents=0 HEAD)..HEAD"
+            else
+              echo "Using last release tag as base: $LAST_TAG"
+              RANGE="${LAST_TAG}..HEAD"
+            fi
           else
             echo "Last build commit: $LAST_BUILD"
             RANGE="${LAST_BUILD}..HEAD"
