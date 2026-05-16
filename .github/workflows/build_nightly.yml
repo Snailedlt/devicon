@@ -1,4 +1,5 @@
 name: Nightly Build and Release
+# Runs daily at 2 AM UTC, or manually via workflow_dispatch
 
 on:
   schedule:
