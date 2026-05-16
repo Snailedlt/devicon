@@ -161,11 +161,6 @@ class SeleniumRunner:
 
         self.driver.get(self.ICOMOON_URL)
 
-        # Take a screenshot so we can see what the page looks like if something goes wrong
-        self.driver.save_screenshot("./screenshots/icomoon_page_load.png")
-        print(f"Page title after load: {self.driver.title}", file=self.log_output)
-        print(f"Page source length: {len(self.driver.page_source)} chars", file=self.log_output)
-
         # wait until the whole web page is loaded
         # Try original selector first, fall back to a more generic check
         try:
@@ -175,17 +170,17 @@ class SeleniumRunner:
             print("Accessed icomoon.io (via icon-menu selector)", file=self.log_output)
         except SeleniumTimeoutException:
             print("icon-menu selector not found, trying fallback selectors...", file=self.log_output)
-            self.driver.save_screenshot("./screenshots/icomoon_fallback_attempt.png")
-            # Fallback: wait for any file input (the core upload mechanism)
+            # Fallback: wait up to 90s for any file input (the core upload mechanism)
+            # icomoon.io can be slow to initialize the Angular app
             try:
-                WebDriverWait(self.driver, self.LONG_WAIT_IN_SEC).until(
+                WebDriverWait(self.driver, 90).until(
                     ec.presence_of_element_located((By.CSS_SELECTOR, "input[type='file']"))
                 )
                 print("Accessed icomoon.io (via file input fallback)", file=self.log_output)
             except SeleniumTimeoutException:
                 self.driver.save_screenshot("./screenshots/icomoon_load_failed.png")
                 raise Exception(
-                    f"Could not load icomoon.io. Page title: '{self.driver.title}'. "
+                    f"Could not load icomoon.io after 90s. Page title: '{self.driver.title}'. "
                     "The page may have changed structure or blocked headless browsing."
                 )
 
