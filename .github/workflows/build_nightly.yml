@@ -183,6 +183,14 @@ jobs:
           name: build-log
           path: ./log.txt
 
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: always() && steps.check-changes.outputs.has_changes == 'true'
+        with:
+          name: build-screenshots
+          path: ./screenshots/
+          if-no-files-found: ignore
+
       - name: Upload geckodriver log on failure
         uses: actions/upload-artifact@v4
         if: failure()
