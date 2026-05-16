@@ -40,8 +40,8 @@ jobs:
           LAST_BUILD=$(git log --format="%H %s" | awk '/^[a-f0-9]+ build:/ { print $1; exit }')
 
           if [ -z "$LAST_BUILD" ]; then
-            echo "No previous build commit found — checking all history"
-            RANGE="HEAD"
+            echo "No previous build commit found - checking all history"
+            RANGE="$(git rev-list --max-parents=0 HEAD)..HEAD"
           else
             echo "Last build commit: $LAST_BUILD"
             RANGE="${LAST_BUILD}..HEAD"
