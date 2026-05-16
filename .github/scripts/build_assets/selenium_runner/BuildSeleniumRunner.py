@@ -14,11 +14,9 @@ class BuildSeleniumRunner(SeleniumRunner):
     def build_icons(self, icomoon_json_path: str,
         zip_path: Path, svgs: List[str], screenshot_folder: str):
         self.upload_icomoon(icomoon_json_path)
-        # try to deselect existing icons for cleaner screenshots, but non-fatal
-        try:
-            self.deselect_all_icons_in_top_set()
-        except Exception as e:
-            print(f"Warning: could not deselect icons (non-fatal): {e}", file=self.log_output)
+        # Note: intentionally NOT calling deselect_all_icons_in_top_set() here.
+        # Deselecting then failing to re-select leaves 0 icons selected → empty font.
+        # Icons loaded from icomoon.json and newly uploaded SVGs are selected by default.
         self.upload_svgs(svgs, screenshot_folder)
         self.take_icon_screenshot(screenshot_folder)
         self.download_icomoon_fonts(zip_path)
