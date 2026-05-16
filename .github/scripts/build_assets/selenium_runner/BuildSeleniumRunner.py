@@ -14,9 +14,11 @@ class BuildSeleniumRunner(SeleniumRunner):
     def build_icons(self, icomoon_json_path: str,
         zip_path: Path, svgs: List[str], screenshot_folder: str):
         self.upload_icomoon(icomoon_json_path)
-        # necessary so we can take screenshot of only the 
-        # recently uploaded icons later
-        self.deselect_all_icons_in_top_set()
+        # try to deselect existing icons for cleaner screenshots, but non-fatal
+        try:
+            self.deselect_all_icons_in_top_set()
+        except Exception as e:
+            print(f"Warning: could not deselect icons (non-fatal): {e}", file=self.log_output)
         self.upload_svgs(svgs, screenshot_folder)
         self.take_icon_screenshot(screenshot_folder)
         self.download_icomoon_fonts(zip_path)
@@ -91,9 +93,12 @@ class BuildSeleniumRunner(SeleniumRunner):
             raise Exception(message + '\n'.join(err_messages))
 
         # take a screenshot of the svgs that were just added
-        # select the latest icons
-        self.switch_toolbar_option(IcomoonOptionState.SELECT)
-        self.select_all_icons_in_top_set()
+        # try to select the latest icons for a cleaner screenshot, but non-fatal
+        try:
+            self.switch_toolbar_option(IcomoonOptionState.SELECT)
+            self.select_all_icons_in_top_set()
+        except Exception as e:
+            print(f"Warning: could not select icons for screenshot (non-fatal): {e}", file=self.log_output)
         new_svgs_path = str(Path(screenshot_folder, "new_svgs.png").resolve())
         self.driver.save_screenshot(new_svgs_path)
 
@@ -146,7 +151,10 @@ class BuildSeleniumRunner(SeleniumRunner):
         if self.current_page != IcomoonPage.SELECTION:
             self.go_to_page(IcomoonPage.SELECTION)
 
-        self.select_all_icons_in_top_set()
+        try:
+            self.select_all_icons_in_top_set()
+        except Exception as e:
+            print(f"Warning: could not select all icons (non-fatal, icons may already be selected): {e}", file=self.log_output)
         self.go_to_generate_font_page()
 
         download_btn = WebDriverWait(self.driver, SeleniumRunner.LONG_WAIT_IN_SEC).until(
