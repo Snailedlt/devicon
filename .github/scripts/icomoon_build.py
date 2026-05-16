@@ -80,14 +80,17 @@ def get_icons_for_building(icomoon_json_path: str, devicon_json_path: str, token
     from the `devicon.json`.
     """
     devicon_json = filehandler.get_json_file_content(devicon_json_path)
-    pull_reqs = api_handler.get_merged_pull_reqs_since_last_release(token, logfile)
     new_icons = []
 
-    for pull_req in pull_reqs:
-        if api_handler.is_feature_icon(pull_req):
-            filtered_icon = util.find_object_added_in_pr(devicon_json, pull_req["title"])
-            if filtered_icon not in new_icons:
-                new_icons.append(filtered_icon)
+    try:
+        pull_reqs = api_handler.get_merged_pull_reqs_since_last_release(token, logfile)
+        for pull_req in pull_reqs:
+            if api_handler.is_feature_icon(pull_req):
+                filtered_icon = util.find_object_added_in_pr(devicon_json, pull_req["title"])
+                if filtered_icon not in new_icons:
+                    new_icons.append(filtered_icon)
+    except Exception as e:
+        print(f"Warning: could not fetch PRs from GitHub API: {e}. Falling back to devicon.json diff.", file=logfile)
 
     # get any icons that might not have been found by the API
     # sometimes happen due to the PR being opened before the latest build release
