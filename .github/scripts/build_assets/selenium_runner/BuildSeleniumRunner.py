@@ -14,9 +14,12 @@ class BuildSeleniumRunner(SeleniumRunner):
     def build_icons(self, icomoon_json_path: str,
         zip_path: Path, svgs: List[str], screenshot_folder: str):
         self.upload_icomoon(icomoon_json_path)
-        # Note: intentionally NOT calling deselect_all_icons_in_top_set() here.
-        # Deselecting then failing to re-select leaves 0 icons selected → empty font.
-        # Icons loaded from icomoon.json and newly uploaded SVGs are selected by default.
+        # Deselect all existing icons BEFORE uploading new SVGs.
+        # Newly uploaded SVGs are auto-selected by icomoon.io, so after this
+        # only the new icons will be selected — giving clean "new icons only" screenshots.
+        # download_icomoon_fonts() calls select_all before generating the font,
+        # so the full icon set is always used for font generation.
+        self.deselect_all_icons_in_top_set()
         self.upload_svgs(svgs, screenshot_folder)
         self.take_icon_screenshot(screenshot_folder)
         self.download_icomoon_fonts(zip_path)
@@ -90,13 +93,10 @@ class BuildSeleniumRunner(SeleniumRunner):
             message = "BuildSeleniumRunner - Issues found when uploading SVGs:\n"
             raise Exception(message + '\n'.join(err_messages))
 
-        # take a screenshot of the svgs that were just added
-        # try to select the latest icons for a cleaner screenshot, but non-fatal
-        try:
-            self.switch_toolbar_option(IcomoonOptionState.SELECT)
-            self.select_all_icons_in_top_set()
-        except Exception as e:
-            print(f"Warning: could not select icons for screenshot (non-fatal): {e}", file=self.log_output)
+        # Take a screenshot of only the newly uploaded SVGs.
+        # Because we called deselect_all before uploading, only the new icons
+        # are selected at this point — no need to call select_all here.
+        self.switch_toolbar_option(IcomoonOptionState.SELECT)
         new_svgs_path = str(Path(screenshot_folder, "new_svgs.png").resolve())
         self.driver.save_screenshot(new_svgs_path)
 
@@ -149,10 +149,10 @@ class BuildSeleniumRunner(SeleniumRunner):
         if self.current_page != IcomoonPage.SELECTION:
             self.go_to_page(IcomoonPage.SELECTION)
 
-        try:
-            self.select_all_icons_in_top_set()
-        except Exception as e:
-            print(f"Warning: could not select all icons (non-fatal, icons may already be selected): {e}", file=self.log_output)
+        # select_all is required here — after deselect_all + new SVG uploads,
+        # only the new icons are selected. We must select everything before
+        # generating the font or the existing icons will be missing from the output.
+        self.select_all_icons_in_top_set()
         self.go_to_generate_font_page()
 
         download_btn = WebDriverWait(self.driver, SeleniumRunner.LONG_WAIT_IN_SEC).until(

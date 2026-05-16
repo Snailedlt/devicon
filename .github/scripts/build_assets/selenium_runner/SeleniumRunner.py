@@ -245,7 +245,10 @@ class SeleniumRunner:
         input two times before the menu appears.
         :return: None.
         """
-        top_set_hamburger_input_xpath = '//*[@id="setH2"]/button[1]/i' 
+        # Target the first icon-menu button inside any h1 set header.
+        # icomoon always renders the most recently uploaded (top) set first in the DOM,
+        # so [1] reliably selects it without relying on a hardcoded element ID.
+        top_set_hamburger_input_xpath = '(//h1//i[@class="icon-menu"])[1]'
         hamburger_input = self.driver.find_element_by_xpath(
             top_set_hamburger_input_xpath
         )

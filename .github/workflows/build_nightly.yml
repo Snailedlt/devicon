@@ -1,9 +1,9 @@
-name: Nightly Build and Release
-# Runs daily at 2 AM UTC, or manually via workflow_dispatch
+name: Weekly Build and Release
+# Runs every Monday at 2 AM UTC, or manually via workflow_dispatch
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # 2 AM UTC daily
+    - cron: '0 2 * * 1'  # 2 AM UTC every Monday
   workflow_dispatch:
     inputs:
       bump:
@@ -22,9 +22,13 @@ permissions:
   issues: write
 
 jobs:
-  build-and-release:
-    name: Build, Bump Version, and Release
+  build:
+    name: Build and Stage Release
     runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check-changes.outputs.has_changes }}
+      bump: ${{ steps.version-bump.outputs.bump }}
+      build_ok: ${{ steps.build-result.outputs.build_ok }}
 
     steps:
       - name: Checkout master
@@ -219,19 +223,31 @@ jobs:
                 repo: context.repo.repo,
                 name: 'build-failed',
                 color: 'd73a4a',
-                description: 'Nightly build failed'
+                description: 'Weekly build failed'
               });
             }
 
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `Nightly build failed - ${today}`,
-              body: `The nightly Icomoon build failed.\n\n**Workflow run:** ${runUrl}\n\nPlease investigate and re-run manually once fixed using the \`workflow_dispatch\` trigger on \`build_nightly.yml\`.`,
+              title: `Weekly build failed - ${today}`,
+              body: `The weekly Icomoon build failed.\n\n**Workflow run:** ${runUrl}\n\nPlease investigate and re-run manually once fixed using the \`workflow_dispatch\` trigger on \`build_nightly.yml\`.`,
               labels: ['build-failed']
             });
 
-            core.setFailed('Nightly build failed - issue created');
+            core.setFailed('Weekly build failed - issue created');
+
+      - name: Set build result output
+        id: build-result
+        if: always()
+        run: |
+          if [[ "${{ steps.check-changes.outputs.has_changes }}" == "true" && \
+                "${{ steps.build.outcome }}" == "success" && \
+                "${{ steps.build-css.outcome }}" == "success" ]]; then
+            echo "build_ok=true" >> $GITHUB_OUTPUT
+          else
+            echo "build_ok=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Commit build artifacts
         if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome == 'success' && steps.build-css.outcome == 'success'
@@ -246,30 +262,61 @@ jobs:
             echo "No build artifacts changed"
           fi
 
+  # ── Release gate ─────────────────────────────────────────────────────────────
+  # This job requires a manual approval in the "production" GitHub Environment
+  # before bumping the version and publishing the release.
+  #
+  # One-time setup (repo admin):
+  #   Settings → Environments → New environment → name it "production"
+  #   Add required reviewers (maintainers who should approve releases).
+  release:
+    name: Bump Version and Release
+    needs: build
+    # Only run when the build job found icon changes AND succeeded
+    if: needs.build.outputs.has_changes == 'true' && needs.build.outputs.build_ok == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        run: npm install
+
       - name: Bump version
-        if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome == 'success' && steps.build-css.outcome == 'success'
         id: bump
         run: |
-          BUMP="${{ steps.version-bump.outputs.bump }}"
+          BUMP="${{ needs.build.outputs.bump }}"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           npm version $BUMP -m "chore: bump version to %s"
           VERSION=$(node -p "require('./package.json').version")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           git push --follow-tags
 
       - name: Create GitHub release
-        if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome == 'success' && steps.build-css.outcome == 'success'
         uses: actions/github-script@v7
         with:
           script: |
             const version = '${{ steps.bump.outputs.version }}';
-            const bump = '${{ steps.version-bump.outputs.bump }}';
+            const bump = '${{ needs.build.outputs.bump }}';
 
             await github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag_name: `v${version}`,
               name: `Release v${version}`,
-              generate_release_notes: true
+              generate_release_notes: true,
+              draft: false
             });
 
-            console.log(`Release v${version} created (${bump} bump)`);
+            console.log(`Released v${version} (${bump} bump).`);
