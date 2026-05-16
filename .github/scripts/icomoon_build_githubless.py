@@ -22,7 +22,10 @@ def main():
         args = arg_getters.get_selenium_runner_args(has_token=False)
         new_icons = get_icons_for_building(args.icomoon_json_path, args.devicon_json_path, logfile)
         if len(new_icons) == 0:
-            sys.exit("No files need to be uploaded. Ending script...")
+            msg = "No new icons found in devicon.json that are not already in icomoon.json — nothing to build."
+            print(msg, file=logfile)
+            print(msg)
+            return
 
         print(f"There are {len(new_icons)} icons to be build. Here are they:", *new_icons, sep = "\n", file=logfile)
 

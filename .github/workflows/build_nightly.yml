@@ -241,9 +241,13 @@ jobs:
         id: build-result
         if: always()
         run: |
+          # build_ok=true only when the build + CSS succeeded AND icomoon.json was
+          # actually modified — the script only touches icomoon.json when new icons
+          # are processed, so this is a reliable "something was built" signal.
           if [[ "${{ steps.check-changes.outputs.has_changes }}" == "true" && \
                 "${{ steps.build.outcome }}" == "success" && \
-                "${{ steps.build-css.outcome }}" == "success" ]]; then
+                "${{ steps.build-css.outcome }}" == "success" ]] && \
+             ! git diff --quiet -- icomoon.json; then
             echo "build_ok=true" >> $GITHUB_OUTPUT
           else
             echo "build_ok=false" >> $GITHUB_OUTPUT
