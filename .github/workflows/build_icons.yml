@@ -1,98 +1,95 @@
-name: Build Icons
-on: workflow_dispatch
+name: Build Icons (Emergency Fallback)
+
+# Manual emergency re-run for when the nightly build fails or needs to be
+# forced outside the regular schedule. Commits font files directly to master
+# with a "build:" prefix so build_nightly.yml doesn't double-process.
+#
+# For day-to-day releases, use build_nightly.yml instead.
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual build (for audit trail)'
+        required: false
+        default: 'Manual emergency build'
+
+permissions:
+  contents: write
+
 jobs:
   build:
-    name: Get Fonts From Icomoon
+    name: Emergency Build — Fonts + CSS
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Install dependencies (python, pip, npm)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r ./.github/scripts/requirements.txt
           npm install
 
-      - name: Executing build and create fonts via icomoon
-        shell: bash
+      - name: Run Icomoon build
+        id: build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: >
-          python ./.github/scripts/icomoon_build.py
-          ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver ./icomoon.json
-          ./devicon.json ./icons ./ $GITHUB_TOKEN --headless
+        run: |
+          python ./.github/scripts/icomoon_build.py \
+            ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver \
+            ./icomoon.json \
+            ./devicon.json \
+            ./icons \
+            ./ \
+            $GITHUB_TOKEN \
+            --headless
 
-      - name: Upload geckodriver.log for debugging purposes
+      - name: Build devicon.min.css
+        run: npm run build-css
+
+      - name: Upload geckodriver.log on failure
         uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: geckodriver-log
           path: ./geckodriver.log
 
-      - name: Upload log file for debugging purposes
+      - name: Upload build log
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: logfile
           path: ./log.txt
 
-      - name: Build devicon.min.css
-        if: success()
-        run: npm run build-css
+      - name: Commit build artifacts directly to master
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          if ! git diff --staged --quiet; then
+            git commit -m "build: emergency font rebuild
 
-      # - name: Upload screenshot of the newly made icons
-      #   id: imgur_step
-      #   uses: devicons/public-upload-to-imgur@v2.2.2
-      #   if: success()
-      #   with:
-      #     # will have "new_icons.png" and "new_svgs.png"
-      #     # in that order (cause sorted alphabetically)
-      #     path: ./screenshots/*.png
-      #     client_id: ${{secrets.IMGUR_CLIENT_ID}}
+Reason: ${{ inputs.reason }}
 
-      - name: Get the release message from file
-        id: release_message_step
-        uses: juliangruber/read-file-action@v1.0.0
-        with:
-          # taken from icomoon_build.py's get_release_message()
-          path: ./release_message.txt
+Generated with [Claude Code](https://claude.com/claude-code)
 
-      - name: Create Pull Request
-        if: success()
-        uses: peter-evans/create-pull-request@v7
-        env:
-          MESSAGE: |
-            Hello,
-
-            I'm Devicon's Build Bot and I just built some new font files and devicon.min.css file.
-
-            The devicon.min.css file contains:
-            -The icon content
-            -The aliases
-            -The colored classes
-
-            I also compiled a list of new features and icons that were added since last release.
-            ```
-            {0}
-            ```
-
-            More information can be found in the GitHub Action logs for this workflow.
-
-            Adios,
-            Build Bot :sunglasses:
-        with:
-          base: master
-          branch: 'bot/build-result'
-          commit-message: 'Built new icons, icomoon.json and devicon.css'
-          title: 'bot:build new icons, icomoon.json and devicon.css'
-          body: >
-            ${{
-              format(
-                env.MESSAGE,
-                steps.release_message_step.outputs.content
-              )
-            }}
-          delete-branch: true
+Co-Authored-By: Claude <noreply@anthropic.com>"
+            git push
+          else
+            echo "No changes to commit"
+          fi

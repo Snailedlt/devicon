@@ -1,96 +1,62 @@
-name: Version and Release
+name: Version and Release (DEPRECATED)
+
+# DEPRECATED — versioning and releases are now handled by build_nightly.yml.
+# This workflow is kept as workflow_dispatch only for manual overrides or
+# emergency use. Do not re-enable the push trigger.
+
 on:
-  push:
-    branches: [master]
-    paths:
-      - 'icons/**'
-      - 'devicon.json'
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump level'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 permissions:
   contents: write
 
 jobs:
   version-and-release:
-    name: Bump Version and Create Release
+    name: Manual Version Bump and Release
     runs-on: ubuntu-latest
-    steps:
-      - name: Skip if version bump or build commit
-        id: check-skip
-        run: |
-          MSG="${{ github.event.head_commit.message }}"
-          if [[ "$MSG" == build:* ]] || [[ "$MSG" == chore:\ bump\ version* ]]; then
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
 
+    steps:
       - name: Checkout master
-        if: steps.check-skip.outputs.skip == 'false'
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Get merged PR number and labels
-        if: steps.check-skip.outputs.skip == 'false'
-        id: pr-info
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const msg = context.payload.head_commit.message;
-            const match = msg.match(/\(#(\d+)\)/);
-            if (!match) {
-              console.log('No PR number found in commit message, defaulting to patch');
-              core.setOutput('bump', 'patch');
-              return;
-            }
-
-            const prNumber = parseInt(match[1]);
-            const { data: pr } = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: prNumber
-            });
-
-            const labels = pr.labels.map(l => l.name);
-            console.log('PR labels:', labels);
-
-            let bump = 'patch';
-            if (labels.includes('release: major')) bump = 'major';
-            else if (labels.includes('release: minor')) bump = 'minor';
-
-            console.log('Version bump type:', bump);
-            core.setOutput('bump', bump);
-            core.setOutput('pr_number', prNumber);
-
       - name: Setup Node.js
-        if: steps.check-skip.outputs.skip == 'false'
         uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: Configure git
-        if: steps.check-skip.outputs.skip == 'false'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
       - name: Bump version
-        if: steps.check-skip.outputs.skip == 'false'
         id: bump
         run: |
-          BUMP="${{ steps.pr-info.outputs.bump }}"
+          BUMP="${{ inputs.bump }}"
           npm version $BUMP -m "chore: bump version to %s"
           VERSION=$(node -p "require('./package.json').version")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           git push --follow-tags
 
       - name: Create GitHub release
-        if: steps.check-skip.outputs.skip == 'false'
         uses: actions/github-script@v7
         with:
           script: |
             const version = '${{ steps.bump.outputs.version }}';
+            const bump = '${{ inputs.bump }}';
             await github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -98,4 +64,4 @@ jobs:
               name: `Release v${version}`,
               generate_release_notes: true
             });
-            console.log(`Release v${version} created`);
+            console.log(`Release v${version} created (manual ${bump} bump)`);
