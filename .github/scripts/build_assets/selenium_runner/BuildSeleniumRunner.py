@@ -117,7 +117,8 @@ class BuildSeleniumRunner(SeleniumRunner):
 
         # wait a bit for all the icons to load before we take a pic
         time.sleep(SeleniumRunner.MED_WAIT_IN_SEC)
-        main_content.screenshot(new_icons_path)
+        # Use full-page screenshot to avoid canvas taint restrictions
+        self.driver.save_screenshot(new_icons_path)
         print("Saved screenshot of the new icons...", file=self.log_output)
 
     def go_to_generate_font_page(self):
