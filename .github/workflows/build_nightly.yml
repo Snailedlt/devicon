@@ -151,9 +151,7 @@ jobs:
 
       - name: Install Firefox
         if: steps.check-changes.outputs.has_changes == 'true'
-        run: |
-          sudo apt-get update -q
-          sudo apt-get install -y firefox
+        uses: browser-actions/setup-firefox@v1
 
       - name: Make geckodriver executable
         if: steps.check-changes.outputs.has_changes == 'true'
@@ -163,16 +161,13 @@ jobs:
         if: steps.check-changes.outputs.has_changes == 'true'
         id: build
         continue-on-error: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python ./.github/scripts/icomoon_build.py \
+          python ./.github/scripts/icomoon_build_githubless.py \
             ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver \
             ./icomoon.json \
             ./devicon.json \
             ./icons \
             ./ \
-            $GITHUB_TOKEN \
             --headless
 
       - name: Build CSS
