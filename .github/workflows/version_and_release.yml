@@ -1,0 +1,67 @@
+name: Version and Release (DEPRECATED)
+
+# DEPRECATED — versioning and releases are now handled by build_nightly.yml.
+# This workflow is kept as workflow_dispatch only for manual overrides or
+# emergency use. Do not re-enable the push trigger.
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump level'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+
+jobs:
+  version-and-release:
+    name: Manual Version Bump and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Configure git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Bump version
+        id: bump
+        run: |
+          BUMP="${{ inputs.bump }}"
+          npm version $BUMP -m "chore: bump version to %s"
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          git push --follow-tags
+
+      - name: Create GitHub release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = '${{ steps.bump.outputs.version }}';
+            const bump = '${{ inputs.bump }}';
+            await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `v${version}`,
+              name: `Release v${version}`,
+              generate_release_notes: true
+            });
+            console.log(`Release v${version} created (manual ${bump} bump)`);

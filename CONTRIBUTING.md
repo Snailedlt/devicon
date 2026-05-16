@@ -75,7 +75,7 @@ First of all, thanks for taking the time to contribute! This project can only gr
   <li>Create the SVGs for each <a href="#versionNaming"> SVG versions </a> that you have. Follow the <a href="#SVGStandards">convention</a> listed.</li>
   <li>Put the SVGs of each Icon into its own <a href="#orgGuidelines">folders</a> in <code>/icons</code></li>
   <li><a href="#updateDevicon">Update the <code>devicon.json</code> to include the new Icon</a> </li>
-  <li>Create a separated pull request (PR) towards the <code>develop</code> branch for each Icon.</li>
+  <li>Create a separated pull request (PR) towards the <code>master</code> branch for each Icon.</li>
   <li>Fill out the info as stated in the PR template.</li>
   <li>Include the name of the Icon in the pull request title in this format: <code>new icon: <i>Icon name</i> (<i>versions</i>)</code> </li>
   <li><i>Optional</i>: Reference the issues regarding the new icon and label the PR `feature:icon`. </li>
@@ -344,7 +344,7 @@ As an example, let's assume you have created the SVGs for Redhat and Amazon Web 
     Create a new commit to fix the SVGs.
   </li>
   <li>
-    Open a pull request based on the `develop` branch. 
+    Open a pull request based on the `master` branch.
   </li>
   <li>
     <strong>IMPORTANT</strong>: name the pull request <code>update icon: <i>icon-name</i> (<i>versions</i>)</code>. Basically, follow the <a href="#overview">Overview on Submitting Icon</a> but replace the <code>new</code> with <code>update</code> in name of request with the above.
@@ -361,19 +361,19 @@ As an example, let's assume you have created the SVGs for Redhat and Amazon Web 
     You <b>don't</b> have to be in a team to contribute!
 </p>
 <p>
-    The branches <code>master</code> and <code>develop</code> are protected branches and only members
-    with corresponding permissions (see teams below) are able to push changes to them.
+    The <code>master</code> branch is the protected branch and only members
+    with corresponding permissions (see teams below) are able to push changes to it.
     Additional branches <b>must</b> follow the pattern <code><i>username</i>/feature/<i>description</i></code>.
     The <code>/feature/</code> indicates that a change is made to existing code (regardless
-    if it's a fix, refactor or actual feature). The naming convention is based on the <i>gitflow</i>-workflow.
+    if it's a fix, refactor or actual feature).
 </p>
 <p>For organisational purposes we introduced <a href="https://github.com/orgs/devicons/teams">teams</a> with permissions and responsibilities:</p>
 <dl>
     <dt>Supporter (@devicons/supporter)</dt>
     <dd>
         Members of this team are responsible for reviewing pull request (auto assigned), managing issues and preparing the upcoming release.<br />
-        Supporters have <code>Write</code> access to the repository (allowing them to create own branches) 
-        and are allowed to push changes to the <code>develop</code> branch (pull request and status checks required).
+        Supporters have <code>Write</code> access to the repository (allowing them to create own branches)
+        and are allowed to push changes to the <code>master</code> branch (pull request and status checks required).
     </dd>
     <dt>Maintainer (@devicons/maintainer)</dt>
     <dd>
@@ -470,29 +470,25 @@ We are running a Discord server. You can go here to talk, discuss, and more with
 <h5>Release preparation and execution</h5>
 <ol>
     <li>Define the next release version number based on the conventions</li>
-    <li>Checkout <code>development</code> as <code>draft-release</code> branch</li>
-    <li>Bump the package version using <code>npm version v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i> -m "bump npm version to v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i>"</code>  (see <code><a href="https://github.com/devicons/devicon/pull/497">#487</a></code>)</li>
+    <li>Checkout <code>master</code> as <code>draft-release</code> branch: <code>git checkout master && git checkout -b draft-release</code></li>
+    <li>Bump the package version using <code>npm version v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i> -m "bump npm version to v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i>"</code></li>
     <li>Push the branch <code>draft-release</code></li>
     <li>Manually trigger the workflow <code><a href="https://github.com/devicons/devicon/actions/workflows/build_icons.yml">build_icons.yml</a></code> (which has a <code>workflow_dispatch</code> event trigger) and select the branch <code>draft-release</code> as target branch. This will build a font version of all icons using icomoon and automatically creates a pull request to merge the build result back into <code>draft-release</code></li>
-    <li>Review and approve the auto-create pull request created by the action of the step above</li>
-    <li>Create a pull request towards <code>development</code>. Mention the release number in the pull request title (like "Build preparation for release v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i>).
-      <ul> 
+    <li>Review, approve and merge the auto-created pull request</li>
+    <li>Create a pull request from <code>draft-release</code> towards <code>master</code>. Mention the release number in the pull request title (like "Release v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i>").
+      <ul>
         <li>
-        Add information about all new icons, fixes, features and enhancements in the description of the pull request. 
+        Add information about all new icons, fixes, features and enhancements in the description of the pull request.
         </li>
         <li>
-        Take the PRs/commits as a guideline. It's also a good idea to mention and thank all contributions who participated in the release (take description of <code><a href="https://github.com/devicons/devicon/pull/504">#504</a></code> as an example).
-        </li>
-        <li>
-        We now have a script that will do this for us. Check the `build-bot`'s PR message in the last step. There should be a section where it displays the features that have been added to the release. You can copy the markdown there and use it for the release message.
+        We have a script that will do this for you. Check the `build-bot`'s PR message in the previous step. There should be a section where it displays the features that have been added to the release. You can copy the markdown there and use it for the release message.
         </li>
       </ul>
     </li>
-    <li>Wait for review and approval of the pull request (you can perform a squash-merge)</li>
-    <li>Once merged create a pull request with BASE <code>master</code> and HEAD <code>development</code>. Copy the description of the earlier pull request.</li>
-    <li>Since it was already approved in the 'development' stage a maintainer is allowed to merge it (<b>DON'T</b> perform a squash-merge).</li>
+    <li>Since it was already reviewed, a maintainer can merge it (<b>DON'T</b> perform a squash-merge).</li>
     <li>Create a <a href="https://github.com/devicons/devicon/releases/new">new release</a> using the format "<b>Release v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i></b>" as tag and release title. Use the earlier created description as description of the release.</li>
-    <li>Publishing the release will trigger the <a href="/.github/workflows/npm_publish.yml">npm_publish.yml</a> workflow which will execute a <code>npm publish</code> leading to a updated <a href="https://www.npmjs.com/package/devicon">npm package</a> (v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i>).</li>
+    <li>Publishing the release will trigger the <a href="/.github/workflows/npm_publish.yml">npm_publish.yml</a> workflow which will execute a <code>npm publish</code> leading to an updated <a href="https://www.npmjs.com/package/devicon">npm package</a> (v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i>).</li>
+    <li>If icons fail to appear on the website, clear the CDN cache.</li>
 </ol>
 
 <h2 id='resources'>Recommended resources and tools</h2>
