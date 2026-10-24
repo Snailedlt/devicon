@@ -51,10 +51,19 @@ jobs:
       build_ok: ${{ steps.build-result.outputs.build_ok }}
 
     steps:
+      # Token for pushing to master. See "Pushing to a protected master" below.
+      - name: Get bot token
+        id: bot-token
+        if: vars.BOT_APP_ID != ''
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
       - name: Checkout master
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.bot-token.outputs.token || secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Check for new icon commits since last build
@@ -233,6 +242,15 @@ jobs:
   # One-time setup (repo admin):
   #   Settings → Environments → New environment → name it "production"
   #   Add required reviewers (maintainers who should approve releases).
+  #
+  # ── Pushing to a protected master ────────────────────────────────────────────
+  # The build and release jobs push commits/tags straight to master. When master
+  # is protected, GITHUB_TOKEN can't do that, so both jobs use a token from a
+  # GitHub App that is on the ruleset's bypass list:
+  #   vars.BOT_APP_ID             - the App ID
+  #   secrets.BOT_APP_PRIVATE_KEY - a private key generated for the app
+  # The app only needs "Contents: Read and write". Without these set, the jobs
+  # fall back to GITHUB_TOKEN (fine for an unprotected master).
   release:
     name: Bump Version and Release
     needs: build
@@ -251,13 +269,21 @@ jobs:
       version: ${{ steps.bump.outputs.version }}
 
     steps:
+      - name: Get bot token
+        id: bot-token
+        if: vars.BOT_APP_ID != ''
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
       - name: Checkout master
         uses: actions/checkout@v4
         with:
           # Explicit ref so we get the build: commit pushed by the build job,
           # not the commit the workflow was triggered on
           ref: master
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.bot-token.outputs.token || secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Find commits since last release
@@ -349,6 +375,9 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           git push --follow-tags
 
+      # Deliberately uses GITHUB_TOKEN (github-script's default), not the bot
+      # token: a release created with GITHUB_TOKEN doesn't trigger npm_publish.yml,
+      # so the publish job below is the only thing that publishes to npm.
       - name: Create GitHub release
         uses: actions/github-script@v7
         with:

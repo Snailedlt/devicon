@@ -33,7 +33,7 @@ devicon/
 
 - **Single branch:** `master` only. No `develop` branch.
 - Contributors open PRs against `master`.
-- Maintainers approve → auto-merge workflow fires.
+- Merging uses GitHub's native rules (ruleset on `master`): 1 approval required, squash merge only, squash commit title = PR title. No custom merge workflow.
 - Font files are built weekly, not per PR.
 
 ## Workflow Architecture
@@ -41,7 +41,13 @@ devicon/
 ### PR Flow
 1. Contributor opens PR → `check_icon_pr.yml` validates SVGs
 2. `peek_icons.yml` runs Icomoon peek → `post_peek_screenshot.yml` posts screenshots as PR comment
-3. Maintainer approves → `auto_build_merge.yml` squash-merges to master (**no build step**)
+3. Maintainer approves → squash-merges (or GitHub auto-merge) to master, commit `<PR title> (#<n>)` — the `(#n)` is what the release job reads labels from (**no build step**)
+
+### Repo setup the workflows depend on
+- Ruleset on `master`: require PR + 1 approval, squash only, block force-push/deletion. Bypass: the bot GitHub App (always).
+- Bot GitHub App with `Contents: Read and write`, installed on the repo; `vars.BOT_APP_ID` + `secrets.BOT_APP_PRIVATE_KEY`.
+- Environments: `production` (required reviewers, gates releases), `release` (holds `NPM_AUTOMATION_TOKEN`). Forks run `npm publish --dry-run`.
+- Labels: `release: major`, `release: minor`.
 
 ### Weekly Build and Release (`build_weekly.yml`)
 - Runs every Monday at 2 AM UTC

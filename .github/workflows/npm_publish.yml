@@ -28,6 +28,7 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org/ # Specifies the registry, this field is required!
       - run: npm ci
-      - run: npm publish
+      # Forks only do a dry run so they can't publish the real package
+      - run: npm publish ${{ github.repository != 'devicons/devicon' && '--dry-run' || '' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
