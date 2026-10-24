@@ -39,8 +39,8 @@ devicon/
 ## Workflow Architecture
 
 ### PR Flow
-1. Contributor opens PR → `check_icon_pr.yml` validates SVGs
-2. `peek_icons.yml` runs Icomoon peek → `post_peek_screenshot.yml` posts screenshots as PR comment
+1. Contributor opens PR → `check_icon_pr.yml` validates the touched icons (found from changed files via `util.get_pr_icon_changes`, diffing the PR merge commit against `HEAD^1`) and the PR title → `post_check_icon_pr_comment.yml` comments any errors
+2. `peek_icons.yml` runs Icomoon peek on the icon whose SVGs changed → `post_peek_screenshot.yml` posts screenshots as PR comment (nothing posted for PRs without SVG changes)
 3. Maintainer approves → squash-merges (or GitHub auto-merge) to master, commit `<PR title> (#<n>)` — the `(#n)` is what the release job reads labels from (**no build step**)
 
 ### Repo setup the workflows depend on
@@ -69,7 +69,13 @@ devicon/
 Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly run does (build if needed, release if anything changed). To build without releasing, reject the `production` approval. The `bump` input (`auto`/`patch`/`minor`/`major`) overrides the label-derived bump.
 
 ### PR titles
-No longer used for building or releasing. Still used by `check_icon_pr.yml` (only runs for titles starting with `new icon`/`update icon`) and `peek_icons.yml` (finds the icon by name in the title), and they become the squash commit / release notes.
+Not used to find icons anywhere (bots, build, release all use changed files). Enforced by `check_icon_pr.yml` for PRs that change SVGs:
+- one icon per PR
+- title `new icon: <name> (<versions>)` (icon not in target branch's `devicon.json`) or `update icon: <name> (<versions>)`; versions = the SVGs the PR adds/changes; case and version order don't matter
+- on mismatch the check-bot comments the problems plus the expected title; editing the title re-runs the check
+- `devicon.json`-only PRs (aliases, tags…) have no title requirement
+
+The title becomes the squash commit and the release-notes line.
 
 ## TODO
 - Replace icomoon.io (Selenium) with a local Node font build: keep existing glyphs from `icomoon.json`, normalize new SVGs to the 1024 grid, assign next codepoint, generate fonts with `svgicons2svgfont` → `svg2ttf` → `ttf2woff`/`ttf2eot`. Prototype first and diff glyph output against current fonts. Would also allow real-font PR previews instead of peek-bot.

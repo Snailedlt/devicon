@@ -1,6 +1,8 @@
 name: Check Icon PR
 on:
   pull_request:
+    # edited: re-check when the PR title is fixed
+    types: [opened, synchronize, reopened, edited]
     paths:
       - 'icons/**'
       - 'devicon.json'
@@ -9,7 +11,11 @@ jobs:
     name: Check the `devicon.json` and the SVGs' quality
     runs-on: ubuntu-latest
     steps:
+      # Checks out the PR's merge commit; depth 2 so HEAD^1 (the target branch)
+      # is available to diff against
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Check if PR targets master
         if: ${{ github.base_ref != 'master' }}

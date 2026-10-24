@@ -34,8 +34,9 @@ def get_selenium_runner_args(has_token=True, peek_mode=False, build_since=False)
                         action=PathResolverAction)
 
     if peek_mode:
-        parser.add_argument("pr_title",
-                            help="The title of the PR that we are peeking at")
+        parser.add_argument("--base",
+                            help="Commit to diff against to find the PR's changes (HEAD^1 in a PR merge commit)",
+                            default="HEAD^1")
     if has_token != False:
         parser.add_argument("token",
                             help="The GitHub token to access the GitHub REST API.")
@@ -54,7 +55,7 @@ def get_check_icon_pr_args():
     parser = ArgumentParser(description="Check the SVGs to ensure their attributes are correct. Run whenever a PR is opened")
 
     parser.add_argument("pr_title",
-                        help="The title of the PR that we are peeking at")
+                        help="The title of the PR that we are checking")
 
     parser.add_argument("icons_folder_path",
                         help="The path to the icons folder",
@@ -63,6 +64,10 @@ def get_check_icon_pr_args():
     parser.add_argument("devicon_json_path",
                         help="The path to the devicon.json",
                         action=PathResolverAction)
+
+    parser.add_argument("--base",
+                        help="Commit to diff against to find the PR's changes (HEAD^1 in a PR merge commit)",
+                        default="HEAD^1")
 
     return parser.parse_args()
 
