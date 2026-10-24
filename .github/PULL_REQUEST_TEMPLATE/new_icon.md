@@ -8,7 +8,7 @@
 - [ ] SVG matches the standards laid out [here](https://github.com/devicons/devicon/wiki/SVG-Standards)
 - [ ] A new object is added in the `devicon.json` file at the correct alphabetic position as seen [here](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)
 
-<!-- Refer to the [contributing](https://github.com/devicons/devicon/blob/develop/CONTRIBUTING.md#contributing-to-devicon) guidelines for more details. -->
+<!-- Refer to the [contributing](https://github.com/devicons/devicon/blob/master/CONTRIBUTING.md#contributing-to-devicon) guidelines for more details. -->
 
 **This PR closes NONE**
 <!-- List issues that this PR would close above. Ex: This PR closes #1, #2, #3. -->

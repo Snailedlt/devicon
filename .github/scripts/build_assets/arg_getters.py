@@ -71,18 +71,3 @@ def get_release_message_args():
     parser.add_argument("token",
                         help="The GitHub token to access the GitHub REST API.")
     return parser.parse_args()
-
-
-def get_in_develop_labeler_args():
-    """
-    Get the commandline arguments for in_develop_labeler.py.
-    """
-    parser = ArgumentParser(description="Parse the PR body to find the issue(s) we are labelling.")
-    parser.add_argument("token",
-                        help="The GitHub token to access the GitHub REST API.",
-                        type=str)
-
-    parser.add_argument("pr_num",
-                        help="The PR's number",
-                        type=str)
-    return parser.parse_args()

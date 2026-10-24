@@ -12,7 +12,7 @@ jobs:
           # "ref" specifies the branch to check out.
           # "github.event.release.target_commitish" is a global variable and specifies the branch the release targeted
           ref: ${{ github.event.release.target_commitish }}
-      - name: Use Node.js v16
+      - name: Use Node.js v24
         uses: actions/setup-node@v4
         with:
           node-version: 24

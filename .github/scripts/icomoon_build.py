@@ -52,11 +52,6 @@ def main():
         print("Creating the release message by querying the GitHub API...", file=logfile)
         get_release_message(args.token, logfile)
 
-        print("Closing issues with the `in-develop` label.", file=logfile)
-        issues = api_handler.get_issues_by_labels(args.token, ["in-develop"])
-        issue_nums = [issue_num["number"] for issue_num in issues]
-        api_handler.close_issues(args.token, issue_nums)
-
         print("Task completed.", file=logfile)
     except TimeoutException as e:
         util.exit_with_err(Exception("Selenium Time Out Error: \n" + str(e)), logfile)
