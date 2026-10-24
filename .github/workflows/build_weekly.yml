@@ -231,7 +231,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `Weekly build failed - ${today}`,
-              body: `The weekly Icomoon build failed.\n\n**Workflow run:** ${runUrl}\n\nPlease investigate and re-run manually once fixed using the \`workflow_dispatch\` trigger on \`build_nightly.yml\`.`,
+              body: `The weekly Icomoon build failed.\n\n**Workflow run:** ${runUrl}\n\nPlease investigate and re-run manually once fixed using the \`workflow_dispatch\` trigger on \`build_weekly.yml\`.`,
               labels: ['build-failed']
             });
 

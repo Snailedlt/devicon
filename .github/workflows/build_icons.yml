@@ -2,9 +2,9 @@ name: Build Icons (Emergency Fallback)
 
 # Manual emergency re-run for when the weekly build fails or needs to be
 # forced outside the regular schedule. Commits font files directly to master
-# with a "build:" prefix so build_nightly.yml doesn't double-process.
+# with a "build:" prefix so build_weekly.yml doesn't double-process.
 #
-# For day-to-day releases, use build_nightly.yml instead.
+# For day-to-day releases, use build_weekly.yml instead.
 
 on:
   workflow_dispatch:

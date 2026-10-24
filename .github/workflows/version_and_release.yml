@@ -1,6 +1,6 @@
 name: Version and Release (DEPRECATED)
 
-# DEPRECATED — versioning and releases are now handled by build_nightly.yml.
+# DEPRECATED — versioning and releases are now handled by build_weekly.yml.
 # This workflow is kept as workflow_dispatch only for manual overrides or
 # emergency use. Do not re-enable the push trigger.
 
