@@ -457,7 +457,7 @@ We are running a Discord server. You can go here to talk, discuss, and more with
 
 <h2 id='release'>Release strategy, conventions, preparation and execution</h2>
 <h5>Release strategy</h5>
-<p>Devicon releases weekly. Every Monday the <code><a href="/.github/workflows/build_weekly.yml">build_weekly.yml</a></code> workflow builds the fonts for icons merged since the last build, and if anything new was built, a maintainer approves the release.</p>
+<p>Devicon releases weekly. Every Monday the <code><a href="/.github/workflows/build_weekly.yml">build_weekly.yml</a></code> workflow builds the fonts for icons added or changed since the last build, and if anything changed since the last release, a maintainer approves the release.</p>
 <h5>Conventions</h5>
 <p>The version naming follows the rules of <a href="https://semver.org/">Semantic Versioning</a>. Given a version number MAJOR.MINOR.PATCH, increment the:</p>
 <ul>
@@ -470,12 +470,12 @@ We are running a Discord server. You can go here to talk, discuss, and more with
 <h5>Release preparation and execution</h5>
 <p>The weekly run handles everything automatically:</p>
 <ol>
-    <li>The <code>build</code> job builds the fonts and CSS with icomoon and commits them to <code>master</code> with a <code>build:</code> commit. If the build fails, an issue labelled <code>build-failed</code> is created.</li>
-    <li>The <code>release</code> job waits for a maintainer to approve the <code>production</code> environment, then bumps the version, pushes the <code>v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i></code> tag and creates the GitHub release with generated release notes.</li>
+    <li>The <code>build</code> job builds the font glyphs of new and updated icons and the CSS with icomoon, and commits them to <code>master</code> with a <code>build:</code> commit. If the build fails, an issue labelled <code>build-failed</code> is created.</li>
+    <li>If anything users receive (SVGs, <code>devicon.json</code>, CSS or fonts) changed since the last release, the <code>release</code> job waits for a maintainer to approve the <code>production</code> environment, then bumps the version, pushes the <code>v<i>MAJOR</i>.<i>MINOR</i>.<i>PATCH</i></code> tag and creates the GitHub release with generated release notes.</li>
     <li>The <code>publish</code> job runs <a href="/.github/workflows/npm_publish.yml">npm_publish.yml</a>, which updates the <a href="https://www.npmjs.com/package/devicon">npm package</a>.</li>
     <li>If icons fail to appear on the website, clear the CDN cache.</li>
 </ol>
-<p>To build or release outside the weekly schedule, run <code>build_weekly.yml</code> manually and pick a <code>mode</code>: <code>build and release</code>, <code>build only</code> or <code>release only</code>. The <code>bump</code> input overrides the label-derived version bump.</p>
+<p>To build and release outside the weekly schedule, run <code>build_weekly.yml</code> manually; it does the same as the weekly run. The <code>bump</code> input overrides the label-derived version bump.</p>
 
 <h2 id='resources'>Recommended resources and tools</h2>
 

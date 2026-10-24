@@ -1,25 +1,18 @@
 name: Weekly Build and Release
-# Runs every Monday at 2 AM UTC, or manually via workflow_dispatch.
+# Runs every Monday at 2 AM UTC, or manually via workflow_dispatch (same steps).
 #
-# Manual runs can pick a mode:
-#   build and release - same as the weekly run (default)
-#   build only        - build fonts + CSS and commit them, no release
-#   release only      - bump version and release what's on master, no build
+#   build   - (re)builds font glyphs for new/changed icons and the CSS, commits
+#             them to master as "build: ...". Decides whether there's anything
+#             to release.
+#   release - waits for approval on the "production" environment, then bumps
+#             the version, tags and creates the GitHub release.
+#   publish - publishes the release to npm.
 
 on:
   schedule:
     - cron: '0 2 * * 1'  # 2 AM UTC every Monday
   workflow_dispatch:
     inputs:
-      mode:
-        description: 'What to run'
-        required: false
-        default: 'build and release'
-        type: choice
-        options:
-          - build and release
-          - build only
-          - release only
       bump:
         description: 'Version bump level (auto = derive from PR labels)'
         required: false
@@ -43,12 +36,9 @@ concurrency:
 jobs:
   build:
     name: Build Fonts and CSS
-    # Scheduled runs have no inputs, so inputs.mode is empty and the build runs
-    if: inputs.mode != 'release only'
     runs-on: ubuntu-latest
     outputs:
-      has_changes: ${{ steps.check-changes.outputs.has_changes }}
-      build_ok: ${{ steps.build-result.outputs.build_ok }}
+      should_release: ${{ steps.release-check.outputs.should_release }}
 
     steps:
       # Token for pushing to master. See "Pushing to a protected master" below.
@@ -66,35 +56,27 @@ jobs:
           token: ${{ steps.bot-token.outputs.token || secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Check for new icon commits since last build
+      - name: Check for icon changes since last build
         id: check-changes
         run: |
           # Find the last commit whose message starts with "build:"
-          LAST_BUILD=$(git log --format="%H %s" | awk '/^[a-f0-9]+ build:/ { print $1; exit }')
+          SINCE=$(git log --format="%H %s" | awk '/^[a-f0-9]+ build:/ { print $1; exit }')
 
-          if [ -z "$LAST_BUILD" ]; then
+          if [ -z "$SINCE" ]; then
             echo "No previous build commit found - falling back to last release tag"
-            LAST_TAG=$(git tag --sort=-creatordate | grep -E '^v[0-9]' | head -1)
-            if [ -z "$LAST_TAG" ]; then
-              echo "No release tag found either - checking all history"
-              RANGE="$(git rev-list --max-parents=0 HEAD)..HEAD"
-            else
-              echo "Using last release tag as base: $LAST_TAG"
-              RANGE="${LAST_TAG}..HEAD"
-            fi
-          else
-            echo "Last build commit: $LAST_BUILD"
-            RANGE="${LAST_BUILD}..HEAD"
+            SINCE=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
           fi
+          if [ -z "$SINCE" ]; then
+            echo "No release tag found either - checking all history"
+            SINCE=$(git rev-list --max-parents=0 HEAD | tail -1)
+          fi
+          echo "Building changes since $SINCE"
+          echo "since=$SINCE" >> $GITHUB_OUTPUT
 
-          # Check if any commits in range touch icons/ or devicon.json
-          CHANGES=$(git diff --name-only $RANGE -- icons/ devicon.json 2>/dev/null)
-
-          if [ -z "$CHANGES" ]; then
-            echo "No icon changes since last build — skipping"
+          if git diff --quiet "$SINCE" HEAD -- icons/ devicon.json; then
+            echo "No icon changes since last build — skipping build"
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
-            echo "Icon changes found since last build"
             echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
@@ -128,10 +110,15 @@ jobs:
         if: steps.check-changes.outputs.has_changes == 'true'
         run: chmod +x ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver
 
+      # Rebuilds icons whose glyphs don't match devicon.json (new icons, changed
+      # font versions) or whose font SVGs changed since the last build. Exits
+      # successfully without touching anything if there's nothing to build.
       - name: Run Icomoon build
         if: steps.check-changes.outputs.has_changes == 'true'
         id: build
         continue-on-error: true
+        env:
+          SINCE: ${{ steps.check-changes.outputs.since }}
         run: |
           python ./.github/scripts/icomoon_build_githubless.py \
             ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver \
@@ -139,8 +126,11 @@ jobs:
             ./devicon.json \
             ./icons \
             ./ \
-            --headless
+            --headless \
+            --since "$SINCE"
 
+      # Always rebuilt when icons/devicon.json changed: aliases and colors in
+      # devicon.json end up in devicon.min.css even when no glyphs change.
       - name: Build CSS
         if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome == 'success'
         id: build-css
@@ -204,22 +194,6 @@ jobs:
 
             core.setFailed('Weekly build failed - issue created');
 
-      - name: Set build result output
-        id: build-result
-        if: always()
-        run: |
-          # build_ok=true only when the build + CSS succeeded AND icomoon.json was
-          # actually modified — the script only touches icomoon.json when new icons
-          # are processed, so this is a reliable "something was built" signal.
-          if [[ "${{ steps.check-changes.outputs.has_changes }}" == "true" && \
-                "${{ steps.build.outcome }}" == "success" && \
-                "${{ steps.build-css.outcome }}" == "success" ]] && \
-             ! git diff --quiet -- icomoon.json; then
-            echo "build_ok=true" >> $GITHUB_OUTPUT
-          else
-            echo "build_ok=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Commit build artifacts
         if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome == 'success' && steps.build-css.outcome == 'success'
         run: |
@@ -233,6 +207,27 @@ jobs:
             git push origin HEAD:master
           else
             echo "No build artifacts changed"
+          fi
+
+      # Release when anything users get (via npm / jsDelivr) changed since the
+      # last release tag: SVGs, devicon.json, CSS or fonts. Decided here rather
+      # than in the release job so weeks with nothing to ship don't ask for an
+      # approval. Skipped (= no release) if the build failed.
+      - name: Check for changes to release
+        id: release-check
+        run: |
+          SHIPPED="icons devicon.json devicon.min.css devicon-base.css fonts"
+          LAST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
+          if [ -z "$LAST_TAG" ]; then
+            echo "No previous release tag — releasing"
+            echo "should_release=true" >> $GITHUB_OUTPUT
+          elif git diff --quiet "$LAST_TAG" HEAD -- $SHIPPED; then
+            echo "Nothing to release since $LAST_TAG"
+            echo "should_release=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes to release since $LAST_TAG:"
+            git diff --stat "$LAST_TAG" HEAD -- $SHIPPED | tail -1
+            echo "should_release=true" >> $GITHUB_OUTPUT
           fi
 
   # ── Release gate ─────────────────────────────────────────────────────────────
@@ -254,15 +249,7 @@ jobs:
   release:
     name: Bump Version and Release
     needs: build
-    # build and release: only when the build produced new icons.
-    # release only: the build job is skipped, so don't depend on its result.
-    if: >
-      !cancelled() && (
-        inputs.mode == 'release only' ||
-        (inputs.mode != 'build only' &&
-         needs.build.result == 'success' &&
-         needs.build.outputs.build_ok == 'true')
-      )
+    if: needs.build.outputs.should_release == 'true'
     runs-on: ubuntu-latest
     environment: production
     outputs:
@@ -292,16 +279,11 @@ jobs:
           LAST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
           if [ -z "$LAST_TAG" ]; then
             echo "No previous release tag — using full history"
-            RANGE="HEAD"
+            echo "range=HEAD" >> $GITHUB_OUTPUT
           else
             echo "Last release: $LAST_TAG"
-            RANGE="${LAST_TAG}..HEAD"
-            if [ "$(git rev-list --count "$RANGE")" = "0" ]; then
-              echo "::error::Nothing to release — no commits since $LAST_TAG"
-              exit 1
-            fi
+            echo "range=${LAST_TAG}..HEAD" >> $GITHUB_OUTPUT
           fi
-          echo "range=$RANGE" >> $GITHUB_OUTPUT
 
       - name: Determine version bump level
         id: version-bump
@@ -399,7 +381,6 @@ jobs:
   publish:
     name: Publish to npm
     needs: release
-    if: ${{ !cancelled() && needs.release.result == 'success' }}
     uses: ./.github/workflows/npm_publish.yml
     with:
       ref: v${{ needs.release.outputs.version }}

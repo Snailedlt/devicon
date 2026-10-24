@@ -51,8 +51,10 @@ devicon/
 
 ### Weekly Build and Release (`build_weekly.yml`)
 - Runs every Monday at 2 AM UTC
-- `build` job: detects icon changes since last `build:` commit → runs Icomoon build + CSS → commits with `build:` prefix. On failure: creates a `build-failed` issue
-- `release` job (gated by `production` environment approval): derives semver bump from labels of PRs merged since the last `v*` tag → `npm version` → pushes tag → creates GitHub release
+- `build` job: if `icons/` or `devicon.json` changed since the last `build:` commit, runs the Icomoon build + CSS and commits with `build:` prefix. On failure: creates a `build-failed` issue
+  - An icon's glyphs are (re)built when its non-alias font versions in `devicon.json` don't match its glyphs in `icomoon.json` (new icon / versions changed), or one of its font SVGs changed since the last build (updated icon). Detection is by file diff, not PR titles.
+  - Ends by deciding `should_release`: anything shipped (`icons`, `devicon.json`, CSS, `fonts`) changed since the last `v*` tag
+- `release` job (only if `should_release`, gated by `production` environment approval): derives semver bump from labels of PRs merged since the last `v*` tag → `npm version` → pushes tag → creates GitHub release
 - `publish` job: calls `npm_publish.yml` as a reusable workflow (releases made with `GITHUB_TOKEN` don't trigger `release:` events)
 - Only one run at a time (`concurrency: build-and-release`)
 
@@ -64,12 +66,10 @@ devicon/
 | (none)           | patch   |
 
 ### Manual Build / Release
-Run `build_weekly.yml` via workflow_dispatch and pick a `mode`:
-- `build and release` — same as the weekly run
-- `build only` — commit fonts + CSS to master, no release (e.g. re-run after a failed build)
-- `release only` — release what's on master without building (fails if there are no commits since the last tag)
+Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly run does (build if needed, release if anything changed). To build without releasing, reject the `production` approval. The `bump` input (`auto`/`patch`/`minor`/`major`) overrides the label-derived bump.
 
-The `bump` input (`auto`/`patch`/`minor`/`major`) overrides the label-derived bump.
+### PR titles
+No longer used for building or releasing. Still used by `check_icon_pr.yml` (only runs for titles starting with `new icon`/`update icon`) and `peek_icons.yml` (finds the icon by name in the title), and they become the squash commit / release notes.
 
 ## TODO
 - Replace icomoon.io (Selenium) with a local Node font build: keep existing glyphs from `icomoon.json`, normalize new SVGs to the 1024 grid, assign next codepoint, generate fonts with `svgicons2svgfont` → `svg2ttf` → `ttf2woff`/`ttf2eot`. Prototype first and diff glyph output against current fonts. Would also allow real-font PR previews instead of peek-bot.

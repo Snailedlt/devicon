@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 from build_assets.PathResolverAction import PathResolverAction
 
 
-def get_selenium_runner_args(has_token=True, peek_mode=False):
+def get_selenium_runner_args(has_token=True, peek_mode=False, build_since=False):
     """
     Get the commandline arguments for the icomoon_peek.py and 
     icomoon_build.py.
@@ -39,6 +39,10 @@ def get_selenium_runner_args(has_token=True, peek_mode=False):
     if has_token != False:
         parser.add_argument("token",
                             help="The GitHub token to access the GitHub REST API.")
+    if build_since:
+        parser.add_argument("--since",
+                            help="Commit to diff against to find updated SVGs (usually the last build commit)",
+                            default=None)
 
     return parser.parse_args()
 
