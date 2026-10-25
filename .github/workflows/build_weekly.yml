@@ -353,7 +353,7 @@ jobs:
 
             const sections = [];
             if (icons.length) sections.push(` **${icons.length} New/Updated Icons**\n${icons.join('\n')}`);
-            if (features.length) sections.push(` **${features.length} New Features**\n${features.join('\n')}`);
+            if (features.length) sections.push(` **${features.length} New Features/Fixes**\n${features.join('\n')}`);
             const notes = ['A huge thanks to all our maintainers and contributors for making this release possible!', ...sections].join('\n\n');
             console.log('Release notes:\n' + notes);
             core.setOutput('notes', notes);
