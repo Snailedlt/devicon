@@ -289,20 +289,18 @@ jobs:
             echo "range=${LAST_TAG}..HEAD" >> $GITHUB_OUTPUT
           fi
 
-      - name: Determine version bump level
+      # Collects the PRs merged since the last release (from the "(#123)" in
+      # squash commit titles) and derives from them:
+      # - the version bump: highest of the "release: major/minor" labels, else patch
+      # - the release notes, in the same format as earlier devicon releases
+      - name: Determine version bump and release notes
         id: version-bump
         uses: actions/github-script@v7
         with:
           script: |
-            const manualBump = '${{ inputs.bump }}';
-            if (manualBump && manualBump !== 'auto') {
-              console.log('Manual bump override:', manualBump);
-              core.setOutput('bump', manualBump);
-              return;
-            }
-
             const range = '${{ steps.range.outputs.range }}';
             const { execSync } = require('child_process');
+            const repo = { owner: context.repo.owner, repo: context.repo.repo };
 
             let log = '';
             try {
@@ -311,36 +309,54 @@ jobs:
               console.log('Could not get git log:', e.message);
             }
 
-            // Extract PR numbers from squash commit messages like "new icon: foo (#123)"
+            // Extract PR numbers from squash commit messages like "new icon: foo (#123)".
+            // git log lists newest first, so the notes do too.
             const prNumbers = [...new Set([...log.matchAll(/\(#(\d+)\)/g)].map(m => parseInt(m[1])))];
             console.log('PR numbers found in commits:', prNumbers);
 
             let bump = 'patch';
+            const icons = [], features = [];
 
             for (const prNumber of prNumbers) {
+              let pr;
               try {
-                const { data: pr } = await github.rest.pulls.get({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  pull_number: prNumber
-                });
-
-                const labels = pr.labels.map(l => l.name);
-                console.log(`PR #${prNumber} labels:`, labels);
-
-                if (labels.includes('release: major')) {
-                  bump = 'major';
-                  break; // Can't go higher
-                } else if (labels.includes('release: minor') && bump !== 'major') {
-                  bump = 'minor';
-                }
+                ({ data: pr } = await github.rest.pulls.get({ ...repo, pull_number: prNumber }));
               } catch (e) {
                 console.log(`Could not fetch PR #${prNumber}:`, e.message);
+                continue;
               }
+
+              const labels = pr.labels.map(l => l.name);
+              console.log(`PR #${prNumber} labels:`, labels);
+              if (labels.includes('release: major')) {
+                bump = 'major';
+              } else if (labels.includes('release: minor') && bump !== 'major') {
+                bump = 'minor';
+              }
+
+              // Credit everyone who made commits in the PR
+              const commits = await github.paginate(github.rest.pulls.listCommits, { ...repo, pull_number: prNumber, per_page: 100 });
+              const authors = [...new Set(commits.map(c => c.author ? c.author.login : c.commit.author.name))];
+              const line = `- [${pr.title}](${pr.html_url}) by ${authors.map(a => '@' + a).join(', ')}.`;
+
+              // Icon PR titles are enforced (and auto-fixed) by the check-bot
+              (/^(new|update) icon:/i.test(pr.title) ? icons : features).push(line);
             }
 
+            const manualBump = '${{ inputs.bump }}';
+            if (manualBump && manualBump !== 'auto') {
+              console.log('Manual bump override:', manualBump);
+              bump = manualBump;
+            }
             console.log('Final version bump:', bump);
             core.setOutput('bump', bump);
+
+            const sections = [];
+            if (icons.length) sections.push(` **${icons.length} New/Updated Icons**\n${icons.join('\n')}`);
+            if (features.length) sections.push(` **${features.length} New Features/Fixes**\n${features.join('\n')}`);
+            const notes = ['A huge thanks to all our maintainers and contributors for making this release possible!', ...sections].join('\n\n');
+            console.log('Release notes:\n' + notes);
+            core.setOutput('notes', notes);
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -366,6 +382,8 @@ jobs:
       # so the publish job below is the only thing that publishes to npm.
       - name: Create GitHub release
         uses: actions/github-script@v7
+        env:
+          NOTES: ${{ steps.version-bump.outputs.notes }}
         with:
           script: |
             const version = '${{ steps.bump.outputs.version }}';
@@ -376,7 +394,7 @@ jobs:
               repo: context.repo.repo,
               tag_name: `v${version}`,
               name: `Release v${version}`,
-              generate_release_notes: true,
+              body: process.env.NOTES,
               draft: false
             });
 
