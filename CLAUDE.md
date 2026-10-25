@@ -75,6 +75,7 @@ Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly
 ### PR titles
 Not used to find icons anywhere (bots, build, release all use changed files). Enforced by `check_icon_pr.yml` for icon PRs (any change in `icons/`):
 - one icon per PR; only `icons/<name>/` and that icon's `devicon.json` entry may change — any other added/modified/deleted file or other `devicon.json` entry fails the check with a comment
+- a rename (one folder moved to another + the `devicon.json` entry renamed) counts as one icon and is checked as `update icon: <new name>`; when the bot labels a rename or removal `release: major` it also comments why it's breaking (the check passes only the names via `release_notice.json`, the comment workflow writes the text)
 - title `new icon: <name> (<versions>)` (icon not in target branch's `devicon.json`) or `update icon: <name> (<versions>)`; versions = the SVGs the PR adds/changes; case and version order don't matter
 - wrong title on an otherwise clean-scoped PR → check fails, writes `expected_title.txt`, and `post_check_icon_pr_comment.yml` renames the PR with the bot app token (which re-runs the check) and comments old → new title. Without the bot app it comments the expected title instead
 - wrong title on a PR with scope problems → no rename; the title issue is part of the error comment
