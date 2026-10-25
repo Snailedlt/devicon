@@ -84,8 +84,7 @@ Not used to find icons anywhere (bots, build, release all use changed files). En
 The title becomes the squash commit and the release-notes line.
 
 ## TODO
-- Replace icomoon.io (Selenium) with a local Node font build: keep existing glyphs from `icomoon.json`, normalize new SVGs to the 1024 grid, assign next codepoint, generate fonts with `svgicons2svgfont` → `svg2ttf` → `ttf2woff`/`ttf2eot`. Prototype first and diff glyph output against current fonts. Would also allow real-font PR previews instead of peek-bot.
-- Update wiki pages still describing the `develop` flow (Release-strategy, Creating-Pull-Request-for-New-Icon, Overview-on-Submitting-Icons, Requesting-an-Icon, About-the-Maintainers, Our-automated-tasks-and-bots) — on a wiki branch, publish together with the migration.
+Future fixes and features are tracked in [BACKLOG.md](BACKLOG.md); keep it up to date instead of adding TODOs here.
 
 ## Common Tasks
 
