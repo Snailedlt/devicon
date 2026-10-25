@@ -1,4 +1,5 @@
 from typing import List
+import json
 import xml.etree.ElementTree as et
 from pathlib import Path
 
@@ -14,8 +15,8 @@ def main():
     `devicon.json` entries and the SVGs.
 
     An icon PR (one that changes anything in icons/) must only change one
-    icons/<name>/ folder and that icon's `devicon.json` entry, and its title must
-    describe it. If the title is the only thing wrong about the PR's scope, the
+    icons/<name>/ folder and that icon's `devicon.json` entry (or rename one
+    icon), and its title must describe it. If the title is the only thing wrong about the PR's scope, the
     expected title is written to './expected_title.txt' so the bot can rename the
     PR, instead of reporting it as an error.
 
@@ -38,6 +39,17 @@ def main():
 
         # An icon PR only touches one icons/<name>/ folder and that icon's devicon.json entry
         icon_folders = changes["icon_folders"]
+        removed = sorted(changes["existing"] - set(icons_by_name))
+        added = sorted(set(icons_by_name) - changes["existing"])
+
+        # A rename moves one icon folder to another and renames its devicon.json
+        # entry; treat it as a change to the new icon
+        renamed_from = None
+        if len(icon_folders) == 2 and len(removed) == 1 and len(added) == 1 and set(icon_folders) == {removed[0], added[0]}:
+            renamed_from = removed[0]
+            icon_folders = [added[0]]
+            print(f"Rename: {renamed_from} -> {added[0]}")
+
         if icon_folders:
             if changes["other_files"]:
                 err_msg.append("Icon PRs should only change files in `icons/<icon name>/` and `devicon.json`, but this PR also changes:\n" +
@@ -49,7 +61,7 @@ def main():
         expected_title = ""
         if len(icon_folders) == 1:
             name = icon_folders[0]
-            other_entries = [n for n in changes["json"] if n != name]
+            other_entries = [n for n in changes["json"] if n not in (name, renamed_from)]
             if other_entries:
                 err_msg.append(f"Icon PRs should only change the `devicon.json` entry of their own icon (\"{name}\"), but this PR also changes: {', '.join(other_entries)}.")
 
@@ -62,7 +74,8 @@ def main():
                     err_msg.append("These SVG file names don't match our pattern of `<name>-(original|plain|line)(-wordmark)?.svg`:\n" +
                         "\n".join(f"- icons/{name}/{file}" for file in invalid_files))
                 if versions:
-                    title_err, title = util.check_pr_title(args.pr_title, icon, name not in changes["existing"], versions)
+                    is_new = name not in changes["existing"] and not renamed_from
+                    title_err, title = util.check_pr_title(args.pr_title, icon, is_new, versions)
                     # Only rename automatically when the PR's scope is clean
                     if title_err and not (changes["other_files"] or other_entries or invalid_files):
                         expected_title = title
@@ -99,6 +112,10 @@ def main():
         if expected_title:
             print(f"PR title should be: {expected_title}")
         filehandler.write_to_file("./release_label.txt", get_release_label(changes, set(icons_by_name)))
+        # Facts for the bot's "why this is a major release" comment; the comment
+        # workflow writes the actual message
+        notice = {"renamed": [renamed_from, added[0]]} if renamed_from else {"removed": removed} if removed else {}
+        filehandler.write_to_file("./release_notice.json", json.dumps(notice))
         print("Task completed.")
     except Exception as e:
         filehandler.write_to_file("./err_messages.txt", str(e))

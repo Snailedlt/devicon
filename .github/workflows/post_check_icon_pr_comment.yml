@@ -165,6 +165,33 @@ jobs:
             const { data: labels } = await github.rest.issues.listLabelsOnIssue(issue);
             if (labels.some(l => l.name.startsWith('release:'))) return;
             await github.rest.issues.addLabels({ ...issue, labels: [label] });
+            if (label !== 'release: major') return;
+
+            // Explain why a rename or removal is a major release. The check only
+            // passes the icon names; the message is written here.
+            const noticeFile = './err_messages/release_notice.json';
+            const notice = fs.existsSync(noticeFile) ? JSON.parse(fs.readFileSync(noticeFile, 'utf8')) : {};
+            const names = [...(notice.renamed || []), ...(notice.removed || [])];
+            if (!names.length || !names.every(n => /^[a-z0-9._-]{1,50}$/.test(n))) return;
+
+            let what, old;
+            if (notice.renamed) {
+              const [from, to] = notice.renamed;
+              what = `**\`${from}\` is renamed to \`${to}\`.**`;
+              old = [from];
+            } else {
+              what = `**This PR removes ${notice.removed.map(n => `\`${n}\``).join(', ')}.**`;
+              old = notice.removed;
+            }
+            const uses = old.map(n => `\`icons/${n}/…\` SVG links or \`devicon-${n}-*\` classes`).join(', ');
+            await github.rest.issues.createComment({ ...issue, body: [
+              "Hi!", "",
+              `I'm the \`check-bot\`. ${what}`, "",
+              `Sites that use the old name (${uses}) can break, so this is a breaking change. ` +
+              "I've labelled this PR `release: major`: it will be part of the next major release. " +
+              "If it isn't breaking after all, a maintainer can replace the label.", "",
+              "Thanks for your help,", "SVG-Checker Bot :smile:"
+            ].join('\n') });
 
       - name: Comment on the PR about the result - SVG Error
         uses: actions/github-script@v7
