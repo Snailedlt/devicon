@@ -291,7 +291,10 @@ jobs:
 
       # Collects the PRs merged since the last release (from the "(#123)" in
       # squash commit titles) and derives from them:
-      # - the version bump: highest of the "release: major/minor" labels, else patch
+      # - the version bump: highest of the "release: major/minor" labels, else
+      #   patch, but never below the minimum required by the changes since the
+      #   last release: major if an icon was renamed or removed (its classes
+      #   disappear), minor if an icon was added or updated
       # - the release notes, in the same format as earlier devicon releases
       - name: Determine version bump and release notes
         id: version-bump
@@ -348,6 +351,40 @@ jobs:
               console.log('Manual bump override:', manualBump);
               bump = manualBump;
             }
+
+            // Minimum bump from what changed since the last release
+            const rank = { patch: 0, minor: 1, major: 2 };
+            let minimum = 'patch';
+            const raise = (level, reason) => {
+              if (rank[level] > rank[minimum]) minimum = level;
+              console.log(`Requires at least ${level}: ${reason}`);
+            };
+            if (range.includes('..')) {
+              const lastTag = range.split('..')[0];
+              const names = json => new Set(JSON.parse(json).map(icon => icon.name));
+              const current = names(require('fs').readFileSync('devicon.json', 'utf8'));
+              let previous = null;
+              try {
+                previous = names(execSync(`git show ${lastTag}:devicon.json`, { maxBuffer: 1e8 }).toString());
+              } catch (e) {
+                console.log(`Could not read devicon.json at ${lastTag}:`, e.message);
+              }
+              if (previous) {
+                const gone = [...previous].filter(name => !current.has(name));
+                const added = [...current].filter(name => !previous.has(name));
+                if (gone.length) raise('major', `icons renamed or removed: ${gone.join(', ')}`);
+                if (added.length) raise('minor', `new icons: ${added.join(', ')}`);
+              }
+              const changedSvgs = execSync(`git diff --name-only ${lastTag} HEAD -- icons`, { maxBuffer: 1e8 })
+                .toString().split('\n').filter(path => path.endsWith('.svg'));
+              const changedIcons = [...new Set(changedSvgs.map(path => path.split('/')[1]))];
+              if (changedIcons.length) raise('minor', `icons added or updated: ${changedIcons.join(', ')}`);
+            }
+            if (rank[minimum] > rank[bump]) {
+              console.log(`Raising the bump from ${bump} to ${minimum} (required by the changes above)`);
+              bump = minimum;
+            }
+
             console.log('Final version bump:', bump);
             core.setOutput('bump', bump);
 

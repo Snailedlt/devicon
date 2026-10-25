@@ -60,12 +60,16 @@ devicon/
 - `publish` job: calls `npm_publish.yml` as a reusable workflow (releases made with `GITHUB_TOKEN` don't trigger `release:` events)
 - Only one run at a time (`concurrency: build-and-release`)
 
-### Version Bump Labels
-| PR Label         | Bump    |
-|------------------|---------|
-| `release: major` | major   |
-| `release: minor` | minor   |
-| (none)           | patch   |
+### Version Bump
+The highest of the PR labels, but never below the minimum required by the changes since the last `v*` tag (also enforced over a manual `bump` input):
+
+| Since the last release                                         | Bump          |
+|----------------------------------------------------------------|---------------|
+| an icon name in `devicon.json` renamed or removed               | major (min)   |
+| an icon added, or any icon SVG added/changed/removed            | minor (min)   |
+| PR label `release: major`                                      | major         |
+| PR label `release: minor`                                      | minor         |
+| anything else (e.g. `devicon.json` tags, CSS fixes)            | patch         |
 
 ### Manual Build / Release
 Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly run does (build if needed, release if anything changed). To build without releasing, reject the `production` approval. The `bump` input (`auto`/`patch`/`minor`/`major`) overrides the label-derived bump.

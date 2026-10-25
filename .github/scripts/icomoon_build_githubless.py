@@ -121,7 +121,8 @@ def verify_glyph_codes(codes_before: Dict[str, int], codes_after: Dict[str, int]
 
     if problems:
         raise Exception(f"icomoon.io changed existing glyphs ({len(problems)} problems), not committing this build:\n" + "\n".join(problems))
-    print(f"Codepoints verified: all {len(codes_before)} existing glyphs that weren't rebuilt kept theirs.", file=logfile)
+    kept = sum(1 for name in codes_before if not is_built(name))
+    print(f"Codepoints verified: all {kept} existing glyphs that weren't rebuilt kept theirs.", file=logfile)
 
 
 def get_icons_for_building(icomoon_json_path: str, devicon_json_path: str, since: str, logfile: FileIO):
