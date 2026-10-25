@@ -4097,6 +4097,24 @@
         "aliases": []
     },
     {
+        "name": "forkicon",
+        "altnames": [],
+        "tags": [
+            "test"
+        ],
+        "versions": {
+            "svg": [
+                "original",
+                "plain"
+            ],
+            "font": [
+                "plain"
+            ]
+        },
+        "color": "#2EA44F",
+        "aliases": []
+    },
+    {
         "name": "fortran",
         "altnames": [],
         "tags": [
@@ -12753,7 +12771,8 @@
         "name": "testicon",
         "altnames": [],
         "tags": [
-            "test"
+            "test",
+            "demo"
         ],
         "versions": {
             "svg": [
