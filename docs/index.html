@@ -200,6 +200,7 @@
       <div class="search">
         <input type="text" placeholder="Search for icons" ng-model="search">
         <input type="text" class="result" value="{{ filtered.length }}" title="Number of icons in the current search" disabled>
+        <select ng-show="hasHistory" ng-model="sortBy" ng-options="option.key as option.label for option in sortOptions" title="Sort the icons"></select>
       </div>
 
       <ul class="computed-data">
@@ -209,8 +210,8 @@
       </ul>
 
       <ul class="cbp-ig-grid">
-        <li data-ng-repeat="icon in filtered = (icons | filter:search)">
-          <span ng-class="{'selected': icon.selected}" ng-click="selectIcon(icon)">
+        <li data-ng-repeat="icon in filtered = (icons | filter:search | orderBy:sortOrder())">
+          <span ng-class="{'selected': icon.selected}" ng-click="selectIcon(icon)" title="{{ iconHistory(icon) }}">
             <i class="cbp-ig-icon devicon-{{icon.main}}"></i>
             <h3 class="cbp-ig-title">{{icon.name}}</h3>
           </span>
