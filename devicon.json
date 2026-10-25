@@ -9075,6 +9075,24 @@
         ]
     },
     {
+        "name": "orgicon",
+        "altnames": [],
+        "tags": [
+            "test"
+        ],
+        "versions": {
+            "svg": [
+                "original",
+                "plain"
+            ],
+            "font": [
+                "plain"
+            ]
+        },
+        "color": "#F05032",
+        "aliases": []
+    },
+    {
         "name": "ory",
         "altnames": [],
         "tags": [
