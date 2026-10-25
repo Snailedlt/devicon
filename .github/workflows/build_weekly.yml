@@ -291,9 +291,7 @@ jobs:
 
       # Collects the PRs merged since the last release (from the "(#123)" in
       # squash commit titles) and derives from them:
-      # - the version bump: highest of the "release: major/minor" labels, else
-      #   patch. The check-bot labels icon PRs automatically (see
-      #   post_check_icon_pr_comment.yml); maintainers can change the label.
+      # - the version bump: highest of the "release: major/minor" labels, else patch
       # - the release notes, in the same format as earlier devicon releases
       - name: Determine version bump and release notes
         id: version-bump

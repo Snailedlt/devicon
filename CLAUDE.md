@@ -60,21 +60,14 @@ devicon/
 - `publish` job: calls `npm_publish.yml` as a reusable workflow (releases made with `GITHUB_TOKEN` don't trigger `release:` events)
 - Only one run at a time (`concurrency: build-and-release`)
 
-### Version Bump
-The release takes the highest label of the PRs merged since the last `v*` tag (a manual `bump` input overrides it):
+### Version Bump Labels
+| PR Label         | Bump    |
+|------------------|---------|
+| `release: major` | major   |
+| `release: minor` | minor   |
+| `release: patch` / none | patch |
 
-| PR label         | Bump  |
-|------------------|-------|
-| `release: major` | major |
-| `release: minor` | minor |
-| (none)           | patch |
-
-The check-bot adds the label to PRs touching `icons/`/`devicon.json` (`get_release_label` in `check_icon_pr.py`, applied by `post_check_icon_pr_comment.yml`):
-- `release: major` if an icon name in the target branch's `devicon.json` is gone (renamed or removed: its classes disappear)
-- `release: minor` if an icon was added, or anything in an `icons/<name>/` folder changed
-- none otherwise
-
-It keeps its label up to date as the PR changes until a person adds or removes a `release:` label on that PR; from then on the label is theirs (removing it = patch).
+The check-bot labels icon PRs that have no `release:` label yet: major if an icon was renamed or removed, minor if an icon was added or updated. Maintainers override by setting another release label.
 
 ### Manual Build / Release
 Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly run does (build if needed, release if anything changed). To build without releasing, reject the `production` approval. The `bump` input (`auto`/`patch`/`minor`/`major`) overrides the label-derived bump.

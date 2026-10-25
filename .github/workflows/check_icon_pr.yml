@@ -51,8 +51,7 @@ jobs:
         run: python ./.github/scripts/check_icon_pr.py "$PR_TITLE" ./icons ./devicon.json
 
       # Uploaded even if the script crashed: it writes the error to err_messages.txt.
-      # expected_title.txt is set when the bot should rename the PR, and
-      # release_label.txt holds the release label the bot should add.
+      # expected_title.txt is set when the bot should rename the PR.
       - name: Upload the err messages
         uses: actions/upload-artifact@v4
         if: always()

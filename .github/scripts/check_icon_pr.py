@@ -107,22 +107,14 @@ def main():
 
 def get_release_label(changes: dict, current_names: set):
     """
-    Suggest the release label for this PR, which the check-bot adds to it:
-    - "release: major" if an icon was renamed or removed (its classes disappear)
-    - "release: minor" if an icon was added or updated
-    - "" otherwise (a patch release)
-    :param changes - the result of util.get_pr_icon_changes.
-    :param current_names - the icon names in the PR's devicon.json.
+    The release label the check-bot adds to this PR: major if an icon was
+    renamed or removed (its classes disappear), minor if an icon was added or
+    updated, none (patch) otherwise.
     """
-    removed = sorted(changes["existing"] - current_names)
-    added = sorted(current_names - changes["existing"])
-    if removed:
-        print(f"Suggesting release: major (icons renamed or removed: {', '.join(removed)})")
+    if changes["existing"] - current_names:
         return "release: major"
-    if added or changes["icon_folders"]:
-        print(f"Suggesting release: minor (icons added or updated: {', '.join(sorted(set(added) | set(changes['icon_folders'])))})")
+    if changes["icon_folders"]:
         return "release: minor"
-    print("No release label suggested (patch)")
     return ""
 
 
