@@ -1,5 +1,4 @@
 from pathlib import Path
-import sys
 from selenium.common.exceptions import TimeoutException
 import re
 import subprocess
@@ -10,7 +9,7 @@ from io import FileIO
 # pycharm complains that build_assets is an unresolved ref
 # don't worry about it, the script still runs
 from build_assets.selenium_runner.BuildSeleniumRunner import BuildSeleniumRunner
-from build_assets import filehandler, arg_getters, util, api_handler
+from build_assets import filehandler, arg_getters, util
 
 def main():
     """
