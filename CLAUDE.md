@@ -72,6 +72,9 @@ The check-bot labels icon PRs that have no `release:` label yet: major if an ico
 ### Manual Build / Release
 Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly run does (build if needed, release if anything changed). To build without releasing, reject the `production` approval. The `bump` input (`auto`/`patch`/`minor`/`major`) overrides the label-derived bump.
 
+### Icon history (website sorting)
+`devicon-history.json` is generated (don't edit it): per icon, the first release containing it and the release of its last real change (ignoring `build:` commits and commits touching more than 5 icons), with UTC timestamps. The release job regenerates it right before `npm version`, passing the upcoming version, and commits it as `chore: update icon history for vX.Y.Z`. The website (`docs/`) loads it next to `devicon.json` for the "Sort by" dropdown (Name / Newest first / Recently updated) and hides the dropdown if it's missing. Run locally with `node .github/scripts/generate_icon_history.js [--next-version vX.Y.Z]`.
+
 ### PR titles
 Not used to find icons anywhere (bots, build, release all use changed files). Enforced by `check_icon_pr.yml` for icon PRs (any change in `icons/`):
 - one icon per PR; only `icons/<name>/` and that icon's `devicon.json` entry may change — any other added/modified/deleted file or other `devicon.json` entry fails the check with a comment

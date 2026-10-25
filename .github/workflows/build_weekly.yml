@@ -366,12 +366,27 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
+      # devicon-history.json (used by the website to sort icons by release date
+      # and last update) is updated before tagging, so the release includes it
+      # and icons first shipped in this release get this release's version.
+      - name: Update icon history
+        env:
+          BUMP: ${{ steps.version-bump.outputs.bump }}
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          NEXT=$(node -p "const [ma, mi, pa] = require('./package.json').version.split('.').map(Number);
+            ({ major: [ma + 1, 0, 0], minor: [ma, mi + 1, 0], patch: [ma, mi, pa + 1] })[process.env.BUMP].join('.')")
+          node .github/scripts/generate_icon_history.js --next-version "v$NEXT"
+          git add devicon-history.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update icon history for v$NEXT"
+          fi
+
       - name: Bump version
         id: bump
         run: |
           BUMP="${{ steps.version-bump.outputs.bump }}"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
           npm version $BUMP -m "chore: bump version to %s"
           VERSION=$(node -p "require('./package.json').version")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
