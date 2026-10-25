@@ -61,15 +61,20 @@ devicon/
 - Only one run at a time (`concurrency: build-and-release`)
 
 ### Version Bump
-The highest of the PR labels, but never below the minimum required by the changes since the last `v*` tag (also enforced over a manual `bump` input):
+The release takes the highest label of the PRs merged since the last `v*` tag (a manual `bump` input overrides it):
 
-| Since the last release                                         | Bump          |
-|----------------------------------------------------------------|---------------|
-| an icon name in `devicon.json` renamed or removed               | major (min)   |
-| an icon added, or any icon SVG added/changed/removed            | minor (min)   |
-| PR label `release: major`                                      | major         |
-| PR label `release: minor`                                      | minor         |
-| anything else (e.g. `devicon.json` tags, CSS fixes)            | patch         |
+| PR label         | Bump  |
+|------------------|-------|
+| `release: major` | major |
+| `release: minor` | minor |
+| (none)           | patch |
+
+The check-bot adds the label to PRs touching `icons/`/`devicon.json` (`get_release_label` in `check_icon_pr.py`, applied by `post_check_icon_pr_comment.yml`):
+- `release: major` if an icon name in the target branch's `devicon.json` is gone (renamed or removed: its classes disappear)
+- `release: minor` if an icon was added, or anything in an `icons/<name>/` folder changed
+- none otherwise
+
+It keeps its label up to date as the PR changes until a person adds or removes a `release:` label on that PR; from then on the label is theirs (removing it = patch).
 
 ### Manual Build / Release
 Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly run does (build if needed, release if anything changed). To build without releasing, reject the `production` approval. The `bump` input (`auto`/`patch`/`minor`/`major`) overrides the label-derived bump.

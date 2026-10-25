@@ -465,7 +465,7 @@ We are running a Discord server. You can go here to talk, discuss, and more with
     <li>MINOR version when you add functionality <b>(like a new icon)</b> in a backwards compatible manner, and</li>
     <li>PATCH version when you make backwards compatible bug fixes.</li>
 </ul>
-<p>The bump is derived from the labels of the pull requests merged since the last release: <code>release: major</code>, <code>release: minor</code>, or patch if neither is present. It is never lower than what the changes require: a new or updated icon is at least a minor release, and a renamed or removed icon is always a major release, since its classes disappear.</p>
+<p>The bump is derived from the labels of the pull requests merged since the last release: <code>release: major</code>, <code>release: minor</code>, or patch if neither is present. The check-bot labels icon pull requests automatically: <code>release: minor</code> for a new or updated icon, <code>release: major</code> for a renamed or removed icon (its classes disappear). Maintainers can change or remove the label for edge cases; once a person has changed it, the bot leaves it alone.</p>
 
 <h5>Release preparation and execution</h5>
 <p>The weekly run handles everything automatically:</p>

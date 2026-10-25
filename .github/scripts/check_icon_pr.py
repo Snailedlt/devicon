@@ -98,10 +98,32 @@ def main():
         filehandler.write_to_file("./expected_title.txt", expected_title)
         if expected_title:
             print(f"PR title should be: {expected_title}")
+        filehandler.write_to_file("./release_label.txt", get_release_label(changes, set(icons_by_name)))
         print("Task completed.")
     except Exception as e:
         filehandler.write_to_file("./err_messages.txt", str(e))
         util.exit_with_err(e)
+
+
+def get_release_label(changes: dict, current_names: set):
+    """
+    Suggest the release label for this PR, which the check-bot adds to it:
+    - "release: major" if an icon was renamed or removed (its classes disappear)
+    - "release: minor" if an icon was added or updated
+    - "" otherwise (a patch release)
+    :param changes - the result of util.get_pr_icon_changes.
+    :param current_names - the icon names in the PR's devicon.json.
+    """
+    removed = sorted(changes["existing"] - current_names)
+    added = sorted(current_names - changes["existing"])
+    if removed:
+        print(f"Suggesting release: major (icons renamed or removed: {', '.join(removed)})")
+        return "release: major"
+    if added or changes["icon_folders"]:
+        print(f"Suggesting release: minor (icons added or updated: {', '.join(sorted(set(added) | set(changes['icon_folders'])))})")
+        return "release: minor"
+    print("No release label suggested (patch)")
+    return ""
 
 
 def check_devicon_object(icon: dict):
