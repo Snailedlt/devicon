@@ -48,7 +48,7 @@ devicon/
 - No classic branch protection rule on `master` (Settings → Branches). A push must pass both, and a classic rule requiring PRs has its own bypass list, so it blocks the bot's `build:`/version pushes (GH013) even when the ruleset allows them. Delete it, or add the bot app to its "allow specified actors to bypass required pull requests" list.
 - Bot GitHub App with `Contents: Read and write` (pushes to master) and `Pull requests: Read and write` (renames icon PRs), installed on the repo; `vars.BOT_APP_ID` + `secrets.BOT_APP_PRIVATE_KEY`.
 - Environments: `production` (required reviewers, gates releases), `release` (holds `NPM_AUTOMATION_TOKEN`). Forks run `npm publish --dry-run`.
-- Labels: `release: major`, `release: minor`.
+- Labels: `release: major`, `release: minor`, `release: patch`.
 
 ### Weekly Build and Release (`build_weekly.yml`)
 - Runs every Monday at 2 AM UTC
@@ -65,7 +65,9 @@ devicon/
 |------------------|---------|
 | `release: major` | major   |
 | `release: minor` | minor   |
-| (none)           | patch   |
+| `release: patch` / none | patch |
+
+The check-bot labels icon PRs that have no `release:` label yet: major if an icon was renamed or removed, minor if an icon was added or updated. Maintainers override by setting another release label.
 
 ### Manual Build / Release
 Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly run does (build if needed, release if anything changed). To build without releasing, reject the `production` approval. The `bump` input (`auto`/`patch`/`minor`/`major`) overrides the label-derived bump.

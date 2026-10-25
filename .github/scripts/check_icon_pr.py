@@ -98,10 +98,24 @@ def main():
         filehandler.write_to_file("./expected_title.txt", expected_title)
         if expected_title:
             print(f"PR title should be: {expected_title}")
+        filehandler.write_to_file("./release_label.txt", get_release_label(changes, set(icons_by_name)))
         print("Task completed.")
     except Exception as e:
         filehandler.write_to_file("./err_messages.txt", str(e))
         util.exit_with_err(e)
+
+
+def get_release_label(changes: dict, current_names: set):
+    """
+    The release label the check-bot adds to this PR: major if an icon was
+    renamed or removed (its classes disappear), minor if an icon was added or
+    updated, none (patch) otherwise.
+    """
+    if changes["existing"] - current_names:
+        return "release: major"
+    if changes["icon_folders"]:
+        return "release: minor"
+    return ""
 
 
 def check_devicon_object(icon: dict):
