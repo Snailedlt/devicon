@@ -8123,6 +8123,24 @@
         "aliases": []
     },
     {
+        "name": "newicon",
+        "altnames": [],
+        "tags": [
+            "test"
+        ],
+        "versions": {
+            "svg": [
+                "original",
+                "plain"
+            ],
+            "font": [
+                "plain"
+            ]
+        },
+        "color": "#3178C6",
+        "aliases": []
+    },
+    {
         "name": "newrelic",
         "altnames": [],
         "tags": [
