@@ -12753,7 +12753,8 @@
         "name": "testicon",
         "altnames": [],
         "tags": [
-            "test"
+            "test",
+            "demo"
         ],
         "versions": {
             "svg": [
