@@ -18,7 +18,7 @@ devicon/
 ├── fonts/              # Generated font files (eot, svg, ttf, woff) — do not edit manually
 ├── .github/
 │   ├── workflows/      # GitHub Actions workflows
-│   ├── scripts/        # Python/JS automation scripts (icomoon_build.py etc.)
+│   ├── scripts/        # Python/JS automation scripts (icomoon_build_githubless.py etc.)
 │   └── PULL_REQUEST_TEMPLATE/
 ├── devicon.json        # Master list of all icons + metadata
 ├── devicon-schema.json # JSON schema for devicon.json validation

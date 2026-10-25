@@ -5,7 +5,7 @@ from build_assets.PathResolverAction import PathResolverAction
 def get_selenium_runner_args(has_token=True, peek_mode=False, build_since=False):
     """
     Get the commandline arguments for the icomoon_peek.py and 
-    icomoon_build.py.
+    icomoon_build_githubless.py.
     """
     parser = ArgumentParser(description="Upload svgs to Icomoon to create icon files.")
 
@@ -72,11 +72,3 @@ def get_check_icon_pr_args():
     return parser.parse_args()
 
 
-def get_release_message_args():
-    """
-    Get the commandline arguments for get_release_message.py.
-    """
-    parser = ArgumentParser(description="Create a text containing the icons and features added since last release.")
-    parser.add_argument("token",
-                        help="The GitHub token to access the GitHub REST API.")
-    return parser.parse_args()
