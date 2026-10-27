@@ -116,6 +116,9 @@ def main():
         # workflow writes the actual message
         notice = {"renamed": [renamed_from, added[0]]} if renamed_from else {"removed": removed} if removed else {}
         filehandler.write_to_file("./release_notice.json", json.dumps(notice))
+        # Not an error: the weekly build prefixes the ids after the merge. The
+        # comment workflow tells the contributor.
+        filehandler.write_to_file("./id_notice.json", json.dumps(get_unprefixed_ids(changes["svgs"], args.icons_folder_path)))
         print("Task completed.")
     except Exception as e:
         filehandler.write_to_file("./err_messages.txt", str(e))
@@ -133,6 +136,25 @@ def get_release_label(changes: dict, current_names: set):
     if changes["icon_folders"]:
         return "release: minor"
     return ""
+
+
+def get_unprefixed_ids(svgs: dict, icons_folder: str):
+    """
+    Find the ids in the PR's SVGs that aren't prefixed with their file name.
+    :param svgs, {icon folder name: [SVG file names]} as in util.get_pr_icon_changes.
+    :return {SVG file name: [ids]} for the SVGs that have any.
+    """
+    found = {}
+    for name, files in svgs.items():
+        for file in files:
+            path = Path(icons_folder, name, file)
+            try:
+                ids = util.get_unprefixed_svg_ids(path.read_text(encoding="utf-8"), path.stem)
+            except (OSError, UnicodeDecodeError):
+                continue
+            if ids:
+                found[file] = ids
+    return found
 
 
 def check_devicon_object(icon: dict):

@@ -1,9 +1,9 @@
 name: Weekly Build and Release
 # Runs every Monday at 2 AM UTC, or manually via workflow_dispatch (same steps).
 #
-#   build   - (re)builds font glyphs for new/changed icons and the CSS, commits
-#             them to master as "build: ...". Decides whether there's anything
-#             to release.
+#   build   - prefixes the ids in newly merged SVGs, (re)builds font glyphs for
+#             new/changed icons and the CSS, commits them to master as
+#             "build: ...". Decides whether there's anything to release.
 #   release - waits for approval on the "production" environment, then bumps
 #             the version, tags and creates the GitHub release.
 #   publish - publishes the release to npm.
@@ -87,6 +87,18 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+
+      # Prefix the ids in SVGs merged since the last build with their file name,
+      # so they're unique across icons (#2608). Committed with the build; done
+      # after the merge so contributors' branches never need to be edited. The
+      # check-bot tells contributors about it.
+      - name: Prefix SVG ids
+        if: steps.check-changes.outputs.has_changes == 'true'
+        env:
+          SINCE: ${{ steps.check-changes.outputs.since }}
+        run: |
+          git diff -z --name-only --diff-filter=AM "$SINCE" HEAD -- 'icons/*.svg' \
+            | xargs -0 -r python ./.github/scripts/prefix_svg_ids.py
 
       - name: Setup Node.js
         if: steps.check-changes.outputs.has_changes == 'true'

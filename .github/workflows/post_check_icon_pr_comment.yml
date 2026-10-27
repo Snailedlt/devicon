@@ -193,6 +193,49 @@ jobs:
               "Thanks for your help,", "SVG-Checker Bot :smile:"
             ].join('\n') });
 
+      # Not an error: the weekly build prefixes the ids after the merge (so the
+      # contributor's branch is never edited). Updates its earlier comment
+      # instead of posting a new one on every push.
+      - name: Comment on the PR about unprefixed ids
+        uses: actions/github-script@v7
+        continue-on-error: true
+        env:
+          PR_NUM: ${{ steps.pr.outputs.number }}
+        with:
+          script: |
+            const fs = require('fs');
+            const file = './err_messages/id_notice.json';
+            const notice = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
+            // The artifact comes from the PR's code, so only use names that look right
+            const rows = Object.entries(notice)
+              .filter(([svg, ids]) => /^[a-z0-9._-]{1,80}\.svg$/.test(svg) && Array.isArray(ids))
+              .map(([svg, ids]) => [svg, ids.filter(id => typeof id === 'string' && /^[A-Za-z0-9_.:-]{1,100}$/.test(id))])
+              .filter(([, ids]) => ids.length)
+              .slice(0, 20);
+            if (!rows.length) return;
+
+            const marker = '<!-- check-bot:id-prefix -->';
+            const issue = { owner: context.repo.owner, repo: context.repo.repo, issue_number: parseInt(process.env.PR_NUM, 10) };
+            const lines = rows.map(([svg, ids]) => {
+              const stem = svg.replace(/\.svg$/, '');
+              const shown = ids.slice(0, 5).map(id => `\`${id}\` → \`${stem}-${id}\``).join(', ');
+              return `- \`${svg}\`: ${shown}${ids.length > 5 ? ` and ${ids.length - 5} more` : ''}`;
+            });
+            const body = [
+              marker, "Hi!", "",
+              "I'm the `check-bot`. Some SVGs in this PR have `id`s that aren't prefixed with the file name:", "",
+              ...lines, "",
+              "Ids must be unique across all icons. Otherwise two icons on the same page can pick up each other's gradients or masks (see [#2608](https://github.com/devicons/devicon/issues/2608)). " +
+              "**You don't need to change anything:** after this PR is merged, the ids (and the references to them) are prefixed with the file name automatically, as shown above.", "",
+              "Thanks for your help,", "SVG-Checker Bot :smile:"
+            ].join('\n');
+
+            const comments = await github.paginate(github.rest.issues.listComments, issue);
+            const old = comments.find(c => c.user.type === 'Bot' && c.body.startsWith(marker));
+            if (old && old.body === body) return;
+            if (old) await github.rest.issues.updateComment({ owner: issue.owner, repo: issue.repo, comment_id: old.id, body });
+            else await github.rest.issues.createComment({ ...issue, body });
+
       - name: Comment on the PR about the result - SVG Error
         uses: actions/github-script@v7
         env:

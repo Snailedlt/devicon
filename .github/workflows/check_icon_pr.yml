@@ -62,6 +62,7 @@ jobs:
             ./expected_title.txt
             ./release_label.txt
             ./release_notice.json
+            ./id_notice.json
           if-no-files-found: ignore
 
       # Fail the check when issues were found or the title is wrong, so the PR

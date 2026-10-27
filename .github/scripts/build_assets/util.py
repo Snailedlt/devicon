@@ -142,3 +142,39 @@ def is_svg_name_valid(filename: str):
 valid_svg_version_pattern = re.compile(r"^(original|plain|line)(-wordmark)?$")
 def is_svg_version_valid(version):
     return valid_svg_version_pattern.search(version) is not None
+
+
+# SVG ids must be unique across all icons: when two inline SVGs on one page use
+# the same id (e.g. id="a" for a gradient), one icon picks up the other's
+# gradient. So every id is prefixed with its file name: "kotlin-original-a".
+svg_id_pattern = re.compile(r"""(\sid\s*=\s*)(["'])(.*?)\2""")
+def get_unprefixed_svg_ids(svg: str, prefix: str) -> List[str]:
+    """
+    :param svg, the SVG's source.
+    :param prefix, the SVG's file name without extension, e.g. "kotlin-original".
+    :return the ids (in order, without duplicates) that don't start with "<prefix>-".
+    """
+    ids = [m.group(3) for m in svg_id_pattern.finditer(svg)]
+    return list(dict.fromkeys(i for i in ids if i and not i.startswith(prefix + "-")))
+
+
+def prefix_svg_ids(svg: str, prefix: str) -> str:
+    """
+    Prefix the SVG's unprefixed ids with "<prefix>-" and update the references
+    to them: url(#id), href="#id" / xlink:href="#id" and #id in <style>.
+    Only edits those spots, so the rest of the file stays as it was.
+    :return the new SVG source.
+    """
+    ids = get_unprefixed_svg_ids(svg, prefix)
+    if not ids:
+        return svg
+    new = {i: f"{prefix}-{i}" for i in ids}
+    alt = "|".join(re.escape(i) for i in sorted(ids, key=len, reverse=True))
+
+    svg = svg_id_pattern.sub(lambda m: m.group(1) + m.group(2) + new.get(m.group(3), m.group(3)) + m.group(2), svg)
+    svg = re.sub(rf"""(url\(\s*["']?)#({alt})(?=["']?\s*\))""", lambda m: m.group(1) + "#" + new[m.group(2)], svg)
+    svg = re.sub(rf"""(href\s*=\s*["'])#({alt})(?=["'])""", lambda m: m.group(1) + "#" + new[m.group(2)], svg)
+    svg = re.sub(r"(<style\b[^>]*>)(.*?)(</style>)",
+        lambda s: s.group(1) + re.sub(rf"#({alt})(?=[\s,.:>+~{{\[)])", lambda m: "#" + new[m.group(1)], s.group(2)) + s.group(3),
+        svg, flags=re.S)
+    return svg
