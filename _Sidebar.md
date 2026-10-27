@@ -1,5 +1,6 @@
 ## Getting Started  
 - [Home ← Start Here](https://github.com/devicons/devicon/wiki)  
+- [Terms](https://github.com/devicons/devicon/wiki/Terms)  
 - [Legal](https://github.com/devicons/devicon/wiki/Legal)  
 - [Devicon Discord Community](https://github.com/devicons/devicon/wiki/Discord-community)  
 
@@ -8,6 +9,7 @@
 - [Requesting an Icon](https://github.com/devicons/devicon/wiki/Requesting-an-Icon)  
 - [Overview on Submitting Icons](https://github.com/devicons/devicon/wiki/Overview-on-Submitting-Icons)  
 - [Full Example of Submitting Icons](https://github.com/devicons/devicon/wiki/Example-of-Submitting-Icons-to-the-Repository)  
+- [Updating an Icon](https://github.com/devicons/devicon/wiki/Updating-an-Icon)  
 - [Recommended Resources and Tools](https://github.com/devicons/devicon/wiki/Recommended-resources-and-tools)  
 - [About the Maintainers, Supporters, and Contributors](https://github.com/devicons/devicon/wiki/About-the-Maintainers,-Supporters,-and-Contributors)  
 

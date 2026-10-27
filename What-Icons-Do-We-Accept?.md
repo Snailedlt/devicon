@@ -19,13 +19,13 @@ Please ensure the following before submitting a request or adding an icon:
 - **Is the technology used outside development jobs?**  
   Software like Microsoft Word or Google Calendar won't be accepted because they are too general and not specific to development jobs.
 
-- **Can you do the following with it?**
-  1. Write code with it?
-  2. Handle code with it?
-  3. Transform code with it?
-  4. Add your code to it?
-  5. Test your code with it?   
-  6. Analyze code with it?
+- **Can you use it to do at least one of these?**
+  - Write code (languages, editors)
+  - Check or transform code (compilers, linters, formatters)
+  - Test code (testing frameworks)
+  - Store or share code (GitHub, npm)
+  - Build or deploy code (CI/CD, Docker)
+  - Run or host code and services (runtimes, operating systems, servers, databases)
 
 - **Does the logo belong to a general parent company?**  
   For example, React is a part of Facebook. Using the Facebook logo to represent React is not accepted.
@@ -73,7 +73,7 @@ Here are the categories that we usually accept/don't accept in our repos. If you
 - [Software Frameworks](https://en.wikipedia.org/wiki/Software_framework) (Electron, Qt, ...)
 - [Web Frameworks](https://en.wikipedia.org/wiki/Comparison_of_server-side_web_frameworks) (Django, Angular, ...)
 - [Runtime environments](https://en.wikipedia.org/wiki/Runtime_system) (Node.js, ...)
-- [Web server softwares](https://en.wikipedia.org/wiki/Comparison_of_web_server_software) (apache, nginx, ...)
+- [Server software](https://en.wikipedia.org/wiki/Server_(computing)) that hosts or runs services, like web, mail and proxy servers (Apache, nginx, Postfix, HAProxy, ...)
 - [Source code hosting platforms](https://en.wikipedia.org/wiki/Comparison_of_source-code-hosting_facilities) (Github, Gitlab, Bitbucket, ...)
 - [Testing tools](https://en.wikipedia.org/wiki/Software_testing) (Jasmine, )
 - [Static Site Generators](https://en.wikipedia.org/wiki/Web_template_system#Static_site_generators) (Jekyll, Hugo, eleventy, ...)
