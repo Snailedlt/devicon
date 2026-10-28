@@ -1,41 +1,56 @@
+Besides making the SVG files, you must also add the icon's data. This is essential for our build script to work and to document your work.
 
-Besides making the SVG files, you must also update the `devicon.json`. This is essential for our build script to work and to document your work.
+Each icon's data lives next to its SVGs, in `icons/<name>/<name>.json`, for example `icons/redhat/redhat.json`. The icon's name is its folder name (see [Naming Conventions](https://github.com/devicons/devicon/wiki/Naming-Conventions)), so it isn't repeated in the file.
 
-Here is the interface your `devicon.json` entry must have:
+Don't edit the `devicon.json` in the root of the repository: it's generated from these files in the weekly build, and the check-bot rejects PRs that edit it.
 
+Here is the interface your file must have:
 
 ```javascript
 {
-        // the official name of the technology. See https://github.com/devicons/devicon/wiki/Naming-Conventions for more details
-        "name": string, 
+    // list of alternative names for this technology
+    // used for the searchbar on the https://devicon.dev website.
+    "altnames": string[],
 
-        // list of alternative names for this technology
-        // used for the searchbar on the https://devicon.dev website.
-        "altnames": string[], 
+    // list of tags relating to the technology for categorization/search purpose
+    "tags": string[],
 
-        // list of tags relating to the technology for categorization/search purpose (TBD)
-        "tags": string[], 
+    // keeps track of the different versions that you have.
+    "versions": {
+        // list all the SVGs that you have
+        "svg": VersionString[],
 
-        // keeps track of the different versions that you have.
-        "versions": {
-            // list all the SVGs that you have 
-            "svg": VersionString[], 
+        // list only the SVGs that can be converted to fonts:
+        // one colour, one path. Usually the `plain` and `line` versions.
+        // DO NOT list aliases here (see below).
+        "font": VersionString[]
+    },
 
-            // list only the SVGs that can be converted to fonts.
-            // usually refers to `plain` and `line` versions but `original` can be accepted.
-            // DO NOT list aliases here (see below).
-            "font": VersionString[] 
-        },
+    // the official/main color of the logo. Only track 1 color. Format is "#abcdef"
+    "color": string,
 
-        // the official/main color of the logo. Only track 1 color. Format is "#abcdef"
-        "color": string, 
-
-        // keeps track of the aliases for the font versions ONLY. Read on for more details
-        // NOTE: as of Dec 2021, this attribute is now optional (see [this](https://github.com/devicons/devicon/discussions/465)). 
-        // If you don't use it, still include the attribute but with an empty array `[]`.
-        "aliases": AliasObj[] 
-    }
+    // keeps track of the aliases for the font versions ONLY. Read on for more details.
+    // If you don't use it, still include the attribute with an empty array `[]`.
+    "aliases": AliasObj[]
+}
 ```
+
+For example, `icons/redhat/redhat.json`:
+
+```json
+{
+    "altnames": [],
+    "tags": ["server", "linux"],
+    "versions": {
+        "svg": ["original", "original-wordmark", "plain", "plain-wordmark"],
+        "font": ["plain", "plain-wordmark"]
+    },
+    "color": "#e93442",
+    "aliases": []
+}
+```
+
+VS Code checks the file for you: the repository's settings validate `icons/*/*.json` against its schema.
 
 ## `VersionString`
 Here is what VersionString means:
@@ -76,3 +91,5 @@ So for this example, we would make it:
 Now, when we generate the font for `apple`, we can access the same logo using either `.apple-original` or `.apple-plain`.
 
 Aliases provide no benefits for SVG files. So, if `apple-original` can't be made into a font, it won't work.
+
+When a logo is the technology's name itself (a wordmark), also add `-wordmark` aliases, so classes like `.nx-original-wordmark` work too.

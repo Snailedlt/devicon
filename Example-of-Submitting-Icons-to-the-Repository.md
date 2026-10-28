@@ -6,12 +6,11 @@ For the Amazon Web Services SVGs, you have the `original`, `original-wordmark`, 
 1.  Put the SVGs for each logo that you have into its own folders in `/icons`
     *   This means you would create two folders: one for `amazonwebservices` and one for `redhat`. See [Naming Convention](https://github.com/devicons/devicon/wiki/Naming-Conventions) for more details.
     *   **Note**: don't do this in the same commits; we want to have each Icon in its own PR.
-2.  [Update the `devicon.json`](https://github.com/devicons/devicon/wiki/Updating-the-%60devicon.json%60)
-    *   For `redhat`, you would do this
+2.  [Add the icon's data](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)
+    *   For `redhat`, you would create `icons/redhat/redhat.json` with
 
 ```javascript
 {
-  "name": "redhat",
   "altnames": [], // alternative names for the icon
   "tags": [
     "server",
@@ -31,14 +30,13 @@ For the Amazon Web Services SVGs, you have the `original`, `original-wordmark`, 
   },
   "color": "#e93442", // note the '#' character
   "aliases": [] // no aliases in this case
-},
+}
 ``` 
 
-* For the `amazonwebservices`, you would do this
+* For the `amazonwebservices`, you would create `icons/amazonwebservices/amazonwebservices.json` with
         
 ```javascript
 {
-  "name": "amazonwebservices", 
   "altnames": ["aws"],
   "tags": [
     "cloud",
@@ -68,7 +66,7 @@ For the Amazon Web Services SVGs, you have the `original`, `original-wordmark`, 
 }
 ``` 
 
-For more info on `aliases`, see [this](https://github.com/devicons/devicon/wiki/Updating-the-%60devicon.json%60#aliases-and-aliasobj).
+For more info on `aliases`, see [this](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60#aliases-and-aliasobj).
                 
 3.  Create a separate pull request (PR) for each Icon.
     *   This means you would have to create one PR for Amazon Web Services and one PR for Redhat.
