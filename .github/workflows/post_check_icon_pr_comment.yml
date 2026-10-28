@@ -20,7 +20,7 @@ jobs:
     if: github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure'
     steps:
       - name: Download workflow artifact
-        uses: dawidd6/action-download-artifact@v27
+        uses: dawidd6/action-download-artifact@eab87c9830c39eff17e5a6eadb20bfb4bc880477 # v27
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: check_icon_pr.yml
@@ -31,7 +31,7 @@ jobs:
       # that was checked.
       - name: Verify the PR
         id: pr
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const fs = require('fs');
@@ -67,7 +67,7 @@ jobs:
       - name: Get bot token
         id: bot-token
         if: steps.title.outputs.expected != '' && vars.BOT_APP_ID != ''
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           app-id: ${{ vars.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
@@ -77,7 +77,7 @@ jobs:
       - name: Validate the expected title
         id: validate
         if: steps.title.outputs.expected != ''
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           EXPECTED: ${{ steps.title.outputs.expected }}
           PR_NUM: ${{ steps.pr.outputs.number }}
@@ -100,7 +100,7 @@ jobs:
       # Its own step so it runs as the bot app (github-token), not GITHUB_TOKEN
       - name: Rename the PR
         if: steps.title.outputs.expected != '' && steps.bot-token.outputs.token != ''
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           EXPECTED: ${{ steps.title.outputs.expected }}
           PR_NUM: ${{ steps.pr.outputs.number }}
@@ -116,7 +116,7 @@ jobs:
 
       - name: Comment on the PR about the title
         if: steps.title.outputs.expected != ''
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           EXPECTED: ${{ steps.title.outputs.expected }}
           OLD_TITLE: ${{ steps.validate.outputs.old_title }}
@@ -150,7 +150,7 @@ jobs:
       # release label (maintainers override by setting another one, e.g.
       # "release: patch").
       - name: Label the release level
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         continue-on-error: true
         env:
           PR_NUM: ${{ steps.pr.outputs.number }}
@@ -194,7 +194,7 @@ jobs:
             ].join('\n') });
 
       - name: Comment on the PR about the result - SVG Error
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           PR_NUM: ${{ steps.pr.outputs.number }}
         with:
@@ -221,7 +221,7 @@ jobs:
       # Only with a verified PR number: never comment on a PR named by an unverified artifact
       - name: Comment on the PR about the result - Failure
         if: failure() && steps.pr.outputs.number != ''
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           PR_NUM: ${{ steps.pr.outputs.number }}
         with:
