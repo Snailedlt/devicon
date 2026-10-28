@@ -1,5 +1,4 @@
 from pathlib import Path
-from selenium.common.exceptions import TimeoutException
 import re
 import subprocess
 import json
@@ -8,13 +7,17 @@ from io import FileIO
 
 # pycharm complains that build_assets is an unresolved ref
 # don't worry about it, the script still runs
-from build_assets.selenium_runner.BuildSeleniumRunner import BuildSeleniumRunner
 from build_assets import filehandler, arg_getters, util
 
 def main():
     """
     Build the icons using Icomoon. Also optimize the svgs.
     """
+    # Imported here so the build workflow can call get_icons_for_building with
+    # a plain python3, before Selenium is installed
+    from selenium.common.exceptions import TimeoutException
+    from build_assets.selenium_runner.BuildSeleniumRunner import BuildSeleniumRunner
+
     runner = None
     logfile = open("log.txt", "w")
     try:
@@ -120,7 +123,8 @@ def verify_glyph_codes(codes_before: Dict[str, int], codes_after: Dict[str, int]
 
     if problems:
         raise Exception(f"icomoon.io changed existing glyphs ({len(problems)} problems), not committing this build:\n" + "\n".join(problems))
-    print(f"Codepoints verified: all {len(codes_before)} existing glyphs that weren't rebuilt kept theirs.", file=logfile)
+    kept = sum(1 for name in codes_before if not is_built(name))
+    print(f"Codepoints verified: all {kept} existing glyphs that weren't rebuilt kept theirs.", file=logfile)
 
 
 def get_icons_for_building(icomoon_json_path: str, devicon_json_path: str, since: str, logfile: FileIO):
