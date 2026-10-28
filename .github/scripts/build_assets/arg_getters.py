@@ -21,10 +21,6 @@ def get_selenium_runner_args(has_token=True, peek_mode=False, build_since=False)
                         help="The path to the icomoon.json aka the selection.json created by Icomoon",
                         action=PathResolverAction)
 
-    parser.add_argument("devicon_json_path",
-                        help="The path to the devicon.json",
-                        action=PathResolverAction)
-
     parser.add_argument("icons_folder_path",
                         help="The path to the icons folder",
                         action=PathResolverAction)
@@ -59,10 +55,6 @@ def get_check_icon_pr_args():
 
     parser.add_argument("icons_folder_path",
                         help="The path to the icons folder",
-                        action=PathResolverAction)
-
-    parser.add_argument("devicon_json_path",
-                        help="The path to the devicon.json",
                         action=PathResolverAction)
 
     parser.add_argument("--base",

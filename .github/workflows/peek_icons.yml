@@ -4,7 +4,6 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - 'icons/**'
-      - 'devicon.json'
 jobs:
   peek:
     # four outcomes: successful check and upload,
@@ -46,7 +45,7 @@ jobs:
         run: >
           python ./.github/scripts/icomoon_peek.py
           ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver ./icomoon.json
-          ./devicon.json ./icons ./ --headless
+          ./icons ./ --headless
 
       - name: Upload the err messages (created by icomoon_peek.py)
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

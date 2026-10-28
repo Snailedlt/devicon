@@ -20,8 +20,7 @@ devicon/
 │   ├── workflows/      # GitHub Actions workflows
 │   ├── scripts/        # Python/JS automation scripts (icomoon_build_githubless.py etc.)
 │   └── PULL_REQUEST_TEMPLATE/
-├── devicon.json        # Master list of all icons + metadata
-├── devicon-schema.json # JSON schema for devicon.json validation
+├── devicon.json        # GENERATED list of all icons + metadata (from icons/*/*.json) — do not edit
 ├── icomoon.json        # Icomoon project config — updated by build scripts
 ├── devicon.min.css     # Generated CSS — do not edit manually
 ├── devicon-base.css    # CSS template
@@ -52,8 +51,8 @@ devicon/
 
 ### Weekly Build and Release (`build_weekly.yml`)
 - Runs every Monday at 2 AM UTC
-- `build` job: if `icons/` or `devicon.json` changed since the last `build:` commit, runs the Icomoon build + CSS and commits with `build:` prefix. On failure: creates a `build-failed` issue
-  - An icon's glyphs are (re)built when its non-alias font versions in `devicon.json` don't match its glyphs in `icomoon.json` (new icon / versions changed), or one of its font SVGs changed since the last build (updated icon). Detection is by file diff, not PR titles.
+- `build` job: if `icons/` changed since the last `build:` commit, runs the Icomoon build (only when some icon needs new glyphs, decided with the runner's python3 before installing anything) + CSS, which regenerates `devicon.json`, and commits with `build:` prefix. On failure: creates a `build-failed` issue
+  - An icon's glyphs are (re)built when its non-alias font versions (in its data file) don't match its glyphs in `icomoon.json` (new icon / versions changed), or one of its font SVGs changed since the last build (updated icon). Detection is by file diff, not PR titles.
   - Codepoints are fixed: icomoon.io assigns codepoints to whatever is selected when the Generate Font page opens, so the build only opens it after "Select All". `verify_glyph_codes` then fails the build (nothing committed) if any glyph that wasn't rebuilt changed codepoint or vanished, or two glyphs share one. Rebuilt glyphs get their codepoint from icomoon.io (logged as `old -> new`).
   - Ends by deciding `should_release`: anything shipped (`icons`, `devicon.json`, CSS, `fonts`) changed since the last `v*` tag
 - `release` job (only if `should_release`, gated by `production` environment approval): derives semver bump from labels of PRs merged since the last `v*` tag → `npm version` → pushes tag → creates GitHub release. Release notes use the historic devicon format: thank-you line, ` **N New/Updated Icons**` (PR titles starting `new icon:`/`update icon:`) and ` **N New Features/Fixes**` (all other PRs), each `- [title](url) by @commit-authors.`, newest first; PRs found via `(#n)` in squash commit titles
@@ -77,12 +76,12 @@ Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly
 
 ### PR titles
 Not used to find icons anywhere (bots, build, release all use changed files). Enforced by `check_icon_pr.yml` for icon PRs (any change in `icons/`):
-- one icon per PR; only `icons/<name>/` and that icon's `devicon.json` entry may change — any other added/modified/deleted file or other `devicon.json` entry fails the check with a comment
-- a rename (one folder moved to another + the `devicon.json` entry renamed) counts as one icon and is checked as `update icon: <new name>`; when the bot labels a rename or removal `release: major` it also comments why it's breaking (the check passes only the names via `release_notice.json`, the comment workflow writes the text)
-- title `new icon: <name> (<versions>)` (icon not in target branch's `devicon.json`) or `update icon: <name> (<versions>)`; versions = the SVGs the PR adds/changes; case and version order don't matter
+- one icon per PR; only files in `icons/<name>/` (SVGs and `<name>.json`) may change — any other added/modified/deleted file fails the check with a comment. Editing the generated root `devicon.json` fails too; the comment shows the `icons/<name>/<name>.json` to create from the PR's edit (helps PRs opened before the split)
+- a rename (one folder moved to another, data file renamed with it) counts as one icon and is checked as `update icon: <new name>`; when the bot labels a rename or removal `release: major` it also comments why it's breaking (the check passes only the names via `release_notice.json`, the comment workflow writes the text)
+- title `new icon: <name> (<versions>)` (icon had no data file in the target branch) or `update icon: <name> (<versions>)`; versions = the SVGs the PR adds/changes; case and version order don't matter
 - wrong title on an otherwise clean-scoped PR → check fails, writes `expected_title.txt`, and `post_check_icon_pr_comment.yml` renames the PR with the bot app token (which re-runs the check) and comments old → new title. Without the bot app it comments the expected title instead
 - wrong title on a PR with scope problems → no rename; the title issue is part of the error comment
-- `devicon.json`-only PRs (aliases, tags…) have no title or scope requirement
+- data-only PRs (aliases, tags… in `<name>.json`) have no title requirement
 - `post_check_icon_pr_comment.yml` only acts on a PR whose head SHA matches the checked commit (fork runs' artifacts are untrusted) and only accepts titles matching the icon-title format
 
 The title becomes the squash commit and the release-notes line.
@@ -113,14 +112,14 @@ npm run dev
 
 ### Add a new icon
 1. Create folder `icons/<name>/` with SVG variants
-2. Add entry to `devicon.json` in alphabetical order (validate against `devicon-schema.json`)
+2. Add the icon's data as `icons/<name>/<name>.json` (VS Code validates it against `.vscode/devicon-schema.json`); don't touch the root `devicon.json`
 3. Open PR against `master` with title format: `new icon: <name> (<variants>)`
 
-## devicon.json Format
-Each entry looks like:
+## Icon data format
+`icons/<name>/<name>.json` holds one icon's data; the name is the folder name. `.github/scripts/devicon_json.js` (Node) and `util.load_icons` (Python) read these files; every script uses them, never the root `devicon.json`. The CSS build (`npm run build-css`, run by the weekly build) regenerates the root `devicon.json` from them, sorted by name, so it always matches the fonts and CSS of the same commit and keeps working for the website, npm and jsDelivr users. Each file looks like:
 ```json
 {
-  "name": "python",
+  "altnames": ["python3"],
   "tags": ["scripting", "data science", ...],
   "versions": {
     "svg": ["original", "original-wordmark", "plain", "plain-wordmark"],
@@ -134,6 +133,6 @@ Each entry looks like:
 ## Important Notes
 - Font files (`fonts/`, `devicon.eot`, `devicon.ttf`, etc.) are **generated artifacts** — don't edit them directly.
 - `icomoon.json` is updated by the build script — don't edit manually.
-- `devicon.min.css` is generated by `npm run build-css` — don't edit manually.
+- `devicon.min.css` and `devicon.json` are generated by `npm run build-css` — don't edit manually.
 - The `build:` commit prefix is used by the weekly build to detect the last successful build.
 - All building, versioning and releasing goes through `build_weekly.yml` (the old `build_icons.yml` and `version_and_release.yml` were removed).

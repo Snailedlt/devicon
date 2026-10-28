@@ -1,11 +1,13 @@
 /*
  * Generates devicon-history.json, used by the website to sort icons by release
- * date and last update. For every icon in devicon.json it records:
+ * date and last update. For every icon (icons/<name>/<name>.json) it records:
  * - released / releasedOn: the first release (v* tag) that contained the icon
  * - updated / updatedOn:   the release of the icon's last real change
  *
- * "Real" changes ignore build commits (they only re-optimize SVGs) and bulk
- * commits touching more than BULK_LIMIT icons (e.g. repo-wide SVG optimizations).
+ * "Real" changes are changes to the icon's SVGs, ignoring build commits (they
+ * only re-optimize SVGs) and bulk commits touching more than BULK_LIMIT icons
+ * (e.g. repo-wide SVG optimizations). Data-only changes (tags, altnames) don't
+ * count as updates.
  * Icons that aren't in any release yet get --next-version (the release being
  * made) and today's date.
  *
@@ -13,6 +15,7 @@
  */
 const { execFileSync } = require('child_process');
 const fs = require('fs');
+const { loadIcons } = require('./devicon_json');
 
 const BULK_LIMIT = 5;
 const BUILD_COMMIT = /^(build|built|build preparation)\b/i;
@@ -53,7 +56,7 @@ const log = git('log', '--format=%x00%H %s', '--name-only', '--', 'icons');
 for (const entry of log.split('\0').filter(Boolean)) {
   const [header, ...paths] = lines(entry);
   const [sha, ...subject] = header.split(' ');
-  const folders = new Set(paths.map(p => p.split('/')[1]).filter(Boolean));
+  const folders = new Set(paths.filter(p => p.endsWith('.svg')).map(p => p.split('/')[1]));
   if (folders.size > BULK_LIMIT || BUILD_COMMIT.test(subject.join(' '))) continue;
   for (const folder of folders) {
     if (!lastChange.has(folder)) lastChange.set(folder, sha);
@@ -66,7 +69,7 @@ const releaseIndex = release => {
   return i === -1 ? Infinity : i;
 };
 const history = {};
-for (const { name } of JSON.parse(fs.readFileSync('devicon.json', 'utf8'))) {
+for (const { name } of loadIcons()) {
   const released = firstRelease.get(name) || next;
   if (!released) continue;
   let updated = lastChange.has(name) ? (releaseOfCommit.get(lastChange.get(name)) || next) : released;

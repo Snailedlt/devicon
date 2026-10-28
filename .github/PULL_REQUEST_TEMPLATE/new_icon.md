@@ -6,7 +6,7 @@
 - [ ] PR's base is the `master` branch.
 - [ ] Your icons are inside a folder as seen [here](https://github.com/devicons/devicon/wiki/Organizing-SVGs)
 - [ ] SVG matches the standards laid out [here](https://github.com/devicons/devicon/wiki/SVG-Standards)
-- [ ] A new object is added in the `devicon.json` file at the correct alphabetic position as seen [here](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)
+- [ ] The icon's data is in `icons/<name>/<name>.json` (not in the root `devicon.json`, which is generated) as seen [here](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)
 
 <!-- Refer to the [contributing](https://github.com/devicons/devicon/blob/master/CONTRIBUTING.md#contributing-to-devicon) guidelines for more details. -->
 

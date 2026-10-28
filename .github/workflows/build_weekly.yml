@@ -76,7 +76,7 @@ jobs:
           echo "Building changes since $SINCE"
           echo "since=$SINCE" >> $GITHUB_OUTPUT
 
-          if git diff --quiet "$SINCE" HEAD -- icons/ devicon.json; then
+          if git diff --quiet "$SINCE" HEAD -- icons/; then
             echo "No icon changes since last build — skipping build"
             echo "has_changes=false" >> $GITHUB_OUTPUT
             exit 0
@@ -88,7 +88,7 @@ jobs:
           # Changes that need no glyphs (tags, colours, aliases) only rebuild the
           # CSS; otherwise the "last build" marker wouldn't move and every later
           # run would install everything before finding nothing to build.
-          COUNT=$(python3 -c 'import sys; sys.path.insert(0, ".github/scripts"); from icomoon_build_githubless import get_icons_for_building; print(len(get_icons_for_building("icomoon.json", "devicon.json", sys.argv[1], sys.stderr)))' "$SINCE")
+          COUNT=$(python3 -c 'import sys; sys.path.insert(0, ".github/scripts"); from icomoon_build_githubless import get_icons_for_building; print(len(get_icons_for_building("icomoon.json", "icons", sys.argv[1], sys.stderr)))' "$SINCE")
           echo "$COUNT icons need new glyphs"
           echo "needs_glyphs=$([ "$COUNT" -gt 0 ] && echo true || echo false)" >> $GITHUB_OUTPUT
 
@@ -122,8 +122,8 @@ jobs:
         if: steps.check-changes.outputs.needs_glyphs == 'true'
         run: chmod +x ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver
 
-      # Rebuilds icons whose glyphs don't match devicon.json (new icons, changed
-      # font versions) or whose font SVGs changed since the last build. Exits
+      # Rebuilds icons whose glyphs don't match their font versions (new icons,
+      # changed font versions) or whose font SVGs changed since the last build. Exits
       # successfully without touching anything if there's nothing to build.
       # icomoon.io often fails for a while (timeouts, a slow page), so a failed
       # build is retried twice, a minute apart, from a clean tree. Each failed
@@ -139,7 +139,6 @@ jobs:
             if python ./.github/scripts/icomoon_build_githubless.py \
                 ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver \
                 ./icomoon.json \
-                ./devicon.json \
                 ./icons \
                 ./ \
                 --headless \
@@ -156,8 +155,9 @@ jobs:
             sleep 60
           done
 
-      # Always rebuilt when icons/devicon.json changed: aliases and colors in
-      # devicon.json end up in devicon.min.css even when no glyphs change.
+      # Always rebuilt when icons/ changed: regenerates devicon.json from the
+      # icons' data files, and aliases and colors end up in devicon.min.css even
+      # when no glyphs change.
       - name: Build CSS
         if: steps.check-changes.outputs.has_changes == 'true' && steps.build.outcome != 'failure'
         id: build-css

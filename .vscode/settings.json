@@ -2,7 +2,7 @@
   "json.schemas": [
     {
       "fileMatch": [
-        "devicon.json"
+        "icons/*/*.json"
       ],
       "url": "/.vscode/devicon-schema.json"
     }

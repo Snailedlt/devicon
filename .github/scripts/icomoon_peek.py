@@ -6,13 +6,13 @@ def main():
     runner = None
     try:
         args = arg_getters.get_selenium_runner_args(has_token=False, peek_mode=True)
-        all_icons = filehandler.get_json_file_content(args.devicon_json_path)
+        all_icons = util.load_icons(args.icons_folder_path)
 
         # peek at the icon whose SVGs this PR adds/changes
-        changes = util.get_pr_icon_changes(all_icons, args.base)
+        changes = util.get_pr_icon_changes(args.base)
         svg_icons = sorted(changes["svgs"])
         if len(svg_icons) == 0:
-            # e.g. a devicon.json-only change: nothing to peek, no screenshots
+            # e.g. a data-only change (tags, aliases): nothing to peek, no screenshots
             print("No icon SVGs changed in this PR, nothing to peek.")
             filehandler.write_to_file("./err_messages.txt", "")
             return
@@ -20,7 +20,7 @@ def main():
             raise Exception(f"This PR changes the SVGs of several icons ({', '.join(svg_icons)}). Please open a separate PR for each icon.")
         filtered_icon = next((icon for icon in all_icons if icon["name"] == svg_icons[0]), None)
         if filtered_icon is None:
-            raise Exception(f"`icons/{svg_icons[0]}/` was changed, but `devicon.json` has no entry named \"{svg_icons[0]}\".")
+            raise Exception(f"`icons/{svg_icons[0]}/` was changed, but `icons/{svg_icons[0]}/{svg_icons[0]}.json` (the icon's data) is missing.")
 
         svgs = filehandler.get_svgs_paths([filtered_icon], args.icons_folder_path, True)
         screenshot_folder = filehandler.create_screenshot_folder("./") 

@@ -22,7 +22,7 @@ def main():
     logfile = open("log.txt", "w")
     try:
         args = arg_getters.get_selenium_runner_args(has_token=False, build_since=True)
-        new_icons = get_icons_for_building(args.icomoon_json_path, args.devicon_json_path, args.since, logfile)
+        new_icons = get_icons_for_building(args.icomoon_json_path, args.icons_folder_path, args.since, logfile)
         if len(new_icons) == 0:
             msg = "No new or changed font icons — nothing to build."
             print(msg, file=logfile)
@@ -127,21 +127,21 @@ def verify_glyph_codes(codes_before: Dict[str, int], codes_after: Dict[str, int]
     print(f"Codepoints verified: all {kept} existing glyphs that weren't rebuilt kept theirs.", file=logfile)
 
 
-def get_icons_for_building(icomoon_json_path: str, devicon_json_path: str, since: str, logfile: FileIO):
+def get_icons_for_building(icomoon_json_path: str, icons_folder_path: str, since: str, logfile: FileIO):
     """
     Get the icons whose font glyphs need to be (re)built. An icon is built when:
-    - its glyphs in `icomoon.json` don't match its font versions in `devicon.json`
+    - its glyphs in `icomoon.json` don't match its font versions (icons/<name>/<name>.json)
       (new icon, or font versions added/removed/renamed), or
     - one of its font SVGs changed since the `since` commit (updated icon).
     Font versions that are aliases are ignored, since the CSS provides those.
     :param icomoon_json_path - the path to the `icomoon.json`.
-    :param devicon_json_path - the path to the `devicon.json`.
+    :param icons_folder_path - the path to the icons folder (each icon's data file).
     :param since - commit to diff against for changed SVGs. None to skip that check.
     :param logfile.
     :return a list of dict containing info on the icons. These are
     from the `devicon.json`.
     """
-    devicon_json = filehandler.get_json_file_content(devicon_json_path)
+    devicon_json = util.load_icons(icons_folder_path)
     icomoon_json = filehandler.get_json_file_content(icomoon_json_path)
 
     glyphs_by_icon = {}
@@ -163,7 +163,7 @@ def get_icons_for_building(icomoon_json_path: str, devicon_json_path: str, since
         if not actual:
             reason = "new icon"
         elif expected != actual:
-            reason = f"font versions changed (devicon.json: {sorted(expected)}, icomoon.json: {sorted(actual)})"
+            reason = f"font versions changed (data file: {sorted(expected)}, icomoon.json: {sorted(actual)})"
         elif any(f"icons/{icon['name']}/{icon['name']}-{v}.svg" in changed_svgs for v in expected):
             reason = "font SVG updated"
         else:

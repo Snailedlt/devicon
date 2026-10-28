@@ -8,7 +8,7 @@ on:
       - 'devicon.json'
 jobs:
   check:
-    name: Check the `devicon.json` and the SVGs' quality
+    name: Check the icon's data and SVGs
     runs-on: ubuntu-24.04
     steps:
       # Checks out the PR's merge commit; depth 2 so HEAD^1 (the target branch)
@@ -48,7 +48,7 @@ jobs:
       - name: Run the check_svg script
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
-        run: python ./.github/scripts/check_icon_pr.py "$PR_TITLE" ./icons ./devicon.json
+        run: python ./.github/scripts/check_icon_pr.py "$PR_TITLE" ./icons
 
       # Uploaded even if the script crashed: it writes the error to err_messages.txt.
       # expected_title.txt is set when the bot should rename the PR.

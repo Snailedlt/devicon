@@ -61,7 +61,7 @@ jobs:
             const screenshotsDir = './screenshots';
 
             // A successful peek without screenshots means the PR changed no icon
-            // SVGs (e.g. a devicon.json-only change), so there's nothing to post
+            // SVGs (e.g. a change to only the icon's data file), so there's nothing to post
             const files = fs.existsSync(screenshotsDir)
               ? fs.readdirSync(screenshotsDir).filter(f => f.endsWith('.png'))
               : [];
@@ -177,7 +177,7 @@ jobs:
               '1. The number of Glyphs matches the number of SVGs that were selected.',
               '2. The icons (second group of pictures) look the same as the SVGs (first group of pictures).',
               '3. The icons are of high quality (legible, matches the official logo, etc.)',
-              '4. A new object is added in the `devicon.json` file at the correct alphabetic position as seen [here](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)',
+              '4. The icon\'s data is in `icons/<name>/<name>.json` as seen [here](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)',
               '',
               'In case of font issues, it might be caused by Icomoon not accepting strokes in the SVGs. Check this [doc](https://icomoon.io/#faq/importing) for more details.',
               '',
@@ -216,7 +216,7 @@ jobs:
               'Make sure that:',
               '',
               '- Your SVGs are named and added correctly to the /icons folder as seen [here](https://github.com/devicons/devicon/wiki/Organizing-SVGs).',
-              '- Your icon information has been added to the `devicon.json` as seen [here](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)',
+              '- Your icon information has been added to `icons/<name>/<name>.json` as seen [here](https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60)',
               '- Your PR title follows the format seen [here](https://github.com/devicons/devicon/wiki/Overview-on-Submitting-Icons)',
               '',
               'I will retry once everything is fixed. If I still fail, the maintainers will investigate.',

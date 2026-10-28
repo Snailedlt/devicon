@@ -6,10 +6,10 @@ const yargs = require("yargs");
 const fsPromise = require("fs").promises;
 const path = require("path");
 const {execSync} = require("child_process")
+const { writeDeviconJson } = require("./.github/scripts/devicon_json");
 
 // global const
 const deviconBaseCSSName = "devicon-base.css"
-const deviconJSONName = "devicon.json";
 const aliasSCSSName = "devicon-alias.scss";
 const colorsCSSName = "devicon-colors.css";
 const finalMinSCSSName = "devicon.min.scss";
@@ -36,12 +36,13 @@ async function createDeviconMinCSS() {
 }
 
 /**
- * Create the devicon-alias.scss and the
- * devicon-colors.css from the devicon.json.
+ * Regenerate devicon.json from icons/<name>/<name>.json, then create the
+ * devicon-alias.scss and the devicon-colors.css from it.
  */
 async function createCSSFiles() {
+  writeDeviconJson(__dirname);
   const deviconJson = JSON.parse(
-    await fsPromise.readFile(path.join(__dirname, deviconJSONName), "utf8")
+    await fsPromise.readFile(path.join(__dirname, "devicon.json"), "utf8")
   );
 
   await Promise.all([

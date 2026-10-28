@@ -15,7 +15,7 @@ First of all, thanks for taking the time to contribute! This project can only gr
   <li><a href="#versionNaming">Naming Conventions</a></li>
   <li><a href="#SVGStandards">SVG Standards</a></li>
   <li><a href="#orgGuidelines">Organizational Guidelines</a></li>
-  <li><a href="#updateDevicon">Updating the <code>devicon.json</code></a></li>
+  <li><a href="#updateDevicon">Adding the icon's data (<code>icons/&lt;name&gt;/&lt;name&gt;.json</code>)</a></li>
   <li><a href="#example">Example of Submitting An Icon</a></li>
   <li><a href="#updatingIcons">Updating an Icon</a></li>
   <li><a href="#teams">Maintainer/Reviewer/Teams</a></li>
@@ -74,7 +74,7 @@ First of all, thanks for taking the time to contribute! This project can only gr
 <ol>
   <li>Create the SVGs for each <a href="#versionNaming"> SVG versions </a> that you have. Follow the <a href="#SVGStandards">convention</a> listed.</li>
   <li>Put the SVGs of each Icon into its own <a href="#orgGuidelines">folders</a> in <code>/icons</code></li>
-  <li><a href="#updateDevicon">Update the <code>devicon.json</code> to include the new Icon</a> </li>
+  <li><a href="#updateDevicon">Add the icon's data file</a> </li>
   <li>Create a separated pull request (PR) towards the <code>master</code> branch for each Icon.</li>
   <li>Fill out the info as stated in the PR template.</li>
   <li>Include the name of the Icon in the pull request title in this format: <code>new icon: <i>Icon name</i> (<i>versions</i>)</code> </li>
@@ -177,19 +177,22 @@ First of all, thanks for taking the time to contribute! This project can only gr
 </ul>
 
 <hr>
-<h2 id='updateDevicon'> Updating the <code>devicon.json</code> </h2>
+<h2 id='updateDevicon'> Adding the icon's data (<code>icons/&lt;name&gt;/&lt;name&gt;.json</code>) </h2>
 <p>
-  Before you open a PR into Devicon, you must update the <code>devicon.json</code>. This is essential for our build script to work and to document your work.
+  Each icon's data lives next to its SVGs, in <code>icons/&lt;name&gt;/&lt;name&gt;.json</code> (for example <code>icons/redhat/redhat.json</code>). This is essential for our build script to work and to document your work. The icon's name is its folder name, so it isn't repeated in the file.
 </p>
 <p>
-  Here is the object that each of your Icon must have:
+  Don't edit the <code>devicon.json</code> in the root of the repository: it's generated from these files when the icons are built.
+</p>
+<p>
+  Here is the object that each icon's file must have:
 </p>
 
 <pre>
   <code>
     {
-        // the official name of the technology. Must be lower case, no space and don't have the dash '-' character.
-        "name": string, 
+        // other names for the technology, used by the search on devicon.dev
+        "altnames": string[],
 
         // list of tags relating to the technology for search purpose
         "tags": string[], 
@@ -253,13 +256,13 @@ As an example, let's assume you have created the SVGs for Redhat and Amazon Web 
     </ul>
   </li>
   <li>
-    <a href="#updateDevicon">Update the <code>devicon.json</code></a>
+    <a href="#updateDevicon">Add the icon's data file</a>
     <ul>
-      <li>For <code>redhat</code>, you would do this 
+      <li>For <code>redhat</code>, you would create <code>icons/redhat/redhat.json</code> with 
         <pre>
           <code>
             {
-              "name": "redhat",
+              "altnames": [],
               "tags": [
                 "server",
                 "linux"
@@ -278,15 +281,15 @@ As an example, let's assume you have created the SVGs for Redhat and Amazon Web 
               },
               "color": "#e93442", // note the '#' character
               "aliases": [] // no aliases in this case
-            },
+            }
           </code>
         </pre>
       </li>
-      <li>For the <code>amazonwebservices</code>, you would do this 
+      <li>For the <code>amazonwebservices</code>, you would create <code>icons/amazonwebservices/amazonwebservices.json</code> with 
         <pre>
           <code>
             {
-              "name": "amazonwebservices", 
+              "altnames": [],
               "tags": [
                 "cloud",
                 "hosting",

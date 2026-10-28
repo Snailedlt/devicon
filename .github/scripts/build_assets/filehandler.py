@@ -7,25 +7,6 @@ import re
 from io import FileIO
 
 
-def find_new_icons_in_devicon_json(devicon_json_path: str, icomoon_json_path: str):
-    """
-    Find the newly added icons by finding the difference between
-    the devicon.json and the icomoon.json.
-    :param devicon_json_path, the path to the devicon.json.
-    :param icomoon_json_path: a path to the iconmoon.json.
-    :return: a list of the new icons as JSON objects.
-    """
-    devicon_json = get_json_file_content(devicon_json_path)
-    icomoon_json = get_json_file_content(icomoon_json_path)
-
-    new_icons = []
-    for icon in devicon_json:
-        if is_not_in_icomoon_json(icon, icomoon_json):
-            new_icons.append(icon)
-
-    return new_icons
-
-
 def get_json_file_content(json_path: str):
     """
     Get the json content of the json_path.
@@ -34,22 +15,6 @@ def get_json_file_content(json_path: str):
     """
     with open(json_path) as json_file:
         return json.load(json_file)
-
-
-def is_not_in_icomoon_json(icon, icomoon_json):
-    """
-    Checks whether the icon's name is not in the icomoon_json.
-    :param icon: the icon object we are searching for.
-    :param icomoon_json: the icomoon json object parsed from
-    icomoon.json.
-    :return: True if icon's name is not in the icomoon.json, else False.
-    """
-    pattern = re.compile(f"^{icon['name']}-")
-
-    for font in icomoon_json["icons"]:
-        if pattern.search(font["properties"]["name"]):
-            return False
-    return True
 
 
 def get_svgs_paths(new_icons: List[dict], icons_folder_path: str, 
