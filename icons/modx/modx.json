@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "cms",
+        "php",
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#00decc",
+    "aliases": []
+}

@@ -1,0 +1,27 @@
+{
+    "altnames": [
+        "travisci"
+    ],
+    "tags": [
+        "platform",
+        "integration"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#2d3136",
+    "aliases": []
+}

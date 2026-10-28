@@ -1,0 +1,36 @@
+{
+    "altnames": [],
+    "tags": [
+        "networking",
+        "server"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "line"
+        ],
+        "font": [
+            "original",
+            "line"
+        ]
+    },
+    "color": "#02228e",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original",
+            "alias": "plain-wordmark"
+        },
+        {
+            "base": "line",
+            "alias": "line-wordmark"
+        }
+    ]
+}

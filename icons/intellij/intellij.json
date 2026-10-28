@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "intellijidea"
+    ],
+    "tags": [
+        "jetbrains",
+        "editor",
+        "java"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#087cfa",
+    "aliases": []
+}

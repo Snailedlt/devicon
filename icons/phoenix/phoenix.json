@@ -1,0 +1,31 @@
+{
+    "altnames": [
+        "Phoenix Framework"
+    ],
+    "tags": [
+        "framework",
+        "build",
+        "web",
+        "web-development",
+        "development",
+        "elixir"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain-wordmark"
+        ],
+        "font": [
+            "original",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#FD4F00",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

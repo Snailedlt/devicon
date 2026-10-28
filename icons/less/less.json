@@ -1,0 +1,19 @@
+{
+    "altnames": [
+        "lesscss"
+    ],
+    "tags": [
+        "css",
+        "pre-processor"
+    ],
+    "versions": {
+        "svg": [
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain-wordmark"
+        ]
+    },
+    "color": "#2a4d80",
+    "aliases": []
+}

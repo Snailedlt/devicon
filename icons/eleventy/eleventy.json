@@ -1,0 +1,20 @@
+{
+    "altnames": [
+        "11ty"
+    ],
+    "tags": [
+        "ssg",
+        "static site generator"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#1f1f1f",
+    "aliases": []
+}

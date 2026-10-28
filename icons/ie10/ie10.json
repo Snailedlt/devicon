@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "internetexplorer10"
+    ],
+    "tags": [
+        "browser"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#1EBBEE",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

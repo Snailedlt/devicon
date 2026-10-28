@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "adobeillustrator"
+    ],
+    "tags": [
+        "editor",
+        "vector"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#330000",
+    "aliases": []
+}

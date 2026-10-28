@@ -1,0 +1,21 @@
+{
+    "altnames": [],
+    "tags": [
+        "jetbrains",
+        "editor"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#FC801D",
+    "aliases": []
+}

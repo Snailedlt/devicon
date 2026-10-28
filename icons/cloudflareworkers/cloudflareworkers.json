@@ -1,0 +1,26 @@
+{
+    "altnames": [
+        "Cloudflare Workers"
+    ],
+    "tags": [
+        "platform",
+        "serverless",
+        "deploy",
+        "performance",
+        "javascript"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#ea9344",
+    "aliases": []
+}

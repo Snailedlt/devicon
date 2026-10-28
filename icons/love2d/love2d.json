@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "löve"
+    ],
+    "tags": [
+        "programming",
+        "game-engine"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#fff",
+    "aliases": []
+}

@@ -1,0 +1,23 @@
+{
+    "altnames": [],
+    "tags": [
+        "testing",
+        "performance",
+        "load"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#7D64FF",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

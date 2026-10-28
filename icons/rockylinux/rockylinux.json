@@ -1,0 +1,28 @@
+{
+    "altnames": [
+        "rocky"
+    ],
+    "tags": [
+        "os",
+        "open-source",
+        "linux"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain-wordmark"
+        ],
+        "font": [
+            "original",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#10b982",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

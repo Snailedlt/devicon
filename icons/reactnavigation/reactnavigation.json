@@ -1,0 +1,25 @@
+{
+    "altnames": [],
+    "tags": [
+        "routing",
+        "navigation",
+        "react native",
+        "app",
+        "open-source"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#7b61c1",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

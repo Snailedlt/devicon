@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "elastic",
+        "data",
+        "logs"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain-wordmark",
+            "plain"
+        ]
+    },
+    "color": "#00bfb3",
+    "aliases": []
+}

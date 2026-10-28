@@ -1,0 +1,19 @@
+{
+    "altnames": [
+        ".netcore"
+    ],
+    "tags": [
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#623697",
+    "aliases": []
+}

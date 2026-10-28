@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "elmlang"
+    ],
+    "tags": [
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#34495E",
+    "aliases": []
+}

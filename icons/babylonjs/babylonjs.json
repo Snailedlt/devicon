@@ -1,0 +1,25 @@
+{
+    "altnames": [
+        "babylon.js"
+    ],
+    "tags": [
+        "3d",
+        "javascript",
+        "library",
+        "web"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#bb464b",
+    "aliases": []
+}

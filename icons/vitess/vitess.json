@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "sharding",
+        "database",
+        "mysql"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#f16827",
+    "aliases": []
+}

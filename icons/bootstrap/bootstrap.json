@@ -1,0 +1,24 @@
+{
+    "altnames": [],
+    "tags": [
+        "css",
+        "framework",
+        "html",
+        "javascript",
+        "library"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#712cf9",
+    "aliases": []
+}

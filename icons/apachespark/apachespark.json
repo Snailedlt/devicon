@@ -1,0 +1,26 @@
+{
+    "altnames": [],
+    "tags": [
+        "data-processing",
+        "data-science",
+        "machine-learning"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain-wordmark"
+        ],
+        "font": [
+            "original",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#e15919",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

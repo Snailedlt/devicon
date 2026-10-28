@@ -1,0 +1,29 @@
+{
+    "altnames": [],
+    "tags": [
+        "monitoring",
+        "platform",
+        "integration"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark"
+        ]
+    },
+    "color": "#632ca6",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

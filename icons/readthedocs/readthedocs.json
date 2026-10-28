@@ -1,0 +1,33 @@
+{
+    "altnames": [
+        "Read The Docs"
+    ],
+    "tags": [
+        "documentation",
+        "python",
+        "open-source"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "line"
+        ],
+        "font": [
+            "original",
+            "original-wordmark",
+            "line"
+        ]
+    },
+    "color": "#32322A",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

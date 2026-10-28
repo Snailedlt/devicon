@@ -1,0 +1,20 @@
+{
+    "altnames": [],
+    "tags": [
+        "test",
+        "demo",
+        "example",
+        "sample"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#7B42BC",
+    "aliases": []
+}

@@ -1,0 +1,28 @@
+{
+    "altnames": [],
+    "tags": [
+        "js",
+        "javascript",
+        "framework",
+        "fullstack",
+        "vuejs"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain-wordmark"
+        ],
+        "font": [
+            "original",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#00dc82",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

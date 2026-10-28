@@ -1,0 +1,25 @@
+{
+    "altnames": [],
+    "tags": [
+        "analysis",
+        "data",
+        "data-science",
+        "software",
+        "statistics"
+    ],
+    "versions": {
+        "svg": [
+            "original-wordmark"
+        ],
+        "font": [
+            "original-wordmark"
+        ]
+    },
+    "color": "#195f92",
+    "aliases": [
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

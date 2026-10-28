@@ -1,0 +1,25 @@
+{
+    "altnames": [],
+    "tags": [
+        "package",
+        "manager",
+        "kubernetes"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "line"
+        ],
+        "font": [
+            "original",
+            "line"
+        ]
+    },
+    "color": "#0F1689",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

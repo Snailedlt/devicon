@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "jqueryjs"
+    ],
+    "tags": [
+        "library",
+        "javascript"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#0769ad",
+    "aliases": []
+}

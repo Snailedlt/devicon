@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "GitHub Codespaces"
+    ],
+    "tags": [
+        "development",
+        "remote-development",
+        "editor",
+        "browser",
+        "cloud"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#24292e",
+    "aliases": []
+}

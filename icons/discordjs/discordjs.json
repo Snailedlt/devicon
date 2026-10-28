@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "wrapper",
+        "api_wrapper",
+        "nodejs"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#0c0c14",
+    "aliases": []
+}

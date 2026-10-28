@@ -1,0 +1,35 @@
+{
+    "altnames": [
+        "extensiblemarkuplanguage"
+    ],
+    "tags": [
+        "markup",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#005fad",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        },
+        {
+            "base": "line",
+            "alias": "line-wordmark"
+        }
+    ]
+}

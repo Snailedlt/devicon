@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "cli",
+        "terminal",
+        "multiplexer"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#1bb91f",
+    "aliases": []
+}

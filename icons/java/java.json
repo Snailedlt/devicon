@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "programming",
+        "language",
+        "jvm"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#EA2D2E",
+    "aliases": []
+}

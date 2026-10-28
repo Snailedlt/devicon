@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "adobephotoshop"
+    ],
+    "tags": [
+        "editor",
+        "graphic"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#001e36",
+    "aliases": []
+}

@@ -1,0 +1,31 @@
+{
+    "altnames": [
+        "apachegradle",
+        "gradlebuildtool"
+    ],
+    "tags": [
+        "open-source",
+        "task-runner"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark"
+        ]
+    },
+    "color": "#02303a",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

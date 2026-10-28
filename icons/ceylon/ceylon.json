@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "eclipseceylon",
+        "ceylonlang"
+    ],
+    "tags": [
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#AB710A",
+    "aliases": []
+}

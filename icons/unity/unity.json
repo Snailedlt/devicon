@@ -1,0 +1,28 @@
+{
+    "altnames": [],
+    "tags": [
+        "C#",
+        "c-sharp",
+        "csharp",
+        "engine",
+        "game-engine"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#4d4d4d",
+    "aliases": []
+}

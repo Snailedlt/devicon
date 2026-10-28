@@ -1,0 +1,19 @@
+{
+    "altnames": [],
+    "tags": [
+        "php",
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#ee4323",
+    "aliases": []
+}

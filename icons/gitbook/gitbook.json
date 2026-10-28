@@ -1,0 +1,34 @@
+{
+    "altnames": [],
+    "tags": [
+        "documentation",
+        "pages",
+        "git",
+        "markup"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#346ddb",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "altnames": [],
+    "tags": [
+        "machine-learning",
+        "python",
+        "library"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#d00000",
+    "aliases": []
+}

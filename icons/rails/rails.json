@@ -1,0 +1,21 @@
+{
+    "altnames": [
+        "rubyonrails"
+    ],
+    "tags": [
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#CC0000",
+    "aliases": []
+}

@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "hypertextmarkdownlanguage5"
+    ],
+    "tags": [
+        "programming",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#e54d26",
+    "aliases": []
+}

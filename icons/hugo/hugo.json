@@ -1,0 +1,27 @@
+{
+    "altnames": [
+        "gohugo"
+    ],
+    "tags": [
+        "framework",
+        "ssg",
+        "static-site-generator",
+        "go",
+        "html",
+        "css"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#FF4088",
+    "aliases": []
+}

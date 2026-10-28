@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "GitHub Actions"
+    ],
+    "tags": [
+        "devops",
+        "integration"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#2088FF",
+    "aliases": []
+}

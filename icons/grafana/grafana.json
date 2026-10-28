@@ -1,0 +1,29 @@
+{
+    "altnames": [],
+    "tags": [
+        "monitoring",
+        "analytics",
+        "metrics",
+        "logs",
+        "visualization",
+        "web-application"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#f7a525",
+    "aliases": []
+}

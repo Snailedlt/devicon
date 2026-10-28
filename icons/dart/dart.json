@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "googledart"
+    ],
+    "tags": [
+        "programming",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#00A8E1",
+    "aliases": []
+}

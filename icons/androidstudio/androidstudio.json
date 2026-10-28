@@ -1,0 +1,25 @@
+{
+    "altnames": [],
+    "tags": [
+        "application",
+        "editor",
+        "jetbrains",
+        "ide",
+        "android",
+        "mobile"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#4285F4",
+    "aliases": []
+}

@@ -1,0 +1,27 @@
+{
+    "altnames": [
+        "ts"
+    ],
+    "tags": [
+        "programming",
+        "transpiler",
+        "javascript",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#007acc",
+    "aliases": [
+        {
+            "base": "plain",
+            "alias": "original"
+        }
+    ]
+}

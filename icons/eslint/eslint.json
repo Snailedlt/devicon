@@ -1,0 +1,27 @@
+{
+    "altnames": [],
+    "tags": [
+        "linter",
+        "javascript",
+        "code-quality",
+        "coding-style"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#4b32c3",
+    "aliases": []
+}

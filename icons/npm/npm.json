@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "npmjs",
+        "nodepackagemanager"
+    ],
+    "tags": [
+        "package",
+        "manager"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain"
+        ],
+        "font": [
+            "original-wordmark",
+            "plain"
+        ]
+    },
+    "color": "#cb3837",
+    "aliases": []
+}

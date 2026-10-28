@@ -1,0 +1,30 @@
+{
+    "altnames": [
+        "msql",
+        "mssql",
+        "Microsoft SQL Server"
+    ],
+    "tags": [
+        "database",
+        "sql",
+        "db"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#ee352c",
+    "aliases": []
+}

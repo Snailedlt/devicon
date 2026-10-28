@@ -1,0 +1,24 @@
+{
+    "altnames": [],
+    "tags": [
+        "platform",
+        "data",
+        "log",
+        "monitoring"
+    ],
+    "versions": {
+        "svg": [
+            "original-wordmark"
+        ],
+        "font": [
+            "original-wordmark"
+        ]
+    },
+    "color": "#0C1724",
+    "aliases": [
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

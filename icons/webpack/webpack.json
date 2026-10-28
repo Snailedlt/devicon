@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "webpackjs"
+    ],
+    "tags": [
+        "package",
+        "manager"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#1C78C0",
+    "aliases": []
+}

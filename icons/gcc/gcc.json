@@ -1,0 +1,35 @@
+{
+    "altnames": [
+        "gnucompilercollection"
+    ],
+    "tags": [
+        "compiler",
+        "linux"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#ffcfab",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        },
+        {
+            "base": "line",
+            "alias": "line-wordmark"
+        }
+    ]
+}

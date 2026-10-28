@@ -1,0 +1,21 @@
+{
+    "altnames": [],
+    "tags": [
+        "angular",
+        "ui",
+        "component",
+        "library",
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#000",
+    "aliases": []
+}

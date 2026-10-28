@@ -1,0 +1,27 @@
+{
+    "altnames": [
+        "mystructuredquerylanguage"
+    ],
+    "tags": [
+        "database",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain-wordmark"
+        ],
+        "font": [
+            "original",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#00618a",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

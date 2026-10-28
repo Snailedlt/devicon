@@ -1,0 +1,27 @@
+{
+    "altnames": [],
+    "tags": [
+        "data",
+        "elixir",
+        "integration",
+        "query"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain-wordmark"
+        ],
+        "font": [
+            "original",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#77bf43",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

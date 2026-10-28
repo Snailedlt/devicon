@@ -1,0 +1,26 @@
+{
+    "altnames": [
+        "The Apache Software Foundation"
+    ],
+    "tags": [
+        "php"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#cb2533",
+    "aliases": []
+}

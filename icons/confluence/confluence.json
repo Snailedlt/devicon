@@ -1,0 +1,28 @@
+{
+    "altnames": [
+        "atlassianconfluence"
+    ],
+    "tags": [
+        "collaboration",
+        "documentation",
+        "wiki"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#136be6",
+    "aliases": []
+}

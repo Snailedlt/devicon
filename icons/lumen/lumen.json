@@ -1,0 +1,29 @@
+{
+    "altnames": [
+        "Laravel Lumen",
+        "Lumen Laravel",
+        "Laravel Lumen Framework",
+        "laravel.lumen"
+    ],
+    "tags": [
+        "laravel",
+        "php",
+        "framework",
+        "micro-framework"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#e54537",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

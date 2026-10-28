@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "mozillafirefox"
+    ],
+    "tags": [
+        "browser"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#DD732A",
+    "aliases": []
+}

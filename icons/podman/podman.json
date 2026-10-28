@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "container",
+        "pods",
+        "docker"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#892ca0",
+    "aliases": []
+}

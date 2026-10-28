@@ -1,0 +1,25 @@
+{
+    "altnames": [
+        "uml",
+        "unified modeling language"
+    ],
+    "tags": [
+        "modeling",
+        "design",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#452e7f",
+    "aliases": []
+}

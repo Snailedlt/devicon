@@ -1,0 +1,25 @@
+{
+    "altnames": [
+        "swi-prolog"
+    ],
+    "tags": [
+        "programming",
+        "logic",
+        "language",
+        "open-source"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#F46C30",
+    "aliases": []
+}

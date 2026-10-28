@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "kraken"
+    ],
+    "tags": [
+        "nodejs",
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#0081C2",
+    "aliases": []
+}

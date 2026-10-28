@@ -1,0 +1,29 @@
+{
+    "altnames": [],
+    "tags": [
+        "auth"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#587dbd",
+    "aliases": [
+        {
+            "base": "plain",
+            "alias": "original"
+        },
+        {
+            "base": "plain-wordmark",
+            "alias": "original-wordmark"
+        }
+    ]
+}

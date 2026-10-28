@@ -1,0 +1,23 @@
+{
+    "altnames": [],
+    "tags": [
+        "jetbrains",
+        "editor",
+        "php",
+        "web",
+        "html"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#b74af7",
+    "aliases": []
+}

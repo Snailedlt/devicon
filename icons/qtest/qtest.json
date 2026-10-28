@@ -1,0 +1,27 @@
+{
+    "altnames": [],
+    "tags": [
+        "testing"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark"
+        ]
+    },
+    "color": "#1a62b3",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

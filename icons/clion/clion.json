@@ -1,0 +1,25 @@
+{
+    "altnames": [],
+    "tags": [
+        "jetbrains",
+        "editor",
+        "c",
+        "c++",
+        "cpp",
+        "cplusplus"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#21d789",
+    "aliases": []
+}

@@ -1,0 +1,33 @@
+{
+    "altnames": [
+        "fauna"
+    ],
+    "tags": [
+        "database"
+    ],
+    "versions": {
+        "svg": [
+            "original-wordmark",
+            "original",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "original-wordmark",
+            "original",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#3A1AB6",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

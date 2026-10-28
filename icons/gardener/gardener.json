@@ -1,0 +1,20 @@
+{
+    "altnames": [],
+    "tags": [
+        "kubernetes",
+        "cloud"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#009f76",
+    "aliases": []
+}

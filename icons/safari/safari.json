@@ -1,0 +1,26 @@
+{
+    "altnames": [
+        "applesafari"
+    ],
+    "tags": [
+        "browser"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line-wordmark",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line-wordmark",
+            "line"
+        ]
+    },
+    "color": "#1B88CA",
+    "aliases": []
+}

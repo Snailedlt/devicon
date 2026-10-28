@@ -1,0 +1,21 @@
+{
+    "altnames": [],
+    "tags": [
+        "platform",
+        "deploy"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#019bc6",
+    "aliases": []
+}

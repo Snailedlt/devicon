@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "Grails Framework"
+    ],
+    "tags": [
+        "framework",
+        "groovy",
+        "web-development",
+        "jvm",
+        "build"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#feb571",
+    "aliases": []
+}

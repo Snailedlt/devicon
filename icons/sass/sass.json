@@ -1,0 +1,24 @@
+{
+    "altnames": [
+        "scss"
+    ],
+    "tags": [
+        "pre-processor",
+        "css"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#cc6699",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

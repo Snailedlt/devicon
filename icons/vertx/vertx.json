@@ -1,0 +1,28 @@
+{
+    "altnames": [
+        "eclipsevertx"
+    ],
+    "tags": [
+        "sdk",
+        "java",
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#782a91",
+    "aliases": []
+}

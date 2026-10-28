@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "brand",
+        "mobile"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#000000",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

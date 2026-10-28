@@ -1,0 +1,27 @@
+{
+    "altnames": [],
+    "tags": [
+        "dotnet",
+        ".net",
+        "framework",
+        "design",
+        "ui"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "line"
+        ],
+        "font": [
+            "original",
+            "line"
+        ]
+    },
+    "color": "#5c2d91",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

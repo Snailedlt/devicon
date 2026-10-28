@@ -1,0 +1,21 @@
+{
+    "altnames": [
+        "karmarunner",
+        "karmajs"
+    ],
+    "tags": [
+        "testing",
+        "test-runner"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#56c5a8",
+    "aliases": []
+}

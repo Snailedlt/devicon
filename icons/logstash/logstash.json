@@ -1,0 +1,21 @@
+{
+    "altnames": [],
+    "tags": [
+        "logs",
+        "elastic"
+    ],
+    "versions": {
+        "svg": [
+            "original-wordmark",
+            "original",
+            "plain-wordmark",
+            "plain"
+        ],
+        "font": [
+            "plain-wordmark",
+            "plain"
+        ]
+    },
+    "color": "#fec514",
+    "aliases": []
+}

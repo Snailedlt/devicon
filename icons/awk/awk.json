@@ -1,0 +1,27 @@
+{
+    "altnames": [
+        "the awk programming language"
+    ],
+    "tags": [
+        "programming",
+        "language",
+        "unix"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain-wordmark"
+        ]
+    },
+    "color": "#0a094d",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

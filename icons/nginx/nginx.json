@@ -1,0 +1,29 @@
+{
+    "altnames": [],
+    "tags": [
+        "server"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#090",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

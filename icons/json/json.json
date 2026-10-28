@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "JavaScript Object Notation"
+    ],
+    "tags": [
+        "format",
+        "standard",
+        "file-format",
+        "object-notation"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#505050",
+    "aliases": []
+}

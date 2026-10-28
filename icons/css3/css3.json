@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "cascadingstylesheets3"
+    ],
+    "tags": [
+        "language",
+        "programming"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#3d8fc6",
+    "aliases": []
+}

@@ -1,0 +1,20 @@
+{
+    "altnames": [],
+    "tags": [
+        "telemetry"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#f5a800",
+    "aliases": []
+}

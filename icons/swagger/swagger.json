@@ -1,0 +1,24 @@
+{
+    "altnames": [
+        "Swagger"
+    ],
+    "tags": [
+        "development",
+        "software",
+        "tool"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#85ea2d",
+    "aliases": []
+}

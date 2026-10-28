@@ -1,0 +1,21 @@
+{
+    "altnames": [
+        "vs"
+    ],
+    "tags": [
+        "editor"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#52218a",
+    "aliases": []
+}

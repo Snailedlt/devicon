@@ -1,0 +1,30 @@
+{
+    "altnames": [
+        "Django REST framework"
+    ],
+    "tags": [
+        "framework",
+        "rest",
+        "api",
+        "python",
+        "web"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line",
+            "original-wordmark",
+            "plain-wordmark",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "line",
+            "plain-wordmark",
+            "line-wordmark"
+        ]
+    },
+    "color": "#a30000",
+    "aliases": []
+}

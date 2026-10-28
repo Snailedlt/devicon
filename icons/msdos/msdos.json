@@ -1,0 +1,21 @@
+{
+    "altnames": [
+        "microsoftdiskoperatingsystem"
+    ],
+    "tags": [
+        "os"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#000",
+    "aliases": []
+}

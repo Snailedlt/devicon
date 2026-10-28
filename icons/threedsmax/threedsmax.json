@@ -1,0 +1,35 @@
+{
+    "altnames": [
+        "Autodesk 3ds Max",
+        "3dsmax"
+    ],
+    "tags": [
+        "3d",
+        "programming",
+        "vfx",
+        "graphic",
+        "graphics",
+        "game",
+        "animation"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#37a5cc",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "adobexd"
+    ],
+    "tags": [
+        "design",
+        "editor",
+        "ui"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#470137",
+    "aliases": []
+}

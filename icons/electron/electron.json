@@ -1,0 +1,20 @@
+{
+    "altnames": [
+        "electronjs"
+    ],
+    "tags": [
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark"
+        ]
+    },
+    "color": "#47848f",
+    "aliases": []
+}

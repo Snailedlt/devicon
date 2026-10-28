@@ -1,0 +1,19 @@
+{
+    "altnames": [],
+    "tags": [
+        "container",
+        "linux",
+        "distribution"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#f92a20",
+    "aliases": []
+}

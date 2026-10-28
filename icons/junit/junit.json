@@ -1,0 +1,26 @@
+{
+    "altnames": [],
+    "tags": [
+        "testing",
+        "framework",
+        "java"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#dc514a",
+    "aliases": []
+}

@@ -1,0 +1,19 @@
+{
+    "altnames": [
+        "gulpjs"
+    ],
+    "tags": [
+        "task-runner",
+        "nodejs"
+    ],
+    "versions": {
+        "svg": [
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#eb4a4b",
+    "aliases": []
+}

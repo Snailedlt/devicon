@@ -1,0 +1,26 @@
+{
+    "altnames": [
+        "capacitorjs"
+    ],
+    "tags": [
+        "javascript",
+        "js",
+        "ionic",
+        "framework",
+        "universal"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#53B9FF",
+    "aliases": []
+}

@@ -1,0 +1,24 @@
+{
+    "altnames": [
+        "inertia.js"
+    ],
+    "tags": [
+        "javascript",
+        "js",
+        "library"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#8163eb",
+    "aliases": []
+}

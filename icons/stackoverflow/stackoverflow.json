@@ -1,0 +1,28 @@
+{
+    "altnames": [
+        "Stack Overflow"
+    ],
+    "tags": [
+        "website",
+        "development",
+        "community"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#F58025",
+    "aliases": []
+}

@@ -1,0 +1,19 @@
+{
+    "altnames": [
+        "intellijsoftware"
+    ],
+    "tags": [
+        "ide"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#FDCC21",
+    "aliases": []
+}

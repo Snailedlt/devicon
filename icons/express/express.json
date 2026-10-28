@@ -1,0 +1,20 @@
+{
+    "altnames": [
+        "expressjs"
+    ],
+    "tags": [
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark"
+        ]
+    },
+    "color": "#444",
+    "aliases": []
+}

@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "css",
+        "framework",
+        "vuejs-library",
+        "material-design"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "line",
+            "plain"
+        ]
+    },
+    "color": "#1697F6",
+    "aliases": []
+}

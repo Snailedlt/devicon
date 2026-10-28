@@ -1,0 +1,25 @@
+{
+    "altnames": [
+        "omz",
+        "ohmyz.sh",
+        "Oh My Zsh"
+    ],
+    "tags": [
+        "shell",
+        "script",
+        "scripting",
+        "language",
+        "command"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#000000",
+    "aliases": []
+}

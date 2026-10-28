@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "mobxjs"
+    ],
+    "tags": [
+        "state-management",
+        "testing",
+        "reactjs",
+        "nodejs"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#e05e11",
+    "aliases": []
+}

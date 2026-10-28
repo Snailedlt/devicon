@@ -1,0 +1,33 @@
+{
+    "altnames": [],
+    "tags": [
+        "hosting",
+        "platform",
+        "deployment"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#fff",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

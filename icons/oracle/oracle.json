@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "oracledatabase"
+    ],
+    "tags": [
+        "database"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#EA1B22",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "altnames": [
+        "kotlinlang"
+    ],
+    "tags": [
+        "language",
+        "jetbrains",
+        "jvm"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#c711e1",
+    "aliases": []
+}

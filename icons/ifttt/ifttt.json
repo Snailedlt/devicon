@@ -1,0 +1,25 @@
+{
+    "altnames": [
+        "ifthisthenthat"
+    ],
+    "tags": [
+        "automation",
+        "applets",
+        "programming"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#000",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "altnames": [
+        "azurecosmosdb"
+    ],
+    "tags": [
+        "database",
+        "nosql",
+        "cloud",
+        "azure"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#59B3D8",
+    "aliases": []
+}

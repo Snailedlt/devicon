@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "rlang"
+    ],
+    "tags": [
+        "programming",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#1f65b7",
+    "aliases": []
+}

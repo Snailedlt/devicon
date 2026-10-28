@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "groovylang",
+        "apachegroovy"
+    ],
+    "tags": [
+        "programming",
+        "language",
+        "jvm"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#619cbc",
+    "aliases": []
+}

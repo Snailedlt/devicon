@@ -1,0 +1,26 @@
+{
+    "altnames": [
+        "rustlang"
+    ],
+    "tags": [
+        "programming",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "line"
+        ],
+        "font": [
+            "original",
+            "line"
+        ]
+    },
+    "color": "#000",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

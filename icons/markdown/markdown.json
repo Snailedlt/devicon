@@ -1,0 +1,24 @@
+{
+    "altnames": [
+        "md"
+    ],
+    "tags": [
+        "markup",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#000000",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

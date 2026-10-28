@@ -1,0 +1,23 @@
+{
+    "altnames": [],
+    "tags": [
+        "jetbrains",
+        "ide",
+        "editor",
+        "dotnet"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#dd1265",
+    "aliases": []
+}

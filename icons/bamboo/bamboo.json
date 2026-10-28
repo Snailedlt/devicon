@@ -1,0 +1,31 @@
+{
+    "altnames": [
+        "atlassianbamboo"
+    ],
+    "tags": [
+        "platform",
+        "integration",
+        "server"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark"
+        ]
+    },
+    "color": "#1068e2",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

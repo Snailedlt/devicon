@@ -1,0 +1,29 @@
+{
+    "altnames": [
+        "photon"
+    ],
+    "tags": [
+        "game",
+        "game-engine"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#004480",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

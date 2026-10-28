@@ -1,0 +1,40 @@
+{
+    "altnames": [
+        "lualang"
+    ],
+    "tags": [
+        "programming",
+        "language",
+        "object-oriented",
+        "scripting",
+        "procedural",
+        "prototype-based",
+        "functional"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#000080",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        },
+        {
+            "base": "line",
+            "alias": "line-wordmark"
+        }
+    ]
+}

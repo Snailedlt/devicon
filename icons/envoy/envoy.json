@@ -1,0 +1,21 @@
+{
+    "altnames": [
+        "envoyproxy"
+    ],
+    "tags": [
+        "proxy",
+        "cloud"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#e13eaf",
+    "aliases": []
+}

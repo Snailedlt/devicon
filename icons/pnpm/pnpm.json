@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "performant npm"
+    ],
+    "tags": [
+        "package",
+        "manager"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#f9ad00",
+    "aliases": []
+}

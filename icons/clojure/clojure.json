@@ -1,0 +1,24 @@
+{
+    "altnames": [],
+    "tags": [
+        "language",
+        "jvm"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "line"
+        ],
+        "font": [
+            "line",
+            "plain"
+        ]
+    },
+    "color": "#5881d8",
+    "aliases": [
+        {
+            "base": "line",
+            "alias": "plain"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "altnames": [
+        "vmwarevsphere"
+    ],
+    "tags": [
+        "hypervisor",
+        "operating-system",
+        "vmware"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#0091da",
+    "aliases": []
+}

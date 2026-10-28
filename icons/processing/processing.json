@@ -1,0 +1,35 @@
+{
+    "altnames": [
+        "processingpy"
+    ],
+    "tags": [
+        "java",
+        "python",
+        "android",
+        "application",
+        "ide",
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#1f34ab",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

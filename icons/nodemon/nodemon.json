@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "nodemonjs"
+    ],
+    "tags": [
+        "nodejs",
+        "tool",
+        "javascript"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#76d04b",
+    "aliases": []
+}

@@ -1,0 +1,21 @@
+{
+    "altnames": [],
+    "tags": [
+        "python",
+        "orm"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#333333",
+    "aliases": []
+}

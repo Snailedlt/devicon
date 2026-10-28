@@ -1,0 +1,20 @@
+{
+    "altnames": [
+        "react-native"
+    ],
+    "tags": [
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark"
+        ]
+    },
+    "color": "#61dafb",
+    "aliases": []
+}

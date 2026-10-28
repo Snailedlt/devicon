@@ -1,0 +1,21 @@
+{
+    "altnames": [],
+    "tags": [
+        "javascript",
+        "zig",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#FBF0DF",
+    "aliases": []
+}

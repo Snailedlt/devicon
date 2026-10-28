@@ -1,0 +1,25 @@
+{
+    "altnames": [],
+    "tags": [
+        "app",
+        "mobile",
+        "javascript",
+        "cross-platform",
+        "sdk"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#bd222b",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

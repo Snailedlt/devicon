@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "dotnet",
+        ".net"
+    ],
+    "tags": [
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#1384c8",
+    "aliases": []
+}

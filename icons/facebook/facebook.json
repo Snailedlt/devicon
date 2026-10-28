@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "auth"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#3d5a98",
+    "aliases": [
+        {
+            "base": "plain",
+            "alias": "original"
+        }
+    ]
+}

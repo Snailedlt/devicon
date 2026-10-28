@@ -1,0 +1,19 @@
+{
+    "altnames": [],
+    "tags": [
+        "git"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#4b8eb4",
+    "aliases": []
+}

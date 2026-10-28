@@ -1,0 +1,26 @@
+{
+    "altnames": [],
+    "tags": [
+        "infrastructure",
+        "infrastructure-as-code",
+        "continuous-delivery"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#1d94dd",
+    "aliases": []
+}

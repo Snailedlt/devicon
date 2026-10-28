@@ -1,0 +1,29 @@
+{
+    "altnames": [],
+    "tags": [
+        "open-source",
+        "devtools protocol",
+        "testing",
+        "extension"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#00d8a2",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

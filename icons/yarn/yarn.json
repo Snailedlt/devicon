@@ -1,0 +1,34 @@
+{
+    "altnames": [],
+    "tags": [
+        "package",
+        "manager",
+        "javascript",
+        "js"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "original",
+            "original-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#2c8ebb",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "altnames": [
+        "chart.js"
+    ],
+    "tags": [
+        "javascript",
+        "chart",
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "original-wordmark",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#ff6384",
+    "aliases": []
+}

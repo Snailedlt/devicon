@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "jestjs"
+    ],
+    "tags": [
+        "ruby",
+        "blog"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#000000",
+    "aliases": []
+}

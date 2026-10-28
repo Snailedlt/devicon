@@ -1,0 +1,30 @@
+{
+    "altnames": [
+        "ember.js",
+        "emberjs"
+    ],
+    "tags": [
+        "framework",
+        "javascript",
+        "web-development",
+        "build"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain"
+        ],
+        "font": [
+            "original-wordmark",
+            "plain"
+        ]
+    },
+    "color": "#E04E39",
+    "aliases": [
+        {
+            "base": "original-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

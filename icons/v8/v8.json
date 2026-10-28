@@ -1,0 +1,32 @@
+{
+    "altnames": [
+        "v8 engine"
+    ],
+    "tags": [
+        "javascript-runtime",
+        "framework",
+        "javascript",
+        "web",
+        "cpp"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#00C4CC",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "okta developer"
+    ],
+    "tags": [
+        "auth",
+        "security"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#0f82c2",
+    "aliases": []
+}

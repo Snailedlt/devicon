@@ -1,0 +1,20 @@
+{
+    "altnames": [],
+    "tags": [
+        "os"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#5277C3",
+    "aliases": []
+}

@@ -1,0 +1,20 @@
+{
+    "altnames": [],
+    "tags": [
+        "cms"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#0073BA",
+    "aliases": []
+}

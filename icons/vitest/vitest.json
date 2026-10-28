@@ -1,0 +1,20 @@
+{
+    "altnames": [],
+    "tags": [
+        "framework",
+        "open-source",
+        "testing",
+        "vite"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#fcc72b",
+    "aliases": []
+}

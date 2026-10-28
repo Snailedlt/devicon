@@ -1,0 +1,30 @@
+{
+    "altnames": [],
+    "tags": [
+        "package",
+        "manager",
+        "php"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#000000",
+    "aliases": [
+        {
+            "base": "line",
+            "alias": "plain"
+        },
+        {
+            "base": "line-wordmark",
+            "alias": "plain-wordmark"
+        }
+    ]
+}

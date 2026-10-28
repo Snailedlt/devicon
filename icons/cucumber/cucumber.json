@@ -1,0 +1,20 @@
+{
+    "altnames": [
+        "cucumberjs"
+    ],
+    "tags": [
+        "framework"
+    ],
+    "versions": {
+        "svg": [
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#00a818",
+    "aliases": []
+}

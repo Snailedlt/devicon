@@ -1,0 +1,29 @@
+{
+    "altnames": [],
+    "tags": [
+        "css",
+        "framework",
+        "html",
+        "javascript",
+        "library"
+    ],
+    "versions": {
+        "svg": [
+            "original"
+        ],
+        "font": [
+            "original"
+        ]
+    },
+    "color": "#ffffff",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        },
+        {
+            "base": "original",
+            "alias": "line"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "altnames": [
+        "microsoftazure"
+    ],
+    "tags": [
+        "cloud",
+        "devops"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#0089D6",
+    "aliases": []
+}

@@ -1,0 +1,25 @@
+{
+    "altnames": [
+        "babeljs"
+    ],
+    "tags": [
+        "javascript",
+        "transpiler"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#f9dc3e",
+    "aliases": [
+        {
+            "base": "plain",
+            "alias": "original"
+        }
+    ]
+}

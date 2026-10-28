@@ -1,0 +1,24 @@
+{
+    "altnames": [
+        "Low Level Virtual Machine"
+    ],
+    "tags": [
+        "compiler",
+        "framework",
+        "c++",
+        "open-source"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#5A90B6",
+    "aliases": []
+}

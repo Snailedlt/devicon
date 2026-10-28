@@ -1,0 +1,30 @@
+{
+    "altnames": [
+        "WebAssembly"
+    ],
+    "tags": [
+        "binary",
+        "programming",
+        "virtual machine",
+        "web",
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain-wordmark"
+        ],
+        "font": [
+            "original",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#654ff0",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "plain"
+        }
+    ]
+}

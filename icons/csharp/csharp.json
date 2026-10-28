@@ -1,0 +1,32 @@
+{
+    "altnames": [
+        "c#"
+    ],
+    "tags": [
+        "language"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#68217a",
+    "aliases": [
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        },
+        {
+            "base": "line",
+            "alias": "line-wordmark"
+        }
+    ]
+}

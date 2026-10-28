@@ -1,0 +1,20 @@
+{
+    "altnames": [
+        "RAD Studio"
+    ],
+    "tags": [
+        "editor",
+        "IDE"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#f42434",
+    "aliases": []
+}

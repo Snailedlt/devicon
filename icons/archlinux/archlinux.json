@@ -1,0 +1,22 @@
+{
+    "altnames": [],
+    "tags": [
+        "linux",
+        "distribution",
+        "desktop"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark"
+        ]
+    },
+    "color": "#1791cf",
+    "aliases": []
+}

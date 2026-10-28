@@ -1,0 +1,27 @@
+{
+    "altnames": [
+        "gruntjs"
+    ],
+    "tags": [
+        "task-runner",
+        "nodejs"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "original-wordmark",
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ],
+        "font": [
+            "plain",
+            "plain-wordmark",
+            "line",
+            "line-wordmark"
+        ]
+    },
+    "color": "#fcaa1a",
+    "aliases": []
+}

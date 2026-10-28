@@ -1,0 +1,38 @@
+{
+    "altnames": [],
+    "tags": [
+        "framework",
+        "language",
+        "heterogeneous-computing",
+        "cpp",
+        "api",
+        "khronos",
+        "programming"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain",
+            "line"
+        ],
+        "font": [
+            "plain",
+            "line"
+        ]
+    },
+    "color": "#000",
+    "aliases": [
+        {
+            "base": "original",
+            "alias": "original-wordmark"
+        },
+        {
+            "base": "plain",
+            "alias": "plain-wordmark"
+        },
+        {
+            "base": "line",
+            "alias": "line-wordmark"
+        }
+    ]
+}

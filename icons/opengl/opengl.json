@@ -1,0 +1,22 @@
+{
+    "altnames": [
+        "opengraphicslibrary"
+    ],
+    "tags": [
+        "library",
+        "graphics",
+        "game",
+        "3d"
+    ],
+    "versions": {
+        "svg": [
+            "original",
+            "plain"
+        ],
+        "font": [
+            "plain"
+        ]
+    },
+    "color": "#5586a4",
+    "aliases": []
+}

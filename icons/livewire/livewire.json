@@ -1,0 +1,25 @@
+{
+    "altnames": [
+        "laravel-livewire"
+    ],
+    "tags": [
+        "framework",
+        "laravel",
+        "php",
+        "open-source"
+    ],
+    "versions": {
+        "svg": [
+            "original-wordmark",
+            "original",
+            "plain",
+            "plain-wordmark"
+        ],
+        "font": [
+            "plain-wordmark",
+            "plain"
+        ]
+    },
+    "color": "#FB70A9",
+    "aliases": []
+}
