@@ -19,7 +19,7 @@ jobs:
     name: Semantic PR
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v9
         with:
           script: |
             const title = context.payload.pull_request.title;
