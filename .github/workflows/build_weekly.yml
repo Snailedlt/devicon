@@ -46,7 +46,7 @@ jobs:
       - name: Get bot token
         id: bot-token
         if: vars.BOT_APP_ID != ''
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           app-id: ${{ vars.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
@@ -54,7 +54,7 @@ jobs:
           permission-contents: write
 
       - name: Checkout master
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ steps.bot-token.outputs.token || secrets.GITHUB_TOKEN }}
           fetch-depth: 0
@@ -92,17 +92,17 @@ jobs:
           echo "$COUNT icons need new glyphs"
           echo "needs_glyphs=$([ "$COUNT" -gt 0 ] && echo true || echo false)" >> $GITHUB_OUTPUT
 
-      - name: Setup Python 3.10
+      - name: Setup Python 3.12
         if: steps.check-changes.outputs.needs_glyphs == 'true'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.10'
+          python-version: '3.12'
 
       - name: Setup Node.js
         if: steps.check-changes.outputs.has_changes == 'true'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install Python dependencies
         if: steps.check-changes.outputs.needs_glyphs == 'true'
@@ -116,7 +116,7 @@ jobs:
 
       - name: Install Firefox
         if: steps.check-changes.outputs.needs_glyphs == 'true'
-        uses: browser-actions/setup-firefox@v1
+        uses: browser-actions/setup-firefox@0bc507ddf224827e3b1af68e014d5e42ab93e795 # v1.7.2
 
       - name: Make geckodriver executable
         if: steps.check-changes.outputs.needs_glyphs == 'true'
@@ -165,14 +165,14 @@ jobs:
         run: npm run build-css
 
       - name: Upload build log
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always() && steps.check-changes.outputs.needs_glyphs == 'true'
         with:
           name: build-log
           path: ./log*.txt
 
       - name: Upload screenshots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always() && steps.check-changes.outputs.needs_glyphs == 'true'
         with:
           name: build-screenshots
@@ -180,7 +180,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Upload geckodriver log on failure
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: failure()
         with:
           name: geckodriver-log
@@ -191,7 +191,7 @@ jobs:
       # maintainers in it.
       - name: Handle build failure
         if: steps.check-changes.outputs.has_changes == 'true' && (steps.build.outcome == 'failure' || steps.build-css.outcome == 'failure')
-        uses: actions/github-script@v7
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           GLYPHS_FAILED: ${{ steps.build.outcome == 'failure' }}
           MENTION: ${{ vars.BUILD_FAILURE_MENTION }}
@@ -313,7 +313,7 @@ jobs:
       - name: Get bot token
         id: bot-token
         if: vars.BOT_APP_ID != ''
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           app-id: ${{ vars.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
@@ -321,7 +321,7 @@ jobs:
           permission-contents: write
 
       - name: Checkout master
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Explicit ref so we get the build: commit pushed by the build job,
           # not the commit the workflow was triggered on
@@ -347,7 +347,7 @@ jobs:
       # - the release notes, in the same format as earlier devicon releases
       - name: Determine version bump and release notes
         id: version-bump
-        uses: actions/github-script@v7
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const range = '${{ steps.range.outputs.range }}';
@@ -411,9 +411,9 @@ jobs:
             core.setOutput('notes', notes);
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install Node dependencies
         run: npm install
@@ -448,7 +448,7 @@ jobs:
       # token: a release created with GITHUB_TOKEN doesn't trigger npm_publish.yml,
       # so the publish job below is the only thing that publishes to npm.
       - name: Create GitHub release
-        uses: actions/github-script@v7
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           NOTES: ${{ steps.version-bump.outputs.notes }}
         with:

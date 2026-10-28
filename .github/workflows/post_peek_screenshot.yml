@@ -23,7 +23,7 @@ jobs:
         run: echo "Peek status $PEEK_STATUS"
 
       - name: Download workflow artifacts
-        uses: dawidd6/action-download-artifact@v7
+        uses: dawidd6/action-download-artifact@eab87c9830c39eff17e5a6eadb20bfb4bc880477 # v27
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: peek_icons.yml
@@ -50,7 +50,7 @@ jobs:
       - name: Upload screenshots to screenshots branch
         if: env.PEEK_STATUS == 'success'
         id: upload_screenshots
-        uses: actions/github-script@v7
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const fs = require('fs');
@@ -136,7 +136,7 @@ jobs:
 
       - name: Comment on the PR - Success
         if: env.PEEK_STATUS == 'success' && success() && steps.upload_screenshots.outputs.skipped != 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           BASE_URL: ${{ steps.upload_screenshots.outputs.base_url }}
           FILES: ${{ steps.upload_screenshots.outputs.files }}
@@ -196,7 +196,7 @@ jobs:
 
       - name: Comment on the PR - Peek failure
         if: env.PEEK_STATUS == 'failure' && success()
-        uses: actions/github-script@v7
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           ERR_MSG: ${{ steps.err_message_reader.outputs.err_message }}
         with:
@@ -234,7 +234,7 @@ jobs:
 
       - name: Comment on the PR - Workflow error
         if: failure()
-        uses: actions/github-script@v7
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             let prNum;

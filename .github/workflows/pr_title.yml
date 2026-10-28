@@ -1,13 +1,9 @@
 name: PR Title
-# PRs are squash-merged, so the PR title becomes the commit message on master
+# PRs are squash-merged, so the PR title becomes the commit message
 # and a line in the release notes. This checks it follows the format:
 #   new icon: <name> (<versions>)     update icon: <name> (<versions>)
 #   <type>[(scope)][!]: <description>  (conventional commits, for everything else)
-# Icon PR titles are also fixed automatically by the check-bot, and fixing the
-# title re-runs this check.
-#
-# Replaces the Ezard/semantic-prs app (see .github/semantic.yml): its parser
-# only accepts one-word types, so it failed every "new icon:" title.
+# Fixing the title re-runs this check.
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
@@ -17,9 +13,9 @@ permissions: {}
 jobs:
   title:
     name: Semantic PR
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const title = context.payload.pull_request.title;
@@ -29,8 +25,10 @@ jobs:
               core.info(`"${title}" is a valid PR title.`);
               return;
             }
+            // The summary is rendered as HTML/Markdown: show the title as text
+            const shown = title.replace(/[<>&`]/g, c => `&#${c.charCodeAt(0)};`);
             core.summary.addRaw([
-              `"${title}" isn't a valid PR title. The title becomes the commit message and the release-notes line, so it needs one of these formats:`,
+              `"${shown}" isn't a valid PR title. The title becomes the commit message and the release-notes line, so it needs one of these formats:`,
               '',
               '- `new icon: <name> (<versions>)` or `update icon: <name> (<versions>)`, e.g. `new icon: vlang (original, plain)`',
               `- \`<type>: <description>\`, e.g. \`fix: correct the jekyll wordmark\`, where type is one of ${types.slice(2).map(t => '`' + t + '`').join(', ')}`,
