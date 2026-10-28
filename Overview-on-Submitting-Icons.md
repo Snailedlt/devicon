@@ -1,10 +1,10 @@
 <p>Below is a summary of the icon creation and submission process:</p>
 <ol>
-  <li>Check that the icon is not in an open PR or already in the <a href="https://github.com/devicons/devicon/tree/develop/icons"><code>develop</code> branch</a>.</li>
+  <li>Check that the icon is not in an open PR or already in the <a href="https://github.com/devicons/devicon/tree/master/icons"><code>master</code> branch</a>.</li>
   <li>Create the SVGs for each <a href="https://github.com/devicons/devicon/wiki/SVG-Versions">SVG versions</a> that you have. Follow the <a href="https://github.com/devicons/devicon/wiki/SVG-Standards">standards</a> listed.</li>
   <li>Put the SVGs of Devicon into its own <a href="https://github.com/devicons/devicon/wiki/Organizing-SVGs">folder</a> in <code>/icons</code>.</li>
   <li><a href="https://github.com/devicons/devicon/wiki/Updating-%60devicon.json%60">Update the <code>devicon.json</code> to include the entry for a new icon</a>. </li>
-  <li>Create a pull request (PR) towards the <code>develop</code> branch.</li>
+  <li>Create a pull request (PR) towards the <code>master</code> branch.</li>
   <li>Look at the PR body and follow its instruction. Once you have the right template, fill out the information in it.</li>
   <li>Ensure your PR title is in this format: <code>new icon: <i>Icon name</i> (<i>versions</i>)</code> </li>
   <li>A bot will check your PR to ensure they are up to standards. If there are any errors, please fix them as instructed.</li>
@@ -14,4 +14,4 @@
 
 <i>Note</i>: Repeat this process for each set of Icons that you have. For example: you have the icons for React, Vue, and Angular. Repeat the above step (create a folder, open a PR) for React, Vue, and Angular individually in their own branch.
 
-That's it! Your icon will be generated into a font during the next release. Until then, you can use the SVG files.
+That's it! Your icon's font version is built in the next weekly build and shipped in the next release. Until then, you can use the SVG files.

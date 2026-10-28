@@ -27,4 +27,4 @@ Maintainers with `maintain` role are additionally expected to:
 
 ## Additional info
 
-The branches `master` and `develop` are protected branches and only members of the `__maintain` or `__admin` teams are able to push changes to them. Additional branches <b>must</b> follow the pattern <code><i>username</i>/feature/<i>description</i></code>. The `/feature/` indicates that a change is made to existing code (regardless if it's a fix, refactor or actual feature). The naming convention is based on the _gitflow_\-workflow.
+The `master` branch is protected and only members of the `__maintain` or `__admin` teams are able to push changes to them. Additional branches <b>must</b> follow the pattern <code><i>username</i>/feature/<i>description</i></code>. The `/feature/` indicates that a change is made to existing code (regardless if it's a fix, refactor or actual feature). The naming convention is based on the _gitflow_\-workflow.

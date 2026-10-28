@@ -1,31 +1,30 @@
-We rely on GitHub Actions, Python, Selenium, Imgur, and Gulp to automate our tasks. Please feel free to take a look at the workflow files. The codes should be clear enough to follow along.
+We rely on GitHub Actions, Python, Selenium, Imgur, and Gulp to automate our tasks. Feel free to look at the [workflow files](https://github.com/devicons/devicon/tree/master/.github/workflows).
 
-## Here are the main bots/scripts that we use:
-
-### `peek-bot`
-
-Upload the icons to Icomoon and see what it looks like. Doesn't download any icons at this time.
-
-### `build-bot`
-
-Build the icons by uploading them to IcoMoon and download the resulting icon files. This also includes updating the CSS file and optimizing the SVGs by minifying them and prefixing their IDs with the file names.
+## On pull requests
 
 ### `check-bot`
 
-Check *only* the icon PRs and ensure they have the correct SVGs and `devicon.json` entry.
+Checks icon PRs (any change in `icons/`): one icon per PR, only files in `icons/<name>/`, valid SVG names and standards, the icon's data, and the PR title (`new icon: <name> (<versions>)` or `update icon: <name> (<versions>)`). It comments any problems, fixes a wrong title by itself when that's the only problem, and adds a `release:` label (see [Release strategy](https://github.com/devicons/devicon/wiki/Release-strategy,-conventions,-preparation-and-execution)).
 
-### `npm-release-bot`
+### `peek-bot`
 
-Update the NPM package.
+Uploads the PR's icons to [icomoon.io](https://icomoon.io/app/#/select) and comments screenshots of how they look as font glyphs. Maintainers start it with the `bot:peek` label.
 
-## Here are the modular tasks in the build script:
+### PR title check
 
-- Upload SVGs to [icomoon.io](https://icomoon.io/app/#/select) and get the icons back. For details, see [the original discussion](https://github.com/devicons/devicon/issues/252), [this PR that introduces the feature](https://github.com/devicons/devicon/pull/268), and [the final changes to it.](https://github.com/devicons/devicon/issues/300) Used by **peek-bot** and **build-bot**.
-- Preview what an SVG would look like as an icon using the upload SVGs script (see [this](https://github.com/devicons/devicon/pull/412)). Used by **peek-bot**.
-- Build, combine, and minify CSS files. For details, see [this](https://github.com/devicons/devicon/pull/290). Used by **build-bot**.
-- Send screenshots to Imgur and upload them to a PR. See [the PR for the Imgur action](https://github.com/devicons/devicon/pull/398) and [the PR for uploading the pictures to a PR](https://github.com/devicons/devicon/pull/481). Used by **peek-bot** and **build-bot**.
-- Ensure code quality is up to standard
-- Comment on the PR so maintainers don't have to upload manually the icon result. Used by **peek-bot** and **build-bot**.
-- Publishing a new release to [npm](https://www.npmjs.com/package/devicon); See [#288](https://github.com/devicons/devicon/issues/288)
-- Creating a list of features that were added since the last release. See [this discussion](https://github.com/devicons/devicon/discussions/574) for inception and limitations.
-- Optimize the SVGs by minifying them and prefixing their IDs with the file names. This is done so that using inline SVGs from this repository will not cause an ID clash.
+Every PR's title must be `new icon: …`, `update icon: …`, or a [conventional commit](https://www.conventionalcommits.org/) title like `fix: correct the jekyll wordmark`, because PRs are squash-merged and the title becomes the commit message and the line in the release notes. Editing the title re-runs the check.
+
+## Every week
+
+### Weekly Build and Release
+
+Builds the font glyphs for new and changed icons through icomoon.io (retried twice if it fails), rebuilds `devicon.min.css` and `devicon.json`, and commits them to `master`. Then, after a maintainer's approval, it bumps the version, creates the GitHub release with notes, and publishes to [npm](https://www.npmjs.com/package/devicon). See [Release strategy](https://github.com/devicons/devicon/wiki/Release-strategy,-conventions,-preparation-and-execution).
+
+## Background
+
+- Uploading SVGs to icomoon.io and getting the icons back: [the original discussion](https://github.com/devicons/devicon/issues/252), [the PR that introduced it](https://github.com/devicons/devicon/pull/268) and [the final changes](https://github.com/devicons/devicon/issues/300).
+- Previewing SVGs as icons: [#412](https://github.com/devicons/devicon/pull/412).
+- Building the CSS: [#290](https://github.com/devicons/devicon/pull/290).
+- Uploading screenshots to Imgur and PRs: [#398](https://github.com/devicons/devicon/pull/398), [#481](https://github.com/devicons/devicon/pull/481).
+- Release notes: [discussion #574](https://github.com/devicons/devicon/discussions/574).
+- SVG ids are prefixed with the file name, so inline SVGs from this repository don't clash.

@@ -34,7 +34,7 @@ Sometimes, logos are updated or an error is spotted in the SVG/icon. If this hap
    Follow the steps outlined in [Overview on Submitting Icons](https://github.com/devicons/devicon/wiki/Overview-on-Submitting-Icons). Replace `new` with `update`. 
 
 3. **Open a Pull Request**  
-   Submit the changes via a pull request to the `develop` branch.
+   Submit the changes via a pull request to the `master` branch.
 
 4. **Name the Pull Request**  
    Instead of naming the pull request “new icon,” name it as follows:  

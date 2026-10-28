@@ -6,10 +6,8 @@ Follow these steps to create and submit a pull request for a new icon:
 ![image](https://github.com/user-attachments/assets/c8e848d9-9250-44e6-98a1-b52ba635c5fc)
 
 
-## Step 2. Change the target branch to `develop` instead of `master`
-- Ensure the target branch is set to `develop`.
-
-![image](https://github.com/user-attachments/assets/76e09a6d-d1bf-4fb9-b298-a197d9273a73)
+## Step 2. Check the target branch
+- The target branch should be `master` (the default).
 
 
 ## Step 3. Locate the New Icon Template

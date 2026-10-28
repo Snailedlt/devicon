@@ -1,35 +1,34 @@
 # Release strategy
 
-Devicon does not follow a strict release plan. A new release is depended on current amount of contributions, required bugfixes/patches and will be discussed by the team of maintainers.
+Releases are automated. Every Monday at 2 AM UTC the [Weekly Build and Release](https://github.com/devicons/devicon/actions/workflows/build_weekly.yml) workflow builds the font for the icons merged since the last build and, if anything changed for users, prepares a release that a maintainer approves.
 
-Generally speaking: A new release will be published when new icons are added or a bug was fixed. When it's predictable that multiple icons are added in a foreseeable amount of time they are usually wrapped together.
+Everything is merged into `master`; there is no `develop` branch.
 
 # Conventions
 
-The version naming follows the rules of [Semantic Versioning](https://semver.org/). Given a version number MAJOR.MINOR.PATCH, increment the:
+The version naming follows [Semantic Versioning](https://semver.org/). Given a version number MAJOR.MINOR.PATCH, increment the:
 
-*   MAJOR version when you make incompatible API changes,
-*   MINOR version when you add functionality **(like a new icon)** in a backwards compatible manner, and
-*   PATCH version when you make backwards compatible bug fixes.
+* MAJOR version when you make incompatible changes **(like renaming or removing an icon)**,
+* MINOR version when you add functionality **(like a new icon or an updated icon)** in a backwards compatible manner, and
+* PATCH version when you make backwards compatible bug fixes **(like a corrected alias or tag)**.
+
+The bump comes from the `release:` labels of the PRs merged since the last release:
+
+| PR label | Bump |
+|---|---|
+| `release: major` | major |
+| `release: minor` | minor |
+| `release: patch` or no label | patch |
+
+The check-bot labels icon PRs automatically (major for a renamed or removed icon, minor for a new or updated one). Maintainers can change the label before merging. Label other PRs (website, workflow features) yourself; a `release:` label also makes that PR trigger a release on its own.
 
 # Execution
 
-1.  Define the next release version number based on the [conventions](https://github.com/devicons/devicon/wiki/Release-strategy,-conventions,-preparation-and-execution#conventions)
-2.  Checkout `develop` as `draft-release` branch.
-    ```sh
-    git checkout develop
-    git checkout -b draft-release
-    ```
-3.  Bump the package version using `npm version vMAJOR.MINOR.PATCH -m "bump npm version to vMAJOR.MINOR.PATCH"` (see [#487](https://github.com/devicons/devicon/pull/497))
-4.  Push the branch `draft-release`
-5.  Manually trigger the workflow [`build_icons.yml`](https://github.com/devicons/devicon/actions/workflows/build_icons.yml) (which has a `workflow_dispatch` event trigger) and select the branch `draft-release` as target branch. This will build a font version of all icons using icomoon and automatically creates a pull request to merge the build result back into `draft-release`
-6.  Review, approve and merge the auto-created pull request created by the action of the step above
-7.  Create a pull request from `draft-release` towards `develop`. Mention the release number in the pull request title (like "Build preparation for release v*MAJOR*.*MINOR*.*PATCH*").
-    *   Check the `build-bot`'s PR message in the last step. There should be a section where it displays the features that have been added to the release. You can copy the markdown there and put it in the description as a **CODE BLOCK**. This will prevent GitHub from tagging everyone involved for now.
-8.  Wait for review and approval of the pull request (you can perform a squash-merge)
-9.  Once merged into `develop` create a pull request with BASE `master` and HEAD `develop`. 
-    *   Copy the `build-bot`'s PR message in the last step to the description as **MARKDOWN** text. This will tag all contributors and thanks them for their help.
-10.  Since it was already approved in the 'develop' stage a maintainer is allowed to merge it (**DON'T** perform a squash-merge).
-11.  Create a [new release](https://github.com/devicons/devicon/releases/new) using the format "**Release v*MAJOR*.*MINOR*.*PATCH***" as tag and release title. Use the earlier created description as description of the release.
-12.  Publishing the release will trigger the [npm\_publish.yml](https://github.com/devicons/devicon/blob/master/.github/workflows/npm_publish.yml) workflow which will execute a `npm publish` leading to a updated [npm package](https://www.npmjs.com/package/devicon) (v*MAJOR*.*MINOR*.*PATCH*).
-13. If the icons fail to appear on the website, you may clear the CDN cache by clicking [this link](https://purge.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css).
+1. **Build** (automatic). The workflow builds font glyphs for new and changed icons through icomoon.io, rebuilds the CSS and `devicon.json`, and commits the result to `master` as `build: generate font files and CSS`. A failed icomoon.io build is retried twice; if it still fails, a `build-failed` issue is opened.
+2. **Approve** (maintainer). If anything shipped changed since the last release (SVGs, `devicon.json`, CSS, fonts), or a merged PR has a `release:` label, the release job waits for approval on the `production` environment. Approve it in the workflow run to release, or reject it to skip this week.
+3. **Release** (automatic). The workflow bumps the version, tags it, and creates the [GitHub release](https://github.com/devicons/devicon/releases) with notes listing the new/updated icons and other changes, thanking their authors.
+4. **Publish** (automatic). The release is published to [npm](https://www.npmjs.com/package/devicon).
+
+To release outside the weekly schedule, run the workflow manually (**Run workflow** on the [workflow page](https://github.com/devicons/devicon/actions/workflows/build_weekly.yml)). Its `bump` input (`auto`, `patch`, `minor`, `major`) overrides the labels.
+
+If the icons fail to appear on the website after a release, clear the CDN cache with [this link](https://purge.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css).
