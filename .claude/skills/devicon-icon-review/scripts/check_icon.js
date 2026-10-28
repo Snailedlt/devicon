@@ -106,7 +106,7 @@ for (const v of svgV) {
   const fills = [...new Set([...s.matchAll(/fill="(#[0-9a-fA-F]{3,6})"/g)].map(m => hex6(m[1])))];
   if (fills.includes(colour)) colourSeen = true;
   const light = c => { const n = parseInt(c.slice(1), 16); return ((n >> 16) & 255) > 225 && ((n >> 8) & 255) > 225 && (n & 255) > 225; };
-  if (fills.length && fills.every(light)) warn(`${rel}: only white/near-white fills (${fills.join(', ')}): looks like the logo's variant for dark backgrounds; use the primary (light-background) version`);
+  if (fills.length && fills.every(light) && !/fill="url\(/.test(s)) warn(`${rel}: only white/near-white fills (${fills.join(', ')}): looks like the logo's variant for dark backgrounds; use the primary (light-background) version`);
   if (isFont) {
     const paths = (s.match(/<path\b/g) || []).length, shapes = (s.match(/<(circle|rect|ellipse|polygon|polyline|line)\b/g) || []).length;
     if (paths !== 1 || shapes) err(`${rel}: font versions need exactly one <path> (found ${paths} paths${shapes ? ` and ${shapes} other shapes` : ''}); unite them`);
