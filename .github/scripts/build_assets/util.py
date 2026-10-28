@@ -55,6 +55,7 @@ def get_pr_icon_changes(base: str="HEAD^1"):
             (added, modified or deleted files, including the icon's data file)
         "other_files": changed paths outside icons/<name>/ (except devicon.json)
         "json": names of icons whose icons/<name>/<name>.json was added, changed or removed
+        "file_folders": names of the icon folders with changes other than the data file (SVGs etc.)
         "existing": names of the icons that had a data file at `base`
         "devicon_json": whether the generated root devicon.json was edited
     """
@@ -63,7 +64,7 @@ def get_pr_icon_changes(base: str="HEAD^1"):
     out = subprocess.run(
         ["git", "diff", "--name-status", "-z", "--no-renames", base, "HEAD"],
         capture_output=True, text=True, check=True).stdout.split("\0")
-    svgs, icon_folders, other_files, changed_json, devicon_json = {}, set(), [], set(), False
+    svgs, icon_folders, file_folders, other_files, changed_json, devicon_json = {}, set(), set(), [], set(), False
     for status, path in zip(out[0::2], out[1::2]):
         if path == "devicon.json":
             devicon_json = True
@@ -73,7 +74,9 @@ def get_pr_icon_changes(base: str="HEAD^1"):
             icon_folders.add(parts[1])
             if parts[2] == f"{parts[1]}.json":
                 changed_json.add(parts[1])
-            elif status != "D" and parts[2].endswith(".svg"):
+                continue
+            file_folders.add(parts[1])
+            if status != "D" and parts[2].endswith(".svg"):
                 svgs.setdefault(parts[1], []).append(parts[2])
         else:
             other_files.append(path)
@@ -83,7 +86,7 @@ def get_pr_icon_changes(base: str="HEAD^1"):
     existing = {p.split("/")[1] for p in base_files if p.count("/") == 2 and p.endswith(f"/{p.split('/')[1]}.json")}
 
     return {"svgs": svgs, "icon_folders": sorted(icon_folders), "other_files": other_files,
-            "json": sorted(changed_json), "existing": existing, "devicon_json": devicon_json}
+            "json": sorted(changed_json), "file_folders": sorted(file_folders), "existing": existing, "devicon_json": devicon_json}
 
 
 def get_devicon_json_edits(base: str="HEAD^1") -> Tuple[List[dict], List[str]]:

@@ -144,11 +144,12 @@ def get_release_label(changes: dict, current_names: set):
     """
     The release label the check-bot adds to this PR: major if an icon was
     renamed or removed (its classes disappear), minor if an icon was added or
-    updated, none (patch) otherwise.
+    its SVGs changed, none (patch) otherwise, e.g. for changes to only an
+    icon's data (tags, altnames, aliases).
     """
     if changes["existing"] - current_names:
         return "release: major"
-    if changes["icon_folders"]:
+    if changes["file_folders"] or current_names - changes["existing"]:
         return "release: minor"
     return ""
 
