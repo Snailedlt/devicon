@@ -1,5 +1,4 @@
 from pathlib import Path
-from selenium.common.exceptions import TimeoutException
 import re
 import subprocess
 import json
@@ -8,13 +7,17 @@ from io import FileIO
 
 # pycharm complains that build_assets is an unresolved ref
 # don't worry about it, the script still runs
-from build_assets.selenium_runner.BuildSeleniumRunner import BuildSeleniumRunner
 from build_assets import filehandler, arg_getters, util
 
 def main():
     """
     Build the icons using Icomoon. Also optimize the svgs.
     """
+    # Imported here so the build workflow can call get_icons_for_building with
+    # a plain python3, before Selenium is installed
+    from selenium.common.exceptions import TimeoutException
+    from build_assets.selenium_runner.BuildSeleniumRunner import BuildSeleniumRunner
+
     runner = None
     logfile = open("log.txt", "w")
     try:
