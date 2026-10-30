@@ -1,16 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-<g transform="translate(0.128 0) scale(1.910447761)">
-<g clip-path="url(#prisma-mark)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M14.5772 23.4756L0 38.0528V38.076L14.5772 23.4756Z" fill="#04D5E7"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M66.8662 28.8965V28.9405L39.7771 56.0295L66.8662 28.8965Z" fill="#FEBE29"/>
-<path d="M14.5772 23.4755L0 38.0527V13.5776L13.5284 0.0264573V0H38.0154L14.5772 23.4755Z" fill="#04D5E7"/>
-<path d="M66.866 23.2838L23.1498 67H0V43.7095L43.7095 0H66.866V23.2838Z" fill="#FE4352"/>
-<path d="M53.3113 67H28.8244L39.7771 56.0295L66.8662 28.9404V53.4224L53.3113 67Z" fill="#FEBE29"/>
-</g>
-</g>
-<defs>
-<clipPath id="prisma-mark">
-<rect width="66.866" height="67" fill="white"/>
-</clipPath>
-</defs>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><g transform="translate(0.242424 0) scale(0.484848)"><path d="M57.3357 92.5002L0 149.939V150.03L57.3357 92.5002Z" fill-rule="evenodd" clip-rule="evenodd" fill="#04D5E7" /><path d="M263.001 113.861V114.034L156.453 220.773L263.001 113.861Z" fill-rule="evenodd" clip-rule="evenodd" fill="#FEBE29" /><path d="M57.3357 92.5003L0 149.939V53.5L53.2105 0.10425V0H149.524L57.3357 92.5003Z" fill="#04D5E7" /><path d="M263 91.7452L91.0537 264H0V172.229L171.92 0H263V91.7452Z" fill="#FE4352" /><path d="M209.686 264H113.373L156.453 220.773L263.001 114.034V210.5L209.686 264Z" fill="#FEBE29" /></g></svg>
