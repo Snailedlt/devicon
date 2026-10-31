@@ -16,7 +16,7 @@ jobs:
     environment: release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # "ref" specifies the branch to check out.
           # inputs.ref is set when called from build_weekly.yml; otherwise

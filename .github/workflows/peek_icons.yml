@@ -15,7 +15,7 @@ jobs:
     steps:
       # Checks out the PR's merge commit; depth 2 so HEAD^1 (the target branch)
       # is available to diff against
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 2
 
