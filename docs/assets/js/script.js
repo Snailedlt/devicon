@@ -39,6 +39,26 @@ devicon.controller('IconListCtrl', function($scope, $http, $compile) {
 
   $scope.baseUrl = baseUrl
 
+  // Sorting: by name, or by release date / last update from
+  // devicon-history.json (only shown when the release has that file)
+  $scope.sortOptions = [
+    { key: 'name', label: 'Sort by name' },
+    { key: 'released', label: 'Newest first' },
+    { key: 'updated', label: 'Recently updated' }
+  ];
+  $scope.sortBy = 'name';
+  $scope.hasHistory = false;
+  $scope.sortOrder = function() {
+    if ($scope.sortBy === 'released') return ['-releasedOn', 'name'];
+    if ($scope.sortBy === 'updated') return ['-updatedOn', 'name'];
+    return 'name';
+  };
+  $scope.iconHistory = function(icon) {
+    if (!icon.released) return '';
+    return 'Released in ' + icon.released + ' (' + icon.releasedOn.slice(0, 10) + '), ' +
+      'last updated in ' + icon.updated + ' (' + icon.updatedOn.slice(0, 10) + ')';
+  };
+
   // Get devicon.json
   $http.get(baseUrl + 'devicon.json').success(function(data) {
 
@@ -116,6 +136,14 @@ devicon.controller('IconListCtrl', function($scope, $http, $compile) {
 
     // Computes miscellaneous data
     $scope.avgFonts = $scope.totalFonts / $scope.icons.length // Avg number of fonts and SVGs combined
+
+    // Release dates for sorting (older releases don't have this file)
+    $http.get(baseUrl + 'devicon-history.json').success(function(history) {
+      angular.forEach($scope.icons, function(icon) {
+        if (history[icon.name]) angular.extend(icon, history[icon.name]);
+      });
+      $scope.hasHistory = true;
+    });
 
     /*------ End of "Re-format devicon.json" ------*/
   });
