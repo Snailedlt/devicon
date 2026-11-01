@@ -13,7 +13,7 @@ jobs:
     steps:
       # Checks out the PR's merge commit; depth 2 so HEAD^1 (the target branch)
       # is available to diff against
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 2
 
@@ -24,9 +24,9 @@ jobs:
           echo "Please change the PR so that it's based on, and merged into 'master'"
           exit 1
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.10'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
@@ -40,7 +40,7 @@ jobs:
         run: echo $PR_NUM > pr_num.txt
 
       - name: Upload the pr num
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: pr_num
           path: ./pr_num.txt
@@ -53,7 +53,7 @@ jobs:
       # Uploaded even if the script crashed: it writes the error to err_messages.txt.
       # expected_title.txt is set when the bot should rename the PR.
       - name: Upload the err messages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: err_messages
