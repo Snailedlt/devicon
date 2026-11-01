@@ -1,7 +1,9 @@
 name: Post the screenshots into a comment from Peek Icons workflow
+# The peek is a job in check_icon_pr.yml; it leaves a peek_status artifact
+# when it ran.
 on:
   workflow_run:
-    workflows: ['Peek Icons']
+    workflows: ['Check Icon PR']
     types:
       - completed
 
@@ -14,32 +16,38 @@ jobs:
   post_screenshots_in_comment:
     name: Post the screenshot
     runs-on: ubuntu-latest
-    if: github.event.action == 'completed' && github.event.workflow_run.conclusion != 'skipped'
-    env:
-      PEEK_STATUS: ${{ github.event.workflow_run.conclusion }}
+    if: github.event.action == 'completed' && github.event.workflow_run.conclusion != 'skipped' && github.event.workflow_run.conclusion != 'cancelled'
 
     steps:
-      - name: Check state of last run
-        run: echo "Peek status $PEEK_STATUS"
-
       - name: Download workflow artifacts
         uses: dawidd6/action-download-artifact@eab87c9830c39eff17e5a6eadb20bfb4bc880477 # v27
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: peek_icons.yml
+          workflow: check_icon_pr.yml
           run_id: ${{ github.event.workflow_run.id }}
+          if_no_artifact_found: warn
+
+      # No peek_status: the peek didn't run (check failed, or no SVG changes)
+      - name: Read the peek result
+        id: status
+        run: |
+          STATUS=$(cat ./peek_status/peek_status.txt 2>/dev/null | tr -d '[:space:]' || true)
+          echo "Peek status: ${STATUS:-did not run}"
+          echo "value=${STATUS:-none}" >> $GITHUB_OUTPUT
 
       - name: Read the pr_num file
+        if: steps.status.outputs.value != 'none'
         id: pr_num_reader
         run: |
           PR_NUM=$(cat ./pr_num/pr_num.txt | tr -d '[:space:]')
           echo "pr_num=$PR_NUM" >> $GITHUB_OUTPUT
 
       - name: Read the err message file
+        if: steps.status.outputs.value != 'none'
         id: err_message_reader
         run: |
-          if [ -f ./err_messages/err_messages.txt ]; then
-            ERR=$(cat ./err_messages/err_messages.txt)
+          if [ -f ./peek_err_messages/err_messages.txt ]; then
+            ERR=$(cat ./peek_err_messages/err_messages.txt)
           else
             ERR=""
           fi
@@ -48,7 +56,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Upload screenshots to screenshots branch
-        if: env.PEEK_STATUS == 'success'
+        if: steps.status.outputs.value == 'success'
         id: upload_screenshots
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
@@ -135,7 +143,7 @@ jobs:
             console.log(`Uploaded ${files.length} screenshots to ${baseUrl}`);
 
       - name: Comment on the PR - Success
-        if: env.PEEK_STATUS == 'success' && success() && steps.upload_screenshots.outputs.skipped != 'true'
+        if: steps.status.outputs.value == 'success' && success() && steps.upload_screenshots.outputs.skipped != 'true'
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           BASE_URL: ${{ steps.upload_screenshots.outputs.base_url }}
@@ -195,7 +203,7 @@ jobs:
             });
 
       - name: Comment on the PR - Peek failure
-        if: env.PEEK_STATUS == 'failure' && success()
+        if: steps.status.outputs.value == 'failure' && success()
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           ERR_MSG: ${{ steps.err_message_reader.outputs.err_message }}

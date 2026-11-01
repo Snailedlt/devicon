@@ -1,14 +1,27 @@
 name: Check Icon PR
+# Checks icon PRs, then peeks at the icons through icomoon.io once the check
+# passes. A maintainer can re-run both by adding the "bot:peek" label; that
+# peeks even if the check fails.
 on:
   pull_request:
     # edited: re-check when the PR title is fixed
-    types: [opened, synchronize, reopened, edited]
+    # labeled: "bot:peek" re-runs the check and the peek
+    types: [opened, synchronize, reopened, edited, labeled]
     paths:
       - 'icons/**'
       - 'devicon.json'
+
+# A new push cancels the run for the previous one, so only the latest commit
+# gets peeked. Other labels (e.g. the release label the bot adds) get their own
+# group, so they can't cancel a running peek.
+concurrency:
+  group: check-icon-pr-${{ github.event.pull_request.number }}-${{ github.event.action == 'labeled' && github.event.label.name != 'bot:peek' && github.run_id || 'latest' }}
+  cancel-in-progress: true
+
 jobs:
   check:
     name: Check the `devicon.json` and the SVGs' quality
+    if: github.event.action != 'labeled' || github.event.label.name == 'bot:peek'
     runs-on: ubuntu-24.04
     steps:
       # Checks out the PR's merge commit; depth 2 so HEAD^1 (the target branch)
@@ -81,3 +94,91 @@ jobs:
             FAIL=1
           fi
           exit $FAIL
+
+  # Uploads the PR's icons to icomoon.io and takes screenshots of them as font
+  # glyphs; post_peek_screenshot.yml comments them. Runs when the check passed,
+  # or always when a maintainer added "bot:peek".
+  peek:
+    name: Peek at the icons
+    needs: check
+    if: >-
+      always() && (needs.check.result == 'success' ||
+      (github.event.action == 'labeled' && github.event.label.name == 'bot:peek' && needs.check.result == 'failure'))
+    runs-on: ubuntu-24.04
+    steps:
+      # Checks out the PR's merge commit; depth 2 so HEAD^1 (the target branch)
+      # is available to diff against
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+
+      # Peeking is slow and costs icomoon.io capacity: skip PRs that change no
+      # SVG (e.g. tags or aliases only), unless a maintainer asked for it
+      - name: Check for SVG changes
+        id: svgs
+        env:
+          MANUAL: ${{ github.event.action == 'labeled' }}
+        run: |
+          if [ "$MANUAL" = true ] || git diff --name-only HEAD^1 HEAD -- 'icons/*.svg' | grep -q .; then
+            echo "peek=true" >> $GITHUB_OUTPUT
+          else
+            echo "No SVG changes, nothing to peek at"
+            echo "peek=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Python v3.12
+        if: steps.svgs.outputs.peek == 'true'
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        if: steps.svgs.outputs.peek == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./.github/scripts/requirements.txt
+
+      - name: Run icomoon_peek.py
+        id: peek
+        if: steps.svgs.outputs.peek == 'true'
+        shell: bash
+        run: >
+          python ./.github/scripts/icomoon_peek.py
+          ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver ./icomoon.json
+          ./devicon.json ./icons ./ --headless
+
+      # Tells post_peek_screenshot.yml whether to post screenshots or the error
+      - name: Save the peek result
+        if: always() && steps.svgs.outputs.peek == 'true'
+        env:
+          RESULT: ${{ steps.peek.outcome }}
+        run: echo "$RESULT" > peek_status.txt
+
+      - name: Upload the peek result
+        if: always() && steps.svgs.outputs.peek == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: peek_status
+          path: ./peek_status.txt
+
+      - name: Upload the err messages (created by icomoon_peek.py)
+        if: always() && steps.svgs.outputs.peek == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: peek_err_messages
+          path: ./err_messages.txt
+          if-no-files-found: ignore
+
+      - name: Upload screenshots for comments
+        if: steps.peek.outcome == 'success'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screenshots
+          path: ./screenshots/*.png
+
+      - name: Upload geckodriver.log for debugging purposes
+        if: failure() && steps.peek.outcome == 'failure'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: geckodriver-log
+          path: ./geckodriver.log
