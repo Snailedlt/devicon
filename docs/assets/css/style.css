@@ -446,16 +446,6 @@ input[type='color']:hover {
     font-size: 1.2rem;
     text-align: center; }
 
-  .search select {
-    margin-left: 1rem;
-    padding: .5rem 1rem;
-    border: 0;
-    border-bottom: 2px solid var(--primaryColor);
-    color: var(--primaryColor);
-    background: none;
-    font-size: 1.2rem;
-    cursor: pointer; }
-
 ::-webkit-input-placeholder {
   color: var(--primaryColor); }
 

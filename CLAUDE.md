@@ -40,7 +40,7 @@ devicon/
 
 ### PR Flow
 1. Contributor opens PR → `check_icon_pr.yml` validates the touched icons (found from changed files via `util.get_pr_icon_changes`, diffing the PR merge commit against `HEAD^1`) and the PR title → `post_check_icon_pr_comment.yml` comments any errors
-2. `peek_icons.yml` runs Icomoon peek on the icon whose SVGs changed → `post_peek_screenshot.yml` posts screenshots as PR comment (nothing posted for PRs without SVG changes)
+2. Once the check passes, the `peek` job in the same workflow runs Icomoon peek on the icon whose SVGs changed → `post_peek_screenshot.yml` posts screenshots as PR comment. Skipped when no SVG changed; a new push cancels the running check+peek. A maintainer adding the `bot:peek` label re-runs both, and the peek then runs even if the check fails
 3. Maintainer approves → squash-merges (or GitHub auto-merge) to master, commit `<PR title> (#<n>)` — the `(#n)` is what the release job reads labels from (**no build step**)
 
 ### Repo setup the workflows depend on
@@ -71,9 +71,6 @@ The check-bot labels icon PRs that have no `release:` label yet: major if an ico
 
 ### Manual Build / Release
 Run `build_weekly.yml` via workflow_dispatch — it does exactly what the weekly run does (build if needed, release if anything changed). To build without releasing, reject the `production` approval. The `bump` input (`auto`/`patch`/`minor`/`major`) overrides the label-derived bump.
-
-### Icon history (website sorting)
-`devicon-history.json` is generated (don't edit it): per icon, the first release containing it and the release of its last real change (ignoring `build:` commits and commits touching more than 5 icons), with UTC timestamps. The release job regenerates it right before `npm version`, passing the upcoming version, and commits it as `chore: update icon history for vX.Y.Z`. The website (`docs/`) loads it next to `devicon.json` for the "Sort by" dropdown (Name / Newest first / Recently updated) and hides the dropdown if it's missing. Run locally with `node .github/scripts/generate_icon_history.js [--next-version vX.Y.Z]`.
 
 ### PR titles
 Not used to find icons anywhere (bots, build, release all use changed files). Enforced by `check_icon_pr.yml` for icon PRs (any change in `icons/`):
