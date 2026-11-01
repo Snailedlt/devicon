@@ -26,9 +26,11 @@ const utc = date => new Date(date).toISOString().replace(/\.\d+Z$/, 'Z');
 const nextIndex = process.argv.indexOf('--next-version');
 const next = nextIndex > -1 ? { tag: process.argv[nextIndex + 1], date: utc(Date.now()) } : null;
 
-// Releases, oldest first (old ones are tagged v1.0 … v2.7, newer ones v2.8.0 …)
+// Releases in this branch's history, oldest first (old ones are tagged v1.0 … v2.7,
+// newer ones v2.8.0 …). Tags on other branches (e.g. the old develop) would
+// otherwise date icons by releases that never contained them.
 const releases = lines(git('for-each-ref', '--sort=version:refname',
-  '--format=%(refname:short) %(creatordate:iso-strict)', 'refs/tags/v*'))
+  '--merged', 'HEAD', '--format=%(refname:short) %(creatordate:iso-strict)', 'refs/tags/v*'))
   .map(line => { const [tag, date] = line.split(' '); return { tag, date: utc(date) }; })
   .filter(r => /^v\d+\.\d+(\.\d+)?$/.test(r.tag));
 
