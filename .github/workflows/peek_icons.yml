@@ -1,16 +1,15 @@
 name: Peek Icons
+# Maintainers start it by adding the "bot:peek" label to a PR.
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'icons/**'
-      - 'devicon.json'
+    types: [labeled]
 jobs:
   peek:
     # four outcomes: successful check and upload,
     # unsuccessful check (fail due to user),
     # fail due to system, skipped
     name: Peek Icons
+    if: github.event.label.name == 'bot:peek'
     runs-on: ubuntu-24.04
     steps:
       # Checks out the PR's merge commit; depth 2 so HEAD^1 (the target branch)

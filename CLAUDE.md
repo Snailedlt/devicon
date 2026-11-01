@@ -40,7 +40,7 @@ devicon/
 
 ### PR Flow
 1. Contributor opens PR → `check_icon_pr.yml` validates the touched icons (found from changed files via `util.get_pr_icon_changes`, diffing the PR merge commit against `HEAD^1`) and the PR title → `post_check_icon_pr_comment.yml` comments any errors
-2. `peek_icons.yml` runs Icomoon peek on the icon whose SVGs changed → `post_peek_screenshot.yml` posts screenshots as PR comment (nothing posted for PRs without SVG changes)
+2. A maintainer adds the `bot:peek` label → `peek_icons.yml` runs Icomoon peek on the icon whose SVGs changed → `post_peek_screenshot.yml` posts screenshots as PR comment (nothing posted for PRs without SVG changes)
 3. Maintainer approves → squash-merges (or GitHub auto-merge) to master, commit `<PR title> (#<n>)` — the `(#n)` is what the release job reads labels from (**no build step**)
 
 ### Repo setup the workflows depend on
