@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'devicon';
-  src:  url('fonts/devicon.eot?d00tdm');
-  src:  url('fonts/devicon.eot?d00tdm#iefix') format('embedded-opentype'),
-    url('fonts/devicon.ttf?d00tdm') format('truetype'),
-    url('fonts/devicon.woff?d00tdm') format('woff'),
-    url('fonts/devicon.svg?d00tdm#devicon') format('svg');
+  src:  url('fonts/devicon.eot?d4b7ch');
+  src:  url('fonts/devicon.eot?d4b7ch#iefix') format('embedded-opentype'),
+    url('fonts/devicon.ttf?d4b7ch') format('truetype'),
+    url('fonts/devicon.woff?d4b7ch') format('woff'),
+    url('fonts/devicon.svg?d4b7ch#devicon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.devicon-gnome-original-wordmark:before {
+  content: "\edb7";
+}
+.devicon-gnome-original:before {
+  content: "\edb8";
+}
 .devicon-orgicon-plain:before {
   content: "\edb6";
 }
