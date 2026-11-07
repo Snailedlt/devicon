@@ -78,7 +78,7 @@ jobs:
           if-no-files-found: ignore
 
       # Fail the check when issues were found or the title is wrong, so the PR
-      # shows a red check. post_check_icon_pr_comment.yml posts the details and
+      # shows a red check. post_icon_pr_comment.yml posts the details and
       # renames the PR; the rename re-runs this check.
       - name: Fail if issues were found
         shell: bash
@@ -96,7 +96,7 @@ jobs:
           exit $FAIL
 
   # Uploads the PR's icons to icomoon.io and takes screenshots of them as font
-  # glyphs; post_peek_screenshot.yml comments them. Runs when the check passed,
+  # glyphs; post_icon_pr_comment.yml shows them. Runs when the check passed,
   # or always when a maintainer added "bot:peek".
   peek:
     name: Peek at the icons
@@ -147,15 +147,16 @@ jobs:
           ./.github/scripts/build_assets/geckodriver-v0.32.2-linux64/geckodriver ./icomoon.json
           ./devicon.json ./icons ./ --headless
 
-      # Tells post_peek_screenshot.yml whether to post screenshots or the error
+      # Tells post_icon_pr_comment.yml what to show: success (screenshots),
+      # failure (the error) or no-svg (nothing to peek at)
       - name: Save the peek result
-        if: always() && steps.svgs.outputs.peek == 'true'
+        if: always() && steps.svgs.outcome == 'success'
         env:
-          RESULT: ${{ steps.peek.outcome }}
+          RESULT: ${{ steps.svgs.outputs.peek == 'true' && steps.peek.outcome || 'no-svg' }}
         run: echo "$RESULT" > peek_status.txt
 
       - name: Upload the peek result
-        if: always() && steps.svgs.outputs.peek == 'true'
+        if: always() && steps.svgs.outcome == 'success'
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: peek_status

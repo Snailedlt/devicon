@@ -1,0 +1,299 @@
+name: Post the icon PR check and peek results
+# Writes the results of check_icon_pr.yml (check + peek) into one bot comment
+# per PR, edited in place (.github/scripts/icon_pr_comment.js). Also renames
+# PRs with a wrong title and adds the release label.
+on:
+  workflow_run:
+    workflows: ['Check Icon PR']
+    types:
+      - completed
+
+permissions:
+  actions: read
+  contents: write  # screenshots branch
+  issues: write
+  pull-requests: write
+
+# One run per PR branch at a time, so two runs can't edit the comment at once.
+# A newer pending run replaces an older pending one.
+concurrency:
+  group: icon-pr-comment-${{ github.event.workflow_run.head_repository.full_name }}-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+jobs:
+  post_results:
+    name: Post the check and peek results
+    runs-on: ubuntu-latest
+    # The check fails when it finds issues, so post on failure too
+    if: github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure'
+    steps:
+      # The default branch's scripts: trusted, unlike the PR run's artifacts
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: .github/scripts
+          path: base
+
+      - name: Download workflow artifacts
+        uses: dawidd6/action-download-artifact@eab87c9830c39eff17e5a6eadb20bfb4bc880477 # v27
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: check_icon_pr.yml
+          run_id: ${{ github.event.workflow_run.id }}
+          if_no_artifact_found: warn
+
+      # For PRs from forks the check runs the fork's own workflow code, so its
+      # artifacts can't be trusted. Only act on the PR if its head is the commit
+      # that was checked.
+      - name: Verify the PR
+        id: pr
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const fs = require('fs');
+            const file = './pr_num/pr_num.txt';
+            const num = fs.existsSync(file) ? parseInt(fs.readFileSync(file, 'utf8').trim(), 10) : NaN;
+            if (!Number.isInteger(num) || num <= 0) {
+              core.setFailed('pr_num artifact is missing or not a PR number');
+              return;
+            }
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: num
+            });
+            const checked = context.payload.workflow_run.head_sha;
+            if (pr.head.sha !== checked) {
+              core.setFailed(`PR #${num} is at ${pr.head.sha}, but the check ran on ${checked}. Not acting on it.`);
+              return;
+            }
+            core.setOutput('number', String(num));
+            core.setOutput('title', pr.title);
+
+            // The run fails when the peek fails too, so read the check job's own result
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.payload.workflow_run.id
+            });
+            const check = jobs.find(j => j.name.startsWith('Check the'));
+            core.setOutput('check_result', check ? check.conclusion : 'unknown');
+
+      - name: Read the expected title
+        id: title
+        run: |
+          TITLE=""
+          if [ -f ./err_messages/expected_title.txt ]; then
+            TITLE=$(head -c 300 ./err_messages/expected_title.txt | tr -d '\r\n')
+          fi
+          echo "expected=$TITLE" >> $GITHUB_OUTPUT
+
+      - name: Validate the expected title
+        id: validate
+        if: steps.title.outputs.expected != ''
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          EXPECTED: ${{ steps.title.outputs.expected }}
+        with:
+          script: |
+            const expected = process.env.EXPECTED;
+            const version = '(original|plain|line)(-wordmark)?';
+            const valid = new RegExp(`^(new|update) icon: [a-z0-9._-]+ \\(${version}(, ${version})*\\)$`);
+            if (expected.length > 200 || !valid.test(expected)) {
+              core.setFailed(`Refusing to use an unexpected title: ${expected}`);
+            }
+
+      # Renaming with the bot app's token (not GITHUB_TOKEN) re-runs the check
+      # on the new title. See build_weekly.yml for the app setup; it also needs
+      # the "Pull requests: Read and write" permission for this.
+      - name: Get bot token
+        id: bot-token
+        if: steps.title.outputs.expected != '' && vars.BOT_APP_ID != ''
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ vars.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+          # Only what this workflow needs; fails here if the installation lacks it
+          permission-pull-requests: write
+
+      # Its own step so it runs as the bot app (github-token), not GITHUB_TOKEN
+      - name: Rename the PR
+        id: rename
+        if: steps.title.outputs.expected != '' && steps.bot-token.outputs.token != ''
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          EXPECTED: ${{ steps.title.outputs.expected }}
+          PR_NUM: ${{ steps.pr.outputs.number }}
+        with:
+          github-token: ${{ steps.bot-token.outputs.token }}
+          script: |
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: parseInt(process.env.PR_NUM, 10),
+              title: process.env.EXPECTED
+            });
+
+      # Add the release label the check suggests, unless the PR already has a
+      # release label (maintainers override by setting another one, e.g.
+      # "release: patch"). A rename or removal also gets its own comment: it's
+      # a one-off explanation for maintainers and users that shouldn't be
+      # overwritten by the next check.
+      - name: Label the release level
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        continue-on-error: true
+        env:
+          PR_NUM: ${{ steps.pr.outputs.number }}
+        with:
+          script: |
+            const fs = require('fs');
+            const file = './err_messages/release_label.txt';
+            const label = fs.existsSync(file) ? fs.readFileSync(file, 'utf8').trim() : '';
+            if (!['release: major', 'release: minor'].includes(label)) return;
+
+            const issue = { owner: context.repo.owner, repo: context.repo.repo, issue_number: parseInt(process.env.PR_NUM, 10) };
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue(issue);
+            if (labels.some(l => l.name.startsWith('release:'))) return;
+            await github.rest.issues.addLabels({ ...issue, labels: [label] });
+            if (label !== 'release: major') return;
+
+            // Explain why a rename or removal is a major release. The check only
+            // passes the icon names; the message is written here.
+            const noticeFile = './err_messages/release_notice.json';
+            const notice = fs.existsSync(noticeFile) ? JSON.parse(fs.readFileSync(noticeFile, 'utf8')) : {};
+            const names = [...(notice.renamed || []), ...(notice.removed || [])];
+            if (!names.length || !names.every(n => /^[a-z0-9._-]{1,50}$/.test(n))) return;
+
+            let what, old;
+            if (notice.renamed) {
+              const [from, to] = notice.renamed;
+              what = `**\`${from}\` is renamed to \`${to}\`.**`;
+              old = [from];
+            } else {
+              what = `**This PR removes ${notice.removed.map(n => `\`${n}\``).join(', ')}.**`;
+              old = notice.removed;
+            }
+            const uses = old.map(n => `\`icons/${n}/…\` SVG links or \`devicon-${n}-*\` classes`).join(', ');
+            await github.rest.issues.createComment({ ...issue, body: [
+              "Hi!", "",
+              `I'm the \`check-bot\`. ${what}`, "",
+              `Sites that use the old name (${uses}) can break, so this is a breaking change. ` +
+              "I've labelled this PR `release: major`: it will be part of the next major release. " +
+              "If it isn't breaking after all, a maintainer can replace the label.", "",
+              "Thanks for your help,", "SVG-Checker Bot :smile:"
+            ].join('\n') });
+
+      # peek_status: success / failure / no-svg; missing when the peek was
+      # skipped (check failed)
+      - name: Read the peek result
+        id: peek
+        run: |
+          STATUS=$(head -c 20 ./peek_status/peek_status.txt 2>/dev/null | tr -d '[:space:]' || true)
+          case "$STATUS" in success|failure|no-svg) ;; *) STATUS=none ;; esac
+          echo "Peek status: $STATUS"
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+
+      - name: Upload screenshots to screenshots branch
+        if: steps.peek.outputs.status == 'success'
+        id: upload_screenshots
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PR_NUM: ${{ steps.pr.outputs.number }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const prNum = parseInt(process.env.PR_NUM, 10);
+            const repo = context.repo;
+            const branch = 'screenshots';
+            const screenshotsDir = './screenshots';
+
+            const files = fs.existsSync(screenshotsDir)
+              ? fs.readdirSync(screenshotsDir).filter(f => /^[\w.-]+\.png$/.test(f))
+              : [];
+            core.setOutput('files', files.join(','));
+            if (files.length === 0) return;
+
+            // Get or create screenshots branch
+            let branchSha;
+            try {
+              const { data: ref } = await github.rest.git.getRef({ ...repo, ref: `heads/${branch}` });
+              branchSha = ref.object.sha;
+            } catch (e) {
+              const { data: master } = await github.rest.git.getRef({ ...repo, ref: 'heads/master' });
+              const { data: newBranch } = await github.rest.git.createRef({ ...repo, ref: `refs/heads/${branch}`, sha: master.object.sha });
+              branchSha = newBranch.object.sha;
+            }
+            const { data: commit } = await github.rest.git.getCommit({ ...repo, commit_sha: branchSha });
+
+            // Each run gets its own folder, so the comment's edit history keeps
+            // showing the screenshots it had
+            const dir = `pr-${prNum}/${context.runId}`;
+            const blobs = await Promise.all(files.map(async f => {
+              const content = fs.readFileSync(path.join(screenshotsDir, f));
+              const { data: blob } = await github.rest.git.createBlob({ ...repo, content: content.toString('base64'), encoding: 'base64' });
+              return { path: `${dir}/${f}`, sha: blob.sha, mode: '100644', type: 'blob' };
+            }));
+            const { data: tree } = await github.rest.git.createTree({ ...repo, base_tree: commit.tree.sha, tree: blobs });
+            const { data: newCommit } = await github.rest.git.createCommit({
+              ...repo, message: `screenshots: add PR #${prNum} previews`, tree: tree.sha, parents: [branchSha]
+            });
+            await github.rest.git.updateRef({ ...repo, ref: `heads/${branch}`, sha: newCommit.sha });
+
+            const baseUrl = `https://raw.githubusercontent.com/${repo.owner}/${repo.repo}/${branch}/${dir}`;
+            core.setOutput('base_url', baseUrl);
+            console.log(`Uploaded ${files.length} screenshots to ${baseUrl}`);
+
+      # Runs even when a step above failed, as long as the PR was verified:
+      # never comment on a PR named by an unverified artifact
+      - name: Update the bot comment
+        if: always() && steps.pr.outputs.number != ''
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PR_NUM: ${{ steps.pr.outputs.number }}
+          EXPECTED: ${{ steps.title.outputs.expected }}
+          TITLE_VALID: ${{ steps.validate.outcome == 'success' }}
+          OLD_TITLE: ${{ steps.pr.outputs.title }}
+          RENAMED: ${{ steps.rename.outcome == 'success' }}
+          CHECK_RESULT: ${{ steps.pr.outputs.check_result }}
+          CHECK_URL: ${{ github.event.workflow_run.html_url }}
+          PEEK_STATUS: ${{ steps.peek.outputs.status }}
+          FILES: ${{ steps.upload_screenshots.outputs.files }}
+          BASE_URL: ${{ steps.upload_screenshots.outputs.base_url }}
+          UPLOAD_FAILED: ${{ steps.upload_screenshots.outcome == 'failure' }}
+          WORKFLOW_ERROR: ${{ job.status == 'failure' }}
+        with:
+          script: |
+            const fs = require('fs');
+            const { buildBody, findComment } = require('./base/.github/scripts/icon_pr_comment.js');
+            const read = (f, max = 20000) => fs.existsSync(f) ? fs.readFileSync(f, 'utf8').slice(0, max).trim() : '';
+            const issue = { owner: context.repo.owner, repo: context.repo.repo, issue_number: parseInt(process.env.PR_NUM, 10) };
+            const env = process.env;
+            const expectedTitle = env.TITLE_VALID === 'true' ? env.EXPECTED : '';
+
+            const errors = read('./err_messages/err_messages.txt');
+            const existing = await findComment(github, issue);
+            const body = buildBody({
+              check: {
+                // failed without saying why, e.g. the PR targets the wrong branch
+                failedWithoutDetails: env.CHECK_RESULT !== 'success' && !errors && !env.EXPECTED,
+                checkUrl: env.CHECK_URL,
+                errors,
+                expectedTitle,
+                renamed: env.RENAMED === 'true',
+                oldTitle: env.OLD_TITLE,
+              },
+              peek: {
+                status: env.PEEK_STATUS || 'none',
+                checkPassed: env.CHECK_RESULT === 'success',
+                files: env.FILES ? env.FILES.split(',') : [],
+                baseUrl: env.BASE_URL,
+                error: read('./peek_err_messages/err_messages.txt', 5000),
+                uploadFailed: env.UPLOAD_FAILED === 'true',
+              },
+              prevBody: existing ? existing.body : '',
+              sha: context.payload.workflow_run.head_sha,
+              runUrl: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              workflowError: env.WORKFLOW_ERROR === 'true',
+            });
+            if (existing) await github.rest.issues.updateComment({ ...issue, comment_id: existing.id, body });
+            else await github.rest.issues.createComment({ ...issue, body });
