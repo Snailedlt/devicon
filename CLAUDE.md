@@ -39,8 +39,9 @@ devicon/
 ## Workflow Architecture
 
 ### PR Flow
-1. Contributor opens PR → `check_icon_pr.yml` validates the touched icons (found from changed files via `util.get_pr_icon_changes`, diffing the PR merge commit against `HEAD^1`) and the PR title → `post_check_icon_pr_comment.yml` comments any errors
-2. Once the check passes, the `peek` job in the same workflow runs Icomoon peek on the icon whose SVGs changed → `post_peek_screenshot.yml` posts screenshots as PR comment. Skipped when no SVG changed; a new push cancels the running check+peek. A maintainer adding the `bot:peek` label re-runs both, and the peek then runs even if the check fails
+1. Contributor opens PR → `check_icon_pr.yml` validates the touched icons (found from changed files via `util.get_pr_icon_changes`, diffing the PR merge commit against `HEAD^1`) and the PR title
+2. Once the check passes, the `peek` job in the same workflow runs Icomoon peek on the icon whose SVGs changed. Skipped when no SVG changed; a new push cancels the running check+peek. A maintainer adding the `bot:peek` label re-runs both, and the peek then runs even if the check fails
+   → `post_icon_pr_comment.yml` writes both results into **one bot comment** per PR (hidden `<!-- devicon-bot -->` marker, only `github-actions[bot]`'s), edited in place on every check (`.github/scripts/icon_pr_comment.js` builds it; edit history keeps earlier results, screenshots go to `screenshots/pr-<n>/<run id>/`). Runs are serialized per PR branch. Release notices for renames/removals stay separate one-off comments
 3. Maintainer approves → squash-merges (or GitHub auto-merge) to master, commit `<PR title> (#<n>)` — the `(#n)` is what the release job reads labels from (**no build step**)
 
 ### Repo setup the workflows depend on
@@ -77,10 +78,10 @@ Not used to find icons anywhere (bots, build, release all use changed files). En
 - one icon per PR; only `icons/<name>/` and that icon's `devicon.json` entry may change — any other added/modified/deleted file or other `devicon.json` entry fails the check with a comment
 - a rename (one folder moved to another + the `devicon.json` entry renamed) counts as one icon and is checked as `update icon: <new name>`; when the bot labels a rename or removal `release: major` it also comments why it's breaking (the check passes only the names via `release_notice.json`, the comment workflow writes the text)
 - title `new icon: <name> (<versions>)` (icon not in target branch's `devicon.json`) or `update icon: <name> (<versions>)`; versions = the SVGs the PR adds/changes; case and version order don't matter
-- wrong title on an otherwise clean-scoped PR → check fails, writes `expected_title.txt`, and `post_check_icon_pr_comment.yml` renames the PR with the bot app token (which re-runs the check) and comments old → new title. Without the bot app it comments the expected title instead
-- wrong title on a PR with scope problems → no rename; the title issue is part of the error comment
+- wrong title on an otherwise clean-scoped PR → check fails, writes `expected_title.txt`, and `post_icon_pr_comment.yml` renames the PR with the bot app token (which re-runs the check) and notes old → new title in the bot comment (the note stays until the next rename). Without the bot app the comment asks for the expected title instead
+- wrong title on a PR with scope problems → no rename; the title issue is part of the check errors
 - `devicon.json`-only PRs (aliases, tags…) have no title or scope requirement
-- `post_check_icon_pr_comment.yml` only acts on a PR whose head SHA matches the checked commit (fork runs' artifacts are untrusted) and only accepts titles matching the icon-title format
+- `post_icon_pr_comment.yml` only acts on a PR whose head SHA matches the checked commit (fork runs' artifacts are untrusted) and only accepts titles matching the icon-title format
 
 The title becomes the squash commit and the release-notes line.
 
