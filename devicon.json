@@ -8,7 +8,8 @@
             "architecture",
             "programming",
             "language",
-            "ARM"
+            "ARM",
+            "64-bit"
         ],
         "versions": {
             "svg": [
@@ -74,7 +75,8 @@
         "tags": [
             "data",
             "database",
-            "nosql"
+            "nosql",
+            "key-value"
         ],
         "versions": {
             "svg": [
